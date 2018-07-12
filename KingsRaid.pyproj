@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{fd3498aa-19ce-42a6-b65b-7f7b66c89908}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>krng.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId>{f1c44040-1b43-4fb5-a6a7-a3f8ed5bc9a0}</InterpreterId>
+    <InterpreterVersion>3.2</InterpreterVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+    <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Campaign.py" />
+    <Compile Include="Common.py" />
+    <Compile Include="Conquest.py" />
+    <Compile Include="DragonRaid.py" />
+    <Compile Include="Inventory.py" />
+    <Compile Include="krjs.py" />
+    <Compile Include="krng.py" />
+    <Compile Include="nox.py" />
+    <Compile Include="NPC.py" />
+    <Compile Include="UpperDungeon.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterpreterReference Include="{f1c44040-1b43-4fb5-a6a7-a3f8ed5bc9a0}\3.2" />
+  </ItemGroup>
+  <Import Project="$(PtvsTargetsFile)" Condition="Exists($(PtvsTargetsFile))" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="!Exists($(PtvsTargetsFile))" />
+</Project>
