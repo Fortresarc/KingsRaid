@@ -68,6 +68,7 @@ points = {
 	'ch5_conquest' : (845, 358),
 	'ch6_conquest' : (449, 436),
 	'ch7_conquest' : (840, 435),
+	'ch8_conquest' : (449, 515),
 	'move_to_conquest' : (395, 532), # precise to avoid ruby reset
 	'prepare_battle' : (1189, 649),
 	'get_ready_for_battle' : (955, 654),
@@ -85,7 +86,8 @@ points = {
 	'ch4_upper_dungeon' : (845, 358),
 	'ch5_upper_dungeon' : (449, 436),
 	'ch6_upper_dungeon' : (840, 435),
-	'ch7_upper_dungeon' : (445, 520)
+	'ch7_upper_dungeon' : (445, 520),
+	'ch8_upper_dungeon' : (840, 520)
 }
 
 rects = {

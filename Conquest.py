@@ -34,5 +34,6 @@ def gen_conquest():
 	gen_single_conquest('ch5_conquest', transition_duration_alter)
 	gen_single_conquest('ch6_conquest', transition_duration_alter)
 	gen_single_conquest('ch7_conquest', transition_duration_alter)
+	gen_single_conquest('ch8_conquest', transition_duration_alter)
 
 	Common.confirm(start_condition='The macro should be started only when the Portal button is visible')

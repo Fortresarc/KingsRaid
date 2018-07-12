@@ -37,5 +37,6 @@ def gen_upper_dungeon():
 	gen_single_upper_dungeon('ch5_upper_dungeon', transition_duration_alter)
 	gen_single_upper_dungeon('ch6_upper_dungeon', transition_duration_alter)
 	gen_single_upper_dungeon('ch7_upper_dungeon', transition_duration_alter)
+	gen_single_upper_dungeon('ch8_upper_dungeon', transition_duration_alter)
 
 	Common.confirm(start_condition='The macro should be started only when the Portal button is visible')
