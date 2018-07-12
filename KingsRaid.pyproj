@@ -24,12 +24,15 @@
     <Compile Include="Campaign.py" />
     <Compile Include="Common.py" />
     <Compile Include="Conquest.py" />
+    <Compile Include="DoAllDailies.py" />
     <Compile Include="DragonRaid.py" />
+    <Compile Include="GenerateDefaultSettingsFile.py" />
     <Compile Include="Inventory.py" />
     <Compile Include="krjs.py" />
     <Compile Include="krng.py" />
     <Compile Include="nox.py" />
     <Compile Include="NPC.py" />
+    <Compile Include="Settings.py" />
     <Compile Include="UpperDungeon.py" />
   </ItemGroup>
   <ItemGroup>

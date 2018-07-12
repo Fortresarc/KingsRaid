@@ -12,6 +12,7 @@ import Campaign
 import Inventory
 import NPC
 import UpperDungeon
+import DoAllDailies
 
 print('Nox Macro Generator v2.1')
 print('By: cpp (Reddit: u/cpp_is_king, Discord: @cpp#0120)')
@@ -77,7 +78,7 @@ points = {
 	'insufficient_keys' : (395, 532), # precise to avoid ruby reset
 	'x_out' : (946, 170), # precise click to avoid unselecting heroes
 	'exit_conquest' : (1200, 628),
-
+    
 	# Upper Dungeon
 	'upper_dungeon' : (1048, 652),
 	'ch1_upper_dungeon' : (439, 275),
@@ -87,7 +88,78 @@ points = {
 	'ch5_upper_dungeon' : (449, 436),
 	'ch6_upper_dungeon' : (840, 435),
 	'ch7_upper_dungeon' : (445, 520),
-	'ch8_upper_dungeon' : (840, 520)
+	'ch8_upper_dungeon' : (840, 520),
+    
+    # Nox background
+    'nox_launchgame' : (640, 350),  # Center of screen
+
+    # Main game screen. (i.e. not in the chapters menu)
+    'main_advertisement_close' : (1268, 708),
+    'main_clicknowhere' : (1268, 708),
+    'main_attendance_ok' : (640, 669),
+    'main_heroes' : (68, 668),
+    'main_mailbox' : (1068, 30),
+    'main_inventory' : (168, 668),
+    'main_mission' : (278, 668),
+    'main_achievements' : (378, 668),
+    'main_friend' : (488, 668),
+    'main_specialshop' : ("598, 668"),
+    'main_portal' : (700, 668),
+    'main_worldboss' : (1182, 392),
+    'main_dragonraid' : (1182, 552),
+    'main_preparebattle' : (1182, 655),
+    'main_backbutton' : (109, 26),
+
+    # Mailbox
+    'mailbox_claimall' : (950, 600),
+    'mailbox_close' : (1042, 126),
+
+    # Portal (After Goto UpperDungeon Chapter 1)
+    'portal_orvel' : (368, 438),
+    'portal_orvel_maysgeneralshop' : (500, 281),
+    'portal_orvel_herosinn' : (790, 281),
+    'portal_orvel_stockade' : (500, 360),
+    'portal_orvel_arena' : (790, 360),
+    'portal_orvel_forge' : (500, 430),
+    'portal_orvel_orvelcastle' : (790, 430),
+    'portal_orvel_guild' : (500, 512),
+
+    # Arena
+    'arena_select' : (636, 370),
+    'arena_select_lov' : (270, 622),
+    'arena_select_ready' : (982, 660),
+    'arena_select_start' : (950, 660),
+    'arena_select_start_retry' : (1200, 490),
+    'arena_select_start_exit' : (1200, 620),
+
+    # Arena to Stockade
+    'stockade_clickfromarena' : (790, 430),
+
+    # Hero's inn
+    'herosinn_visit' : (632, 368),
+    'herosinn_visit_greet' : (1075, 250),
+    'herosinn_visit_conversate' : (1075, 350),
+    'herosinn_visit_gift' : (1075, 430),
+    'herosinn_visit_close' : (82, 38),
+    'herosinn_visit_minigame' : (229, 452),
+    'herosinn_visit_minigame_start' : (638, 423),
+
+    # All pop ups
+    'minipopup_confirmbutton' : (629, 528),
+    'translucentpopup_close' : (1250, 67),  #Works for notices, minigame, close chatline
+    
+    # Amity points
+    'exchange_amity' : (678, 138),
+    
+    # Mission
+    'mission_tab_dailymission' : (230, 108),      #1st
+    'mission_tab_weeklymission' : (510, 108),     #2nd
+    'mission_tab_eventmission' : (760, 108),      #3rd
+    'mission_tab_raidmission' : (1045, 108),      #4th
+    'mission_claim_position1' : (1068, 220),      #top
+    'mission_claim_position2' : (1068, 360),      #
+    'mission_claim_position3' : (1068, 490),      #
+    'mission_claim_position4' : (1068, 621)       #bottom
 }
 
 rects = {
@@ -132,7 +204,9 @@ try:
 		("Story Repeat w/ Natural Stamina Regen", Campaign.gen_natural_stamina_farm),
 		("Conquests (beta)", Conquest.gen_conquest),
 		("Upper Dungeon (beta)", UpperDungeon.gen_upper_dungeon),
-		("Conquest + Upper Dungeon combo (beta)", conquest_plus_upper_dungeon)
+		("Conquest + Upper Dungeon combo (beta)", conquest_plus_upper_dungeon),
+        ("Do all dailies (Experimental)", DoAllDailies.Gen_DoAllDailies),
+        ("Generate default data", DoAllDailies.Gen_DefaultData)
 		]
 	if args.enable_developer_commands:
 		macro_generators.extend([
