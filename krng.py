@@ -109,6 +109,8 @@ points = {
     'main_dragonraid' : (1182, 552),
     'main_preparebattle' : (1182, 655),
     'main_backbutton' : (109, 26),
+    'main_leftmost_middle_position' : (100, 360),
+    'main_rightmost_middle_position' : (1250, 360),
 
     # Mailbox
     'mailbox_claimall' : (950, 600),
@@ -135,6 +137,18 @@ points = {
     # Arena to Stockade
     'stockade_clickfromarena' : (790, 430),
 
+    # Stockade
+    'stockade_enter' : (650, 360),
+    'stockade_engage_leftmost' : (225, 650),
+    'stockade_engage_middle_ok_autobattle' : (756, 650),
+    'stockade_engage_rightmost' : (980, 650),
+    #'stockade_engage_readyforbattle' : (980, 660),
+    'stockade_engage_claimskill1' : (489, 368),
+    'stockade_engage_claimskill2' : (589, 368),
+    'stockade_engage_claimskill3' : (689, 368),
+    'stockade_engage_claimskill4' : (789, 368),
+    'stockade_engage_ok' : (789, 530),
+ 
     # Hero's inn
     'herosinn_visit' : (632, 368),
     'herosinn_visit_greet' : (1075, 250),
@@ -146,6 +160,7 @@ points = {
 
     # All pop ups
     'minipopup_confirmbutton' : (629, 528),
+    'minipopup_closebutton' : (945, 186),   # Works for "Stockade key lacking popup", "Insufficient keys to enter"
     'translucentpopup_close' : (1250, 67),  #Works for notices, minigame, close chatline
     
     # Amity points
