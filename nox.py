@@ -4,6 +4,7 @@ import json
 import os
 import re
 import sys
+import math
     
 # Don't change anything in this file unless you know what you're doing.
 # ==================================================================================================================
@@ -69,6 +70,73 @@ def click_button(button, wait_milliseconds):
     global button_points
     loc = button_points[button]
     return click_loc(loc, wait_milliseconds)
+
+# Drag helper
+# speed = distance(pixels) / time(millisecs) = 50 / 500 = 0.1 pixels/msecs
+# max_generated_interpolation_points = the number of lines generated in the nox macro file from start pos to end
+def drag(startposition, endposition, wait_milliseconds, speed, max_generated_interpolation_points):
+    global file
+    global resolution
+    global time
+
+    # Available mouse actions
+    MouseNoAction = 0
+    MouseRelease = 1
+    MouseDrag = 2
+
+    def scale(xy):
+        global resolution
+        return (int(xy[0]*resolution[0]/1280), 
+                int(xy[1]*resolution[1]/720))
+
+    startX, startY = scale(startposition)
+    endX, endY = scale(endposition)
+
+    # Calculate distance
+    distanceToMoveSquared = math.pow(endY - startY, 2) + math.pow(endX - startX, 2)
+    distanceToMove = math.sqrt(distanceToMoveSquared)
+    
+    # Calculate time to move at that speed
+    timeToMove = int(distanceToMove/speed)
+    timeIntervalBetweenInterpolated = int(timeToMove/max_generated_interpolation_points)
+
+    # First point of movement
+    file.write("0ScRiPtSePaRaToR{0}|{1}|MULTI:1:{2}:{3}:{4}ScRiPtSePaRaToR{5}\n".format(
+        resolution[0], resolution[1], MouseNoAction, startX, startY, time))
+
+    # interpolation of points between start to end position
+    for i in range(0, max_generated_interpolation_points) :
+        file.write("0ScRiPtSePaRaToR{0}|{1}|MULTI:1:{2}:{3}:{4}ScRiPtSePaRaToR{5}\n".format(
+            resolution[0], resolution[1], MouseDrag, 
+            int(startX + (i*(endX - startX)/max_generated_interpolation_points)),
+            int(startY + (i*(endY - startY)/max_generated_interpolation_points)),
+            time))
+        wait(timeIntervalBetweenInterpolated)
+
+    # TODO this may be redundant
+    #file.write("0ScRiPtSePaRaToR{0}|{1}|MULTI:0:6ScRiPtSePaRaToR{2}\n".format(resolution[0], resolution[1], time))
+    #file.write("0ScRiPtSePaRaToR{0}|{1}|MULTI:0:6ScRiPtSePaRaToR{2}\n".format(resolution[0], resolution[1], time))
+    #file.write("0ScRiPtSePaRaToR{0}|{1}|MULTI:0:1ScRiPtSePaRaToR{2}\n".format(resolution[0], resolution[1], time))
+    file.write("0ScRiPtSePaRaToR{0}|{1}|MSBRL:15:2750055ScRiPtSePaRaToR{2}\n".format(resolution[0], resolution[1], time))
+
+    # This is the delay between finishing one click and beginning the next click.  This needs to account
+    # for how fast the game can transition from one screen to the next.  For example, if you're repeatedly
+    # clicking a buy button with the game not really doing anything between each click, this can be very
+    # low.  On the other hand, if a click causes the game to transition from one screen to another (e.g.
+    # using a portal and the game having to load into Orvel and load an entirely new area) then it should
+    # be fairly high.
+    wait(wait_milliseconds)
+
+# mouse_drag to be called from outside 
+# - wait_milliseconds = delay after drag is done
+# - speed = speed for drag movement (default 0.01pixels/msecs)
+def mouse_drag(fromposition, toposition, wait_milliseconds, speed=0.2, max_generated_interpolation_points=20) :
+    global button_points
+    locfrom = button_points[fromposition]
+    locto = button_points[toposition]
+    
+    # default speed = 0.1 pixels/msecs
+    return drag(locfrom, locto, wait_milliseconds, speed, max_generated_interpolation_points)
 
 def click_rect(rect, wait_milliseconds, dont_click = None):
     '''Click a single rectangle, optionally *not* clicking in any one of a list of rectangles'''
