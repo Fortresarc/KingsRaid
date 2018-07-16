@@ -111,11 +111,34 @@ points = {
     'main_backbutton' : (109, 26),
     'main_leftmost_middle_position' : (100, 360),
     'main_rightmost_middle_position' : (1250, 360),
+    'main_HeroList_Position1' : (150, 286),  # Exactly half icon size
+    'main_HeroList_Position2' : (312, 286),
+    'main_HeroList_Position3' : (470, 286),
+    'main_HeroList_Position4' : (150, 600),  # This value is found through testing
+    'main_HeroList_DeselectPosition' : (1132, 318),
 
     # Mailbox
     'mailbox_claimall' : (950, 600),
     'mailbox_close' : (1042, 126),
 
+    # Multi - Dragon Raid from main game screen
+    'raid_multi' : (1188, 520),
+    'raid_select' : (640, 600),
+    'raid_select_list_top' : (560, 260),
+    'raid_select_list_bottom' : (560, 620),
+    'raid_select_decrementlevel' : (496, 298),
+    'raid_select_gatherraiders' : (423, 380),
+    'raid_select_enter' : (645, 570),
+    'raid_select_fire' : (1038, 288),
+    'raid_select_frost' : (1038, 450),
+    'raid_select_poison' : (1038, 608),
+    'raid_select_black' : (1038, 650),
+    'raid_select_HeroList_Position1' : (122, 529),  # Exactly half icon size
+    'raid_select_HeroList_Position2' : (232, 529),
+    'raid_select_HeroList_Position3' : (332, 529),
+    'raid_select_HeroList_Position4' : (122, 640),  # This value is found through testing
+    'raid_select_SetAutoRepeat' : (880, 592),
+    'raid_select_StartBattle' : (1095, 650),
     # Portal (After Goto UpperDungeon Chapter 1)
     'portal_orvel' : (368, 438),
     'portal_orvel_maysgeneralshop' : (500, 281),
@@ -139,9 +162,9 @@ points = {
 
     # Stockade
     'stockade_enter' : (650, 360),
-    'stockade_engage_leftmost' : (225, 650),
+    'stockade_engage_leftmost' : (234, 650),                # Ensured that we do not accidentally click hero when we are at "Get Ready for Battle" screen
     'stockade_engage_middle_ok_autobattle' : (756, 650),
-    'stockade_engage_rightmost' : (980, 650),
+    'stockade_engage_rightmost' : (975, 650),               # Ensured that we do not accidentally click "Start Battle" when we are at "Get Ready for Battle" screen
     #'stockade_engage_readyforbattle' : (980, 660),
     'stockade_engage_claimskill1' : (489, 368),
     'stockade_engage_claimskill2' : (589, 368),
@@ -158,7 +181,13 @@ points = {
     'herosinn_visit_minigame' : (229, 452),
     'herosinn_visit_minigame_start' : (638, 423),
 
-    # All pop ups
+    # Generic points
+    'getreadyforbattle_startbattle' : (1080, 660),
+    'battlecompletion_retry' : (1200, 492),
+    'battlecompletion_exit' : (1200, 630),
+    'repeatpopup_singlerepeat' : (460, 450),
+    'repeatpopup_repeatbattle' : (790, 450),
+    'repeatpopup_close' : (960, 165),
     'minipopup_confirmbutton' : (629, 528),
     'minipopup_closebutton' : (945, 186),   # Works for "Stockade key lacking popup", "Insufficient keys to enter"
     'translucentpopup_close' : (1250, 67),  #Works for notices, minigame, close chatline

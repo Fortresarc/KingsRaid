@@ -74,7 +74,7 @@ def click_button(button, wait_milliseconds):
 # Drag helper
 # speed = distance(pixels) / time(millisecs) = 50 / 500 = 0.1 pixels/msecs
 # max_generated_interpolation_points = the number of lines generated in the nox macro file from start pos to end
-def drag(startposition, endposition, wait_milliseconds, speed, max_generated_interpolation_points):
+def _mouse_drag(startposition, endposition, wait_milliseconds, speed, max_generated_interpolation_points):
     global file
     global resolution
     global time
@@ -136,7 +136,7 @@ def mouse_drag(fromposition, toposition, wait_milliseconds, speed=0.2, max_gener
     locto = button_points[toposition]
     
     # default speed = 0.1 pixels/msecs
-    return drag(locfrom, locto, wait_milliseconds, speed, max_generated_interpolation_points)
+    return _mouse_drag(locfrom, locto, wait_milliseconds, speed, max_generated_interpolation_points)
 
 def click_rect(rect, wait_milliseconds, dont_click = None):
     '''Click a single rectangle, optionally *not* clicking in any one of a list of rectangles'''
@@ -219,6 +219,12 @@ def prompt_user_yes_no(message, default=False):
             result = True
             break
     return result
+
+def find_settings_file():
+    if os.getcwd().find('Settings.json') :
+        return True
+    else:
+        return False
 
 def find_nox_install():
     app_data = None

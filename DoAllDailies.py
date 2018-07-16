@@ -3,6 +3,10 @@ import Common
 import Inventory
 import Settings
 
+# TODO REMOVE THIS
+import UpperDungeon
+
+
 # Main code to do all dailies
 def Gen_DoAllDailies() :
     #TODO - Remove this and make this one of the options
@@ -20,23 +24,209 @@ def Gen_DoAllDailies() :
     Gen_NavigateToMain('portal_orvel_arena')
     Gen_Arena()
     Gen_Stockade(True)
+    UpperDungeon.gen_upper_dungeon()
+    Gen_GoToDragonRaid()
+    
+    # TEST CODES
+    #Gen_RestartToDragonRaid()
+    #Gen_SelectHero(False, Settings.Main_sEasyContent)
+    #UpperDungeon.gen_single_upper_dungeon('ch8_upper_dungeon', 
+    #                                      Settings.Main[Settings.Main_sTransitionDuration_Alter],
+    #                                      Settings.Main_sHardContent)
+    
+def Gen_RestartToDragonRaid() :
+    Settings.WriteDefaultSettingsFile()
 
-# UNUSED mouse helper
-def drag_screen_to_leftmost (startposition, endposition, numberoftimestodrag=3) :
-    for i in range (0, numberoftimestodrag) :
-        nox.mouse_drag( startposition,
-                        endposition,
-                        Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+    # Read our settings file
+    Settings.ReadFromFile()
+
+    Gen_LaunchKingsRaidAndGoToMainScreen()
+    Gen_ClaimMailbox()
+    Gen_ExchangeAmity()
+    Gen_ClearInventory()
+    #Gen_ClaimEnergyGotHotTime_FromUntouched()
+    Gen_GoToDragonRaid()
+
+# Assumes NOTHING is claimed yet when game just restarted a new day
+def Gen_ClaimEnergyGotHotTime_FromUntouched() :
+    nox.click_button('main_mission', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+    nox.click_button('mission_tab_eventmission', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+    # Claim Today's Bonus Gold
+    nox.click_button('mission_claim_position2', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+    nox.click_button('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+    # Claim EXP hot time (first)
+    nox.click_button('mission_claim_position2', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+    nox.click_button('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+    # Claim Gold hot time (first)
+    nox.click_button('mission_claim_position3', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+    nox.click_button('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+
+def Gen_GoToDragonRaid () :
+    whichDragonRaid = Settings.DragonRaidConfig[Settings.DragonRaidConfig_sSelectDragonToAuto]
+
+    nox.click_button('raid_multi', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+    nox.click_button('raid_select', Settings.Main[Settings.Main_sDurationAfterClick_Long] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+
+    # room settings
+    # select correct dragon
+    roomSelect = 'raid_select_black'
+    if Settings.Fire_DragonRaid_sFireDragonRaid == whichDragonRaid :
+        roomSelect = 'raid_select_fire'
+        DragonSettings = Settings.Fire_DragonRaid.copy()
+    if Settings.Frost_DragonRaid_sFrostDragonRaid == whichDragonRaid :
+        roomSelect = 'raid_select_frost'
+        DragonSettings = Settings.Frost_DragonRaid.copy()
+    if Settings.Poison_DragonRaid_sPoisonDragonRaid== whichDragonRaid :
+        roomSelect = 'raid_select_poison'
+        DragonSettings = Settings.Poison_DragonRaid.copy()
+    if Settings.Black_DragonRaid_sBlackDragonRaid == whichDragonRaid :
+        roomSelect = 'raid_select_black'
+        DragonSettings = Settings.Black_DragonRaid.copy()
+        nox.mouse_drag('raid_select_list_bottom', 'raid_select_list_top', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+
+    # Click to select the correct dragon room
+    nox.click_button(roomSelect, Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+    # calculate how many levels to decrement
+    differenceFromHighestClearedToAutoLevel = abs(DragonSettings[Settings.DragonRaid_sHighestCleared] - DragonSettings[Settings.DragonRaid_sAutoAtThisLevel])
+    for i in range (0, differenceFromHighestClearedToAutoLevel) :
+        nox.click_button('raid_select_decrementlevel', Settings.Main[Settings.Main_sDurationAfterClick_Short])
+    # uncheck gather raiders
+    nox.click_button('raid_select_gatherraiders', Settings.Main[Settings.Main_sDurationAfterClick_Short])
+    nox.click_button('raid_select_enter', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+
+    Gen_DragonRaid_HeroSelect()
+
+    nox.click_button('raid_select_SetAutoRepeat', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+    nox.click_button('minipopup_confirmbutton', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+    nox.click_button('raid_select_StartBattle', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+    nox.click_button('minipopup_confirmbutton', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+    
+
+#
+def Gen_SelectHero (i_bNavigateToHeroSelectScreen, i_sEasyOrHardContent, i_bExitBackToMainPage = False) :
+    pagesOpened = 0
+
+    # Navigate to upper dungeon
+    if i_bNavigateToHeroSelectScreen :        
+        nox.click_button('main_portal', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+        nox.click_button('upper_dungeon', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+        nox.click_button('ch1_upper_dungeon', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+        # This has to wait longer because we are transiting to another big game screen    
+        nox.click_button('minipopup_confirmbutton', Settings.Main[Settings.Main_sAnyGameScreenLoadingTime] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+
+        # Go to Heroes selection screen
+        nox.click_button('main_preparebattle', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+        pagesOpened += 1
+        nox.click_button('get_ready_for_battle', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+        pagesOpened += 1
+
+    # Deselect all heroes
+    nox.click_button('main_HeroList_DeselectPosition', Settings.Main[Settings.Main_sDurationAfterClick_Short] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+    nox.click_button('main_HeroList_DeselectPosition', Settings.Main[Settings.Main_sDurationAfterClick_Short] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+    nox.click_button('main_HeroList_DeselectPosition', Settings.Main[Settings.Main_sDurationAfterClick_Short] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+    nox.click_button('main_HeroList_DeselectPosition', Settings.Main[Settings.Main_sDurationAfterClick_Short] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+
+    SelectedHeroPosition_Easy = {
+        1 : Settings.Conquest[Settings.Main_sEasy_Hero1_Position],
+        2 : Settings.Conquest[Settings.Main_sEasy_Hero2_Position],
+        3 : Settings.Conquest[Settings.Main_sEasy_Hero3_Position],
+        4 : Settings.Conquest[Settings.Main_sEasy_Hero4_Position]
+    }
+    SelectedHeroPosition_Hard = {
+        1 : Settings.Conquest[Settings.Main_sHard_Hero1_Position],
+        2 : Settings.Conquest[Settings.Main_sHard_Hero2_Position],
+        3 : Settings.Conquest[Settings.Main_sHard_Hero3_Position],
+        4 : Settings.Conquest[Settings.Main_sHard_Hero4_Position]
+    }
+    ClickHeroPosition = {
+        1 : 'main_HeroList_Position1',
+        2 : 'main_HeroList_Position2',
+        3 : 'main_HeroList_Position3'
+    }
+
+    # First row icon half height  = (428-144)/2 = 142
+    # Top of first row icon = 144
+    # Half position of 2nd row icon = 433+142 = 575
+    if Settings.Main_sEasyContent == i_sEasyOrHardContent :
+        Gen_HeroSelect(4, 3, SelectedHeroPosition_Easy, ClickHeroPosition, 'main_HeroList_Position4', 'main_HeroList_Position1')
+    else :
+        Gen_HeroSelect(4, 3, SelectedHeroPosition_Hard, ClickHeroPosition, 'main_HeroList_Position4', 'main_HeroList_Position1')
+
+    if i_bExitBackToMainPage :
+        # Exit to main game screen
+        for i in range(0, pagesOpened):
+            nox.click_button('main_backbutton', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+
+# Dragon Raid hero selection:
+# The numbering goes like this
+# 1, 2, 3
+# 4, 5, 6
+# 7, 8, 9
+# 10, 11, 12
+# 13, 14, 15
+# 16, 17, 18
+# 19, 20, 21
+# 22, 23, 24
+# 25, 26, 27
+# Character select in Dragon Raid
+def Gen_DragonRaid_HeroSelect() :
+    SelectedHeroPosition = {
+        1 : Settings.DragonRaidConfig[Settings.DragonRaidConfig_sHero1_Position],
+        2 : Settings.DragonRaidConfig[Settings.DragonRaidConfig_sHero2_Position],
+        3 : Settings.DragonRaidConfig[Settings.DragonRaidConfig_sHero3_Position],
+        4 : Settings.DragonRaidConfig[Settings.DragonRaidConfig_sHero4_Position]
+    }
+    ClickHeroPosition = {
+        1 : 'raid_select_HeroList_Position1',
+        2 : 'raid_select_HeroList_Position2',
+        3 : 'raid_select_HeroList_Position3'
+    }
+    Gen_HeroSelect(4, 3, SelectedHeroPosition, ClickHeroPosition, 'raid_select_HeroList_Position4', 'raid_select_HeroList_Position1')
+
+def Gen_HeroSelect( i_MaxHeroesAllowed,
+                    i_MaxHeroesIn1Row,
+                    i_lSelectedHeroPosition,
+                    i_lClickHeroPosition,
+                    i_sDragFromPosition,
+                    i_sDragToPosition) :
+    modSelectedHeroPosition = 1
+    dragCount = 0
+    for i in range (0, i_MaxHeroesAllowed) :
+        numOfLevelsToDrag = int(i_lSelectedHeroPosition[i+1] / i_MaxHeroesIn1Row)
+        modSelectedHeroPosition = i_lSelectedHeroPosition[i+1] % i_MaxHeroesIn1Row
+
+        if 0 == modSelectedHeroPosition :
+            modSelectedHeroPosition = i_MaxHeroesIn1Row
+            numOfLevelsToDrag -= 1
+
+        print ("i={0}, numOfLevelsToDrag={1}, modSelectedHeroPosition={2}, i_lSelectedHeroPosition[i+1]={3}"
+            .format(i, numOfLevelsToDrag, modSelectedHeroPosition, i_lSelectedHeroPosition[i+1]))
+        
+        # First row icon's half size  = (574-484)/2 = 45
+        # Second row icon's half size = (591-574)/2 = 8.5
+        # Drag distance = 45 + 8.5 = 53.5
+        # Dragon raid has 3 heroes in one row, we will click the selected hero w.r.t 1st row
+        if (1 <= numOfLevelsToDrag) and (i_MaxHeroesIn1Row < i_lSelectedHeroPosition[i+1]):  #modSelectedHeroPosition :
+            # If selected hero in not in first row, drag list upwards until it is in 1st row
+            for j in range (0, numOfLevelsToDrag-dragCount) :
+                nox.mouse_drag(i_sDragFromPosition,
+                               i_sDragToPosition,
+                               Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter],
+                               0.3,
+                               15)
+                dragCount += 1
+                print("j={0}, numOfLevelsToDrag={1}, dragCount={2}".format(j, numOfLevelsToDrag, dragCount))
+        nox.click_button(i_lClickHeroPosition[modSelectedHeroPosition], Settings.Main[Settings.Main_sDurationAfterClick])
 
 # Stockade helper
-def GetStockadeClaimSkillBook(i_skilltoclaim) :
+def GetStockadeClaimSkillBook(i_SkillBookToClaim) :
     switchSkills = {
         1 : 'stockade_engage_claimskill1',
         2 : 'stockade_engage_claimskill2',
         3 : 'stockade_engage_claimskill3',
         4 : 'stockade_engage_claimskill4'
     }
-    return switchSkills.get(i_skilltoclaim, "stockade_engage_claimskill4")
+    return switchSkills.get(i_SkillBookToClaim, "stockade_engage_claimskill4")
 
 # Stockade dailies
 def Gen_Stockade(i_EnterFromArena) :
@@ -80,7 +270,7 @@ def Gen_Stockade(i_EnterFromArena) :
     nox.click_button('exit_conquest', Settings.Main[Settings.Main_sAnyGameScreenLoadingTime] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
 
     # Exit to main game screen
-    for j in range(1, StockadePagesOpened):
+    for j in range(0, StockadePagesOpened):
         nox.click_button('main_backbutton', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
 
     # Start from Leftmost
@@ -112,7 +302,7 @@ def Gen_Arena() :
         nox.click_button('main_backbutton', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
     
 # Hero's inn dailies
-def Gen_Daily_HerosInn(i_waitforheroreceive) :
+def Gen_Daily_HerosInn(i_WaitForReceivingNewHero) :
     HerosInnMAX = int(15)
     HerosInnRouletteDuration = 7000
     HerosInnPagesOpened = 0
@@ -122,7 +312,7 @@ def Gen_Daily_HerosInn(i_waitforheroreceive) :
     nox.click_button('herosinn_visit_greet', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
     nox.click_button('herosinn_visit_conversate', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
     
-    if True == i_waitforheroreceive :
+    if True == i_WaitForReceivingNewHero :
         # Click and wait till Hero receive animation finishes
         nox.click_button('herosinn_visit_gift', Settings.Main[Settings.Main_sReceiveNewHeroDuration] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
         # Click again to close new hero window
@@ -208,3 +398,10 @@ def Gen_NavigateToMain(i_portal_orvel_placetogo) :
 
     # This has to wait longer because we are transiting to another big game screen
     nox.click_button('minipopup_confirmbutton', Settings.Main[Settings.Main_sAnyGameScreenLoadingTime] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+
+# UNUSED mouse helper
+def drag_screen_to_leftmost (i_StartPosition, i_EndPosition, i_NumOfTimesToDrag=3) :
+    for i in range (0, i_NumOfTimesToDrag) :
+        nox.mouse_drag( i_StartPosition,
+                        i_EndPosition,
+                        Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
