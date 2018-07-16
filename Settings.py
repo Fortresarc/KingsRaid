@@ -7,6 +7,8 @@ SETTINGS_FILENAME                                   = 'settings.json'
 # Settings read from file
 # Main
 Main_sMain                                          = 'Main'
+Main_sResolutionX                                   = 'ResolutionX'
+Main_sResolutionY                                   = 'ResolutionY'
 Main_sGameLauch_TapToPlayDuration                   = 'GameLaunch_TapToPlayDuration'
 Main_sGameLauch_MainGameScreenDuration              = 'GameLaunch_MainGameScreenDuration'
 Main_sNoOfClicksToClearAdvertisement                = 'NoOfClicksToClearAdvertisement'
@@ -16,6 +18,11 @@ Main_sDurationAfterClick_Short                      = 'DurationAfterClick_Short'
 Main_sDurationAfterClick_Long                       = 'DurationAfterClick_Long'
 Main_sAnyGameScreenLoadingTime                      = 'AnyGameScreenLoadingTime'
 Main_sReceiveNewHeroDuration                        = 'ReceiveNewHeroDuration'
+Main_sAutoStory_AtChapter                           = 'AutoStory_AtChapter'
+Main_sAutoStory_UseStaminaPot                       = 'AutoStory_UseStaminaPot'
+Main_sAutoStory_LongestRunningTime                  = 'AutoStory_LongestRunningTime'
+Main_sAutoStory_ManageInventoryInterval             = 'AutoStory_ManageInventoryInterval'
+Main_sAutoStory_GrindOrSellInventory                = 'AutoStory_GrindOrSellInventory'
 # Conquests and upper dungeons
 Main_sEasyContent                                   = "EasyContent"
 Main_sHardContent                                   = "HardContent"
@@ -28,27 +35,11 @@ Main_sHard_Hero2_Position                           = 'Hard_Hero2_Position'
 Main_sHard_Hero3_Position                           = 'Hard_Hero3_Position'
 Main_sHard_Hero4_Position                           = 'Hard_Hero4_Position'
 
-# Conquests
-Conquest_sConquest                                  = 'Conquest'
-
-# Upper Dungeons
-UpperDungeon_sUpperDungeon                            = 'UpperDungeon'
-UpperDungeon_sHighestClearedChapter                   = 'HighestClearedChapter'
-UpperDungeon_sHardContentRetryTimes                   = 'HardContentRetryTimes'
-UpperDungeon_sLongestRunTime_Chap1                    = 'LongestRunTime_Chap1'
-UpperDungeon_sLongestRunTime_Chap2                    = 'LongestRunTime_Chap2'
-UpperDungeon_sLongestRunTime_Chap3                    = 'LongestRunTime_Chap3'
-UpperDungeon_sLongestRunTime_Chap4                    = 'LongestRunTime_Chap4'
-UpperDungeon_sLongestRunTime_Chap5                    = 'LongestRunTime_Chap5'
-UpperDungeon_sLongestRunTime_Chap6                    = 'LongestRunTime_Chap6'
-UpperDungeon_sLongestRunTime_Chap7                    = 'LongestRunTime_Chap7'
-UpperDungeon_sLongestRunTime_Chap8                    = 'LongestRunTime_Chap8'
-
-# Dragon Raid configuration for all
-DragonRaidConfig_sHero1_Position                    = 'Hero1_Position'
-DragonRaidConfig_sHero2_Position                    = 'Hero2_Position'
-DragonRaidConfig_sHero3_Position                    = 'Hero3_Position'
-DragonRaidConfig_sHero4_Position                    = 'Hero4_Position'
+# Ancient royal vault
+Vault_sVault                                        = 'Vault'
+Vault_sHighestClearedFloor                          = 'HighestClearedFloor'
+Vault_sLongestRunTime                               = 'LongestRunTime'
+Vault_sNumOfKeysToday                               = 'NumOfKeysToday'
 
 # Arena
 Arena_sArena                                        = 'Arena'
@@ -59,6 +50,37 @@ Arena_sMatchDuration                                = 'MatchDuration'
 Stockade_sStockade                                  = 'Stockade'
 Stockade_sClaimSkillBook                            = 'ClaimSkillBook'
 Stockade_sSingleBattleDuration                      = 'SingleBattleDuration'
+
+# Conquests
+Conquest_sConquest                                  = 'Conquest'
+Conquest_sHighestClearedChapter                     = 'HighestClearedChapter'
+Conquest_sHardContentNoOfTimesToRetry               = 'HardContentNoOfTimesToRetry'
+Conquest_sLongestRunTime_Chap2                      = 'LongestRunTime_Chap2'
+Conquest_sLongestRunTime_Chap3                      = 'LongestRunTime_Chap3'
+Conquest_sLongestRunTime_Chap4                      = 'LongestRunTime_Chap4'
+Conquest_sLongestRunTime_Chap5                      = 'LongestRunTime_Chap5'
+Conquest_sLongestRunTime_Chap6                      = 'LongestRunTime_Chap6'
+Conquest_sLongestRunTime_Chap7                      = 'LongestRunTime_Chap7'
+Conquest_sLongestRunTime_Chap8                      = 'LongestRunTime_Chap8'
+
+# Upper Dungeons
+UpperDungeon_sUpperDungeon                          = 'UpperDungeon'
+UpperDungeon_sHighestClearedChapter                 = 'HighestClearedChapter'
+UpperDungeon_sHardContentNoOfTimesToRetry           = 'HardContentNoOfTimesToRetry'
+UpperDungeon_sLongestRunTime_Chap1                  = 'LongestRunTime_Chap1'
+UpperDungeon_sLongestRunTime_Chap2                  = 'LongestRunTime_Chap2'
+UpperDungeon_sLongestRunTime_Chap3                  = 'LongestRunTime_Chap3'
+UpperDungeon_sLongestRunTime_Chap4                  = 'LongestRunTime_Chap4'
+UpperDungeon_sLongestRunTime_Chap5                  = 'LongestRunTime_Chap5'
+UpperDungeon_sLongestRunTime_Chap6                  = 'LongestRunTime_Chap6'
+UpperDungeon_sLongestRunTime_Chap7                  = 'LongestRunTime_Chap7'
+UpperDungeon_sLongestRunTime_Chap8                  = 'LongestRunTime_Chap8'
+
+# Dragon Raid configuration for all
+DragonRaidConfig_sHero1_Position                    = 'Hero1_Position'
+DragonRaidConfig_sHero2_Position                    = 'Hero2_Position'
+DragonRaidConfig_sHero3_Position                    = 'Hero3_Position'
+DragonRaidConfig_sHero4_Position                    = 'Hero4_Position'
 
 # Dragon Raid
 DragonRaid_sDragonRaidConfig                        = 'DragonRaidConfig'
@@ -71,6 +93,8 @@ Poison_DragonRaid_sPoisonDragonRaid                 = 'Poison_DragonRaid'
 Black_DragonRaid_sBlackDragonRaid                   = 'Black_DragonRaid'
 
 Main = {
+    Main_sResolutionX                               : 1280,
+    Main_sResolutionY                               : 720,
     Main_sGameLauch_TapToPlayDuration               : 50000,    # From game launched to Tap to Play
     Main_sGameLauch_MainGameScreenDuration          : 10000,    # From Press to Enter to Main game screen
     Main_sNoOfClicksToClearAdvertisement            : 5,
@@ -80,6 +104,17 @@ Main = {
     Main_sDurationAfterClick_Long                   : 5000,
     Main_sAnyGameScreenLoadingTime                  : 15000,    # E.g. Arena exit can take a long time
     Main_sReceiveNewHeroDuration                    : 12000,    # 12 s
+    Main_sAutoStory_AtChapter                       : 8,        # Auto repeat this chapter
+    Main_sAutoStory_UseStaminaPot                   : 'N',
+    Main_sAutoStory_LongestRunningTime              : 3,        # 3 minutes
+    Main_sAutoStory_ManageInventoryInterval         : 60,       # Every 60 minutes do inventory management
+    Main_sAutoStory_GrindOrSellInventory            : 'g',      # g = grind, s = sell
+}
+
+Vault = {
+    Vault_sHighestClearedFloor                      : 45,
+    Vault_sLongestRunTime                           : 90000,    # 90 secs
+    Vault_sNumOfKeysToday                           : 10
 }
 
 Arena = {
@@ -93,6 +128,15 @@ Stockade = {
 }
 
 Conquest = {
+    Conquest_sHighestClearedChapter                 : 8,
+    Conquest_sHardContentNoOfTimesToRetry           : 9,
+    Conquest_sLongestRunTime_Chap2                  : 50,       #secs
+    Conquest_sLongestRunTime_Chap3                  : 50,
+    Conquest_sLongestRunTime_Chap4                  : 50,
+    Conquest_sLongestRunTime_Chap5                  : 70,
+    Conquest_sLongestRunTime_Chap6                  : 55,
+    Conquest_sLongestRunTime_Chap7                  : 75,
+    Conquest_sLongestRunTime_Chap8                  : 150,
     Main_sEasy_Hero1_Position                       : 3,
     Main_sEasy_Hero2_Position                       : 5,
     Main_sEasy_Hero3_Position                       : 8,
@@ -105,8 +149,8 @@ Conquest = {
 
 UpperDungeon = {
     UpperDungeon_sHighestClearedChapter             : 8,
-    UpperDungeon_sHardContentRetryTimes             : 9,
-    UpperDungeon_sLongestRunTime_Chap1              : 50,
+    UpperDungeon_sHardContentNoOfTimesToRetry       : 9,
+    UpperDungeon_sLongestRunTime_Chap1              : 50,       #secs
     UpperDungeon_sLongestRunTime_Chap2              : 50,
     UpperDungeon_sLongestRunTime_Chap3              : 50,
     UpperDungeon_sLongestRunTime_Chap4              : 50,
@@ -123,6 +167,7 @@ UpperDungeon = {
     Main_sHard_Hero3_Position                       : 5,
     Main_sHard_Hero4_Position                       : 8
 }
+
 
 # Dragon Raid hero selection:
 # The numbering goes like this
@@ -169,7 +214,17 @@ def WriteDefaultSettingsFile () :
             Main_sDurationAfterClick_Short : Main[Main_sDurationAfterClick_Short],
             Main_sDurationAfterClick_Long : Main[Main_sDurationAfterClick_Long],
             Main_sAnyGameScreenLoadingTime : Main[Main_sAnyGameScreenLoadingTime],
-            Main_sReceiveNewHeroDuration : Main[Main_sReceiveNewHeroDuration]
+            Main_sReceiveNewHeroDuration : Main[Main_sReceiveNewHeroDuration],
+            Main_sAutoStory_AtChapter : Main[Main_sAutoStory_AtChapter],
+            Main_sAutoStory_UseStaminaPot : Main[Main_sAutoStory_UseStaminaPot],
+            Main_sAutoStory_LongestRunningTime : Main[Main_sAutoStory_LongestRunningTime],
+            Main_sAutoStory_ManageInventoryInterval : Main[Main_sAutoStory_ManageInventoryInterval],
+            Main_sAutoStory_GrindOrSellInventory : Main[Main_sAutoStory_GrindOrSellInventory]
+            },
+        Vault_sVault : {
+            Vault_sHighestClearedFloor : Vault[Vault_sHighestClearedFloor],
+            Vault_sLongestRunTime : Vault[Vault_sLongestRunTime],
+            Vault_sNumOfKeysToday : Vault[Vault_sNumOfKeysToday]
             },
         Arena_sArena : {
             Arena_sNoOfMatches : Arena[Arena_sNoOfMatches],
@@ -180,6 +235,15 @@ def WriteDefaultSettingsFile () :
             Stockade_sSingleBattleDuration : Stockade[Stockade_sSingleBattleDuration]
             },
         Conquest_sConquest : {
+            Conquest_sHighestClearedChapter : Conquest[Conquest_sHighestClearedChapter],
+            Conquest_sHardContentNoOfTimesToRetry : Conquest[Conquest_sHardContentNoOfTimesToRetry],
+            Conquest_sLongestRunTime_Chap2 : Conquest[Conquest_sLongestRunTime_Chap2],
+            Conquest_sLongestRunTime_Chap3 : Conquest[Conquest_sLongestRunTime_Chap3],
+            Conquest_sLongestRunTime_Chap4 : Conquest[Conquest_sLongestRunTime_Chap4],
+            Conquest_sLongestRunTime_Chap5 : Conquest[Conquest_sLongestRunTime_Chap5],
+            Conquest_sLongestRunTime_Chap6 : Conquest[Conquest_sLongestRunTime_Chap6],
+            Conquest_sLongestRunTime_Chap7 : Conquest[Conquest_sLongestRunTime_Chap7],
+            Conquest_sLongestRunTime_Chap8 : Conquest[Conquest_sLongestRunTime_Chap8],
             Main_sEasy_Hero1_Position : Conquest[Main_sEasy_Hero1_Position],
             Main_sEasy_Hero2_Position : Conquest[Main_sEasy_Hero2_Position],
             Main_sEasy_Hero3_Position : Conquest[Main_sEasy_Hero3_Position],
@@ -191,7 +255,7 @@ def WriteDefaultSettingsFile () :
             },
         UpperDungeon_sUpperDungeon : {
             UpperDungeon_sHighestClearedChapter : UpperDungeon[UpperDungeon_sHighestClearedChapter],
-            UpperDungeon_sHardContentRetryTimes : UpperDungeon[UpperDungeon_sHardContentRetryTimes],
+            UpperDungeon_sHardContentNoOfTimesToRetry : UpperDungeon[UpperDungeon_sHardContentNoOfTimesToRetry],
             UpperDungeon_sLongestRunTime_Chap1 : UpperDungeon[UpperDungeon_sLongestRunTime_Chap1],
             UpperDungeon_sLongestRunTime_Chap2 : UpperDungeon[UpperDungeon_sLongestRunTime_Chap2],
             UpperDungeon_sLongestRunTime_Chap3 : UpperDungeon[UpperDungeon_sLongestRunTime_Chap3],
@@ -255,31 +319,34 @@ def ReadFromFile () :
         if key == Main_sMain :
             for value in json_obj[key] :
                 Main[value] = json_obj[Main_sMain][value]
-        if key == Arena_sArena :
+        elif key == Vault_sVault :
+            for value in json_obj[key] :
+                Vault[value] = json_obj[Vault_sVault][value]
+        elif key == Arena_sArena :
             for value in json_obj[key] :
                 Arena[value] = json_obj[Arena_sArena][value]
-        if key == Stockade_sStockade :
+        elif key == Stockade_sStockade :
             for value in json_obj[key] :
                 Stockade[value] = json_obj[Stockade_sStockade][value]
-        if key == Conquest_sConquest :
+        elif key == Conquest_sConquest :
             for value in json_obj[key] :
                 Conquest[value] = json_obj[Conquest_sConquest][value]
-        if key == UpperDungeon_sUpperDungeon :
+        elif key == UpperDungeon_sUpperDungeon :
             for value in json_obj[key] :
                 UpperDungeon[value] = json_obj[UpperDungeon_sUpperDungeon][value]
-        if key == DragonRaid_sDragonRaidConfig :
+        elif key == DragonRaid_sDragonRaidConfig :
             for value in json_obj[key] :
                 DragonRaidConfig[value] = json_obj[DragonRaid_sDragonRaidConfig][value]
-        if key == Fire_DragonRaid_sFireDragonRaid :
+        elif key == Fire_DragonRaid_sFireDragonRaid :
             for value in json_obj[key] :
                 Fire_DragonRaid[value] = json_obj[Fire_DragonRaid_sFireDragonRaid][value]
-        if key == Frost_DragonRaid_sFrostDragonRaid :
+        elif key == Frost_DragonRaid_sFrostDragonRaid :
             for value in json_obj[key] :
                 Frost_DragonRaid[value] = json_obj[Frost_DragonRaid_sFrostDragonRaid][value]
-        if key == Poison_DragonRaid_sPoisonDragonRaid :
+        elif key == Poison_DragonRaid_sPoisonDragonRaid :
             for value in json_obj[key] :
                 Poison_DragonRaid[value] = json_obj[Poison_DragonRaid_sPoisonDragonRaid][value]
-        if key == Black_DragonRaid_sBlackDragonRaid :
+        elif key == Black_DragonRaid_sBlackDragonRaid :
             for value in json_obj[key] :
                 Black_DragonRaid[value] = json_obj[Black_DragonRaid_sBlackDragonRaid][value]
 
@@ -319,6 +386,6 @@ def WriteJsonDataToFile(data, filename):
         fd = open(filename, 'w')
         fd.write(jsondata)
         fd.close()
-    except:
-        print('ERROR writing {0}'.format(filename))
+    except Exception as e:
+        print('ERROR writing {0}    {1}'.format(filename, e))
         pass

@@ -5,12 +5,15 @@ import Settings
 
 # TODO REMOVE THIS
 import UpperDungeon
+import Conquest
+import Campaign
 
+Vault_Top3Level = 43
 
 # Main code to do all dailies
 def Gen_DoAllDailies() :
     #TODO - Remove this and make this one of the options
-    Settings.WriteDefaultSettingsFile()
+    #Settings.WriteDefaultSettingsFile()
 
     # Read our settings file
     Settings.ReadFromFile()
@@ -21,11 +24,17 @@ def Gen_DoAllDailies() :
     Gen_ClearInventory()
     Gen_NavigateToMain('portal_orvel_herosinn')
     Gen_Daily_HerosInn(False)
-    Gen_NavigateToMain('portal_orvel_arena')
+    Gen_NavigateToMain('portal_orvel_arena', True)
     Gen_Arena()
-    Gen_Stockade(True)
+    #Gen_Stockade(True)
     UpperDungeon.gen_upper_dungeon()
-    Gen_GoToDragonRaid()
+    Gen_ClaimEnergyGotHotTime_FromUntouched()
+    Gen_NavigateToMain('portal_orvel_orvelcastle', True)
+    Gen_AncientRoyalVault()
+    Conquest.gen_conquest()
+    Gen_ClaimDailyMission()
+    #Gen_GoToDragonRaid()
+    Gen_AutoRepeatStoryChapter(8)
     
     # TEST CODES
     #Gen_RestartToDragonRaid()
@@ -33,8 +42,8 @@ def Gen_DoAllDailies() :
     #UpperDungeon.gen_single_upper_dungeon('ch8_upper_dungeon', 
     #                                      Settings.Main[Settings.Main_sTransitionDuration_Alter],
     #                                      Settings.Main_sHardContent)
-    
-def Gen_RestartToDragonRaid() :
+
+def Gen_DoLaunchNOX_DragonRaid() :
     Settings.WriteDefaultSettingsFile()
 
     # Read our settings file
@@ -42,24 +51,78 @@ def Gen_RestartToDragonRaid() :
 
     Gen_LaunchKingsRaidAndGoToMainScreen()
     Gen_ClaimMailbox()
+    Gen_ClaimDailyMission()
     Gen_ExchangeAmity()
     Gen_ClearInventory()
     #Gen_ClaimEnergyGotHotTime_FromUntouched()
     Gen_GoToDragonRaid()
 
+def Gen_AutoRepeatStoryChapter(i_sWhichChapter = 8) :
+    # Navigate to chapter
+    # currently only support chapter 8
+    if 8 <= i_sWhichChapter :
+        Common.Gen_GoToChapter('conquests', 'ch8_conquest', Settings.Main[Settings.Main_sTransitionDuration_Alter])
+        nox.click_button('ch8_conquest_naviTo_story_8_20', Settings.Main[Settings.Main_sDurationAfterClick_Long] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+        nox.click_button('ch8_conquest_naviTo_story_8_25', Settings.Main[Settings.Main_sDurationAfterClick_Long] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+        nox.click_button('ch8_conquest_naviTo_story_8_24', Settings.Main[Settings.Main_sDurationAfterClick_Long] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+        nox.click_button('ch8_conquest_naviTo_story_8_23', Settings.Main[Settings.Main_sDurationAfterClick_Long] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+        nox.click_button('ch8_conquest_naviTo_story_8_23_2', Settings.Main[Settings.Main_sDurationAfterClick_Long] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+
+    # 
+    nox.click_button('main_preparebattle', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+    nox.click_button('get_ready_for_battle', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+    # For now we use Conquests Hero selection for story as well
+    Gen_SelectHero(False, Settings.Main_sEasyContent)
+
+    Campaign.gen_natural_stamina_farm()
+
 # Assumes NOTHING is claimed yet when game just restarted a new day
 def Gen_ClaimEnergyGotHotTime_FromUntouched() :
-    nox.click_button('main_mission', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+    nox.click_button('main_mission', Settings.Main[Settings.Main_sDurationAfterClick_Long] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
     nox.click_button('mission_tab_eventmission', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
     # Claim Today's Bonus Gold
     nox.click_button('mission_claim_position2', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
     nox.click_button('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
     # Claim EXP hot time (first)
     nox.click_button('mission_claim_position2', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
-    nox.click_button('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+    nox.click_button('minipopup_confirmbutton', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
     # Claim Gold hot time (first)
     nox.click_button('mission_claim_position3', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
-    nox.click_button('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+    nox.click_button('minipopup_confirmbutton', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+    # Back to main
+    nox.click_button('main_backbutton', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+
+# Doesn't really matter the order at which we claim
+def Gen_ClaimDailyMission (i_nNumOfMissionsToClaim = 6) :
+    nox.click_button('main_mission', Settings.Main[Settings.Main_sDurationAfterClick_Long] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+    for i in range(0, i_nNumOfMissionsToClaim) :
+        nox.click_button('mission_claim_position1', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+        nox.click_button('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick_Short] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+    # Back to main
+    nox.click_button('main_backbutton', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+
+def Gen_AncientRoyalVault() :
+    pagesOpened = 0
+    waitTillVaultFinish = Settings.Vault[Settings.Vault_sNumOfKeysToday] * Settings.Vault[Settings.Vault_sLongestRunTime]
+
+    pagesOpened += 1
+    nox.click_button('vault_enterancient', Settings.Main[Settings.Main_sDurationAfterClick_Long] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+    pagesOpened += 1
+    if Vault_Top3Level > Settings.Vault[Settings.Vault_sHighestClearedFloor] :
+        nox.click_button('vault_enterancient_selectlowerfloor', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+    nox.click_button('vault_enterancient_getready', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+    nox.click_button('getreadyforbattle_autorepeat', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+    nox.click_button('minipopup_confirmbutton', waitTillVaultFinish)
+
+    # Close Notice : Auto repeat has eneded..
+    nox.click_button('minipopup_closebutton', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+    # Close Notice : Royal treasury key is lacking
+    nox.click_button('minipopup_closebutton', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+    # Close game screen "battle completion"
+    nox.click_button('battlecompletion_exit', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+
+    for i in range (0, pagesOpened) :
+        nox.click_button('main_backbutton', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
 
 def Gen_GoToDragonRaid () :
     whichDragonRaid = Settings.DragonRaidConfig[Settings.DragonRaidConfig_sSelectDragonToAuto]
@@ -73,14 +136,13 @@ def Gen_GoToDragonRaid () :
     if Settings.Fire_DragonRaid_sFireDragonRaid == whichDragonRaid :
         roomSelect = 'raid_select_fire'
         DragonSettings = Settings.Fire_DragonRaid.copy()
-    if Settings.Frost_DragonRaid_sFrostDragonRaid == whichDragonRaid :
+    elif Settings.Frost_DragonRaid_sFrostDragonRaid == whichDragonRaid :
         roomSelect = 'raid_select_frost'
         DragonSettings = Settings.Frost_DragonRaid.copy()
-    if Settings.Poison_DragonRaid_sPoisonDragonRaid== whichDragonRaid :
+    elif Settings.Poison_DragonRaid_sPoisonDragonRaid== whichDragonRaid :
         roomSelect = 'raid_select_poison'
         DragonSettings = Settings.Poison_DragonRaid.copy()
-    if Settings.Black_DragonRaid_sBlackDragonRaid == whichDragonRaid :
-        roomSelect = 'raid_select_black'
+    elif Settings.Black_DragonRaid_sBlackDragonRaid == whichDragonRaid :
         DragonSettings = Settings.Black_DragonRaid.copy()
         nox.mouse_drag('raid_select_list_bottom', 'raid_select_list_top', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
 
@@ -102,7 +164,7 @@ def Gen_GoToDragonRaid () :
     nox.click_button('minipopup_confirmbutton', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
     
 
-#
+# TODO Put to common
 def Gen_SelectHero (i_bNavigateToHeroSelectScreen, i_sEasyOrHardContent, i_bExitBackToMainPage = False) :
     pagesOpened = 0
 
@@ -148,9 +210,9 @@ def Gen_SelectHero (i_bNavigateToHeroSelectScreen, i_sEasyOrHardContent, i_bExit
     # Top of first row icon = 144
     # Half position of 2nd row icon = 433+142 = 575
     if Settings.Main_sEasyContent == i_sEasyOrHardContent :
-        Gen_HeroSelect(4, 3, SelectedHeroPosition_Easy, ClickHeroPosition, 'main_HeroList_Position4', 'main_HeroList_Position1')
+        _Gen_SelectHero(4, 3, SelectedHeroPosition_Easy, ClickHeroPosition, 'main_HeroList_Position4', 'main_HeroList_Position1')
     else :
-        Gen_HeroSelect(4, 3, SelectedHeroPosition_Hard, ClickHeroPosition, 'main_HeroList_Position4', 'main_HeroList_Position1')
+        _Gen_SelectHero(4, 3, SelectedHeroPosition_Hard, ClickHeroPosition, 'main_HeroList_Position4', 'main_HeroList_Position1')
 
     if i_bExitBackToMainPage :
         # Exit to main game screen
@@ -181,9 +243,9 @@ def Gen_DragonRaid_HeroSelect() :
         2 : 'raid_select_HeroList_Position2',
         3 : 'raid_select_HeroList_Position3'
     }
-    Gen_HeroSelect(4, 3, SelectedHeroPosition, ClickHeroPosition, 'raid_select_HeroList_Position4', 'raid_select_HeroList_Position1')
+    _Gen_SelectHero(4, 3, SelectedHeroPosition, ClickHeroPosition, 'raid_select_HeroList_Position4', 'raid_select_HeroList_Position1')
 
-def Gen_HeroSelect( i_MaxHeroesAllowed,
+def _Gen_SelectHero( i_MaxHeroesAllowed,
                     i_MaxHeroesIn1Row,
                     i_lSelectedHeroPosition,
                     i_lClickHeroPosition,
@@ -385,15 +447,16 @@ def Gen_ExchangeAmity() :
     nox.click_button('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
     nox.click_button('main_backbutton', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
 
-def Gen_NavigateToMain(i_portal_orvel_placetogo) :
-    nox.click_button('main_portal', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
-    nox.click_button('upper_dungeon', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
-    nox.click_button('ch1_upper_dungeon', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
-    # This has to wait longer because we are transiting to another big game screen    
-    nox.click_button('minipopup_confirmbutton', Settings.Main[Settings.Main_sAnyGameScreenLoadingTime] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+def Gen_NavigateToMain(i_portal_orvel_placetogo, i_bAlreadyInTown = False) :
+    if False == i_bAlreadyInTown :
+        nox.click_button('main_portal', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+        nox.click_button('upper_dungeon', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+        nox.click_button('ch1_upper_dungeon', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+        # This has to wait longer because we are transiting to another big game screen    
+        nox.click_button('minipopup_confirmbutton', Settings.Main[Settings.Main_sAnyGameScreenLoadingTime] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
     
     nox.click_button('main_portal', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
-    nox.click_button('portal_orvel', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+    nox.click_button('portal_orvel', Settings.Main[Settings.Main_sDurationAfterClick_Long] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
     nox.click_button(i_portal_orvel_placetogo, Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
 
     # This has to wait longer because we are transiting to another big game screen

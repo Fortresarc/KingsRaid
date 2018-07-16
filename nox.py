@@ -220,8 +220,8 @@ def prompt_user_yes_no(message, default=False):
             break
     return result
 
-def find_settings_file():
-    if os.getcwd().find('Settings.json') :
+def find_settings_file(i_filename = 'Settings.json'):
+    if os.getcwd().find(i_filename) :
         return True
     else:
         return False
@@ -301,10 +301,12 @@ def get_nox_macro_interactive():
     fp.close()
     return (name, macro_file)
 
-def initialize(points, rects):
+def initialize(points, rects, i_bskip_resolution_interactive=False):
     global button_points
     global button_rects
-    select_resolution_interactive()
+
+    if False == i_bskip_resolution_interactive :
+        select_resolution_interactive()
 
     button_points = points
     button_rects = rects

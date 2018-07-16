@@ -13,6 +13,7 @@ import Inventory
 import NPC
 import UpperDungeon
 import DoAllDailies
+import Settings
 
 print('Nox Macro Generator v2.1')
 print('By: cpp (Reddit: u/cpp_is_king, Discord: @cpp#0120)')
@@ -60,6 +61,13 @@ points = {
 	'confirm_insufficient_members' : (635,546),
 	
 	# Dailies
+    # Story
+    'ch8_conquest_naviTo_story_8_20' : (1038, 430),
+    'ch8_conquest_naviTo_story_8_25' : (1268, 145),
+    'ch8_conquest_naviTo_story_8_24' : (900, 395),
+    'ch8_conquest_naviTo_story_8_23' : (774, 588),
+    'ch8_conquest_naviTo_story_8_23_2' : (997, 150),
+
 	# Conquests
 	'portal' : (703, 656),
 	'conquests' : (938, 648),
@@ -149,6 +157,11 @@ points = {
     'portal_orvel_orvelcastle' : (790, 430),
     'portal_orvel_guild' : (500, 512),
 
+    # Orvel Castle
+    'vault_enterancient' : (630, 366),
+    'vault_enterancient_selectlowerfloor' : (246, 520),
+    'vault_enterancient_getready' : (1112, 650),
+
     # Arena
     'arena_select' : (636, 370),
     'arena_select_lov' : (270, 622),
@@ -183,6 +196,7 @@ points = {
 
     # Generic points
     'getreadyforbattle_startbattle' : (1080, 660),
+    'getreadyforbattle_autorepeat' : (838, 660),
     'battlecompletion_retry' : (1200, 492),
     'battlecompletion_exit' : (1200, 630),
     'repeatpopup_singlerepeat' : (460, 450),
@@ -221,7 +235,12 @@ rects = {
 
 
 
-nox.initialize(points, rects)
+nox.initialize(points, rects, nox.find_settings_file)
+
+def get_resolution_from_settings () :
+    if nox.find_settings_file :
+        nox.resolution = (Settings.Main[Settings.Main_sResolutionX],
+                          Settings.Main[Settings.Main_sResolutionY])
 
 def print_macro_details():
 	global macro_name
@@ -250,7 +269,7 @@ try:
 		("Upper Dungeon (beta)", UpperDungeon.gen_upper_dungeon),
 		("Conquest + Upper Dungeon combo (beta)", conquest_plus_upper_dungeon),
         ("Do all dailies (Experimental)", DoAllDailies.Gen_DoAllDailies),
-        ("Generate default data", DoAllDailies.Gen_DefaultData)
+        ("Do DragonRaid after NOX restart", DoAllDailies.Gen_DoLaunchNOX_DragonRaid)
 		]
 	if args.enable_developer_commands:
 		macro_generators.extend([
