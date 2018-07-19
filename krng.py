@@ -21,11 +21,11 @@ print('Paypal: cppisking@gmail.com')
 print()
 
 if sys.version_info < (3,5):
-	print('Error: This script requires Python 3.5 or higher.  Please visit '
-		  'www.python.org and install a newer version.')
-	print('Press any key to exit...')
-	input()
-	sys.exit(1)
+    print('Error: This script requires Python 3.5 or higher.  Please visit '
+          'www.python.org and install a newer version.')
+    print('Press any key to exit...')
+    input()
+    sys.exit(1)
 
 parser = argparse.ArgumentParser('Nox Macro Generator')
 parser.add_argument('--enable-developer-commands', action='store_true', default=False)
@@ -39,64 +39,66 @@ desc = None
 # your actual resolution is.
 points = {
     'forge_first_item': (615, 283),
-	'buy': (965, 652),
-	'exit': (152, 32),
-	'inventory' : (178, 644),
-	'grind' : (839,629),
-	'sell' : (1080,629),
-	'grind_all' : (730,629),
-	'grind_2' : (732,589),
-	'grind_confirm' : (738,531),
-	'dismiss_results' : (738,531),
-	'enter_node' : (1190,629),
-	'use_shop' : (636,561),
-	'abandon_raid' : (848, 590),
-	'start_raid' : (1183, 624),
+    'buy': (965, 652),
+    'exit': (152, 32),
+    'inventory' : (178, 644),
+    'grind' : (839,629),
+    'sell' : (1080,629),
+    'grind_all' : (730,629),
+    'grind_2' : (732,589),
+    'grind_confirm' : (738,531),
+    'dismiss_results' : (738,531),
+    'enter_node' : (1190,629),
+    'use_shop' : (636,561),
+    'abandon_raid' : (848, 590),
+    'start_raid' : (1183, 624),
 
-	# x coordinate here is very precise so as to click the one unused pixel between
-	# the hero's S1 and S2 abilities.
-	'start_adventure' : (1055, 660),
-	'stam_potion_select' : (641,379),
-	'stam_potion_confirm' : (635,546),
-	'confirm_insufficient_members' : (635,546),
-	
-	# Dailies
-    # Story
+    # x coordinate here is very precise so as to click the one unused pixel between
+    # the hero's S1 and S2 abilities.
+    'start_adventure' : (1055, 660),
+    'stam_potion_select' : (641,379),
+    'stam_potion_confirm' : (635,546),
+    'confirm_insufficient_members' : (635,546),
+    
+    # Dailies
+    # Story - Chap 8
     'ch8_conquest_naviTo_story_8_20' : (1038, 430),
     'ch8_conquest_naviTo_story_8_25' : (1268, 145),
     'ch8_conquest_naviTo_story_8_24' : (900, 395),
     'ch8_conquest_naviTo_story_8_23' : (774, 588),
     'ch8_conquest_naviTo_story_8_23_2' : (997, 150),
+    # Story - Chap 6
+    'ch6_conquest_naviTo_story_6_10' : (888, 499),
 
-	# Conquests
-	'portal' : (703, 656),
-	'conquests' : (938, 648),
-	'ch2_conquest' : (439, 275),
-	'ch3_conquest' : (853, 276),
-	'ch4_conquest' : (441, 355),
-	'ch5_conquest' : (845, 358),
-	'ch6_conquest' : (449, 436),
-	'ch7_conquest' : (840, 435),
-	'ch8_conquest' : (449, 515),
-	'move_to_conquest' : (395, 532), # precise to avoid ruby reset
-	'prepare_battle' : (1189, 649),
-	'get_ready_for_battle' : (955, 654),
-	'auto_repeat' : (850, 664),
-	'repeat_ok' : (395, 532), # precise to avoid ruby reset
-	'insufficient_keys' : (395, 532), # precise to avoid ruby reset
-	'x_out' : (946, 170), # precise click to avoid unselecting heroes
-	'exit_conquest' : (1200, 628),
+    # Conquests
+    'portal' : (703, 656),
+    'conquests' : (938, 648),
+    'ch2_conquest' : (439, 275),
+    'ch3_conquest' : (853, 276),
+    'ch4_conquest' : (441, 355),
+    'ch5_conquest' : (845, 358),
+    'ch6_conquest' : (449, 436),
+    'ch7_conquest' : (840, 435),
+    'ch8_conquest' : (449, 515),
+    'move_to_conquest' : (395, 532), # precise to avoid ruby reset
+    'prepare_battle' : (1189, 649),
+    'get_ready_for_battle' : (955, 654),
+    'auto_repeat' : (850, 664),
+    'repeat_ok' : (395, 532), # precise to avoid ruby reset
+    'insufficient_keys' : (395, 532), # precise to avoid ruby reset
+    'x_out' : (946, 170), # precise click to avoid unselecting heroes
+    'exit_conquest' : (1200, 628),
     
-	# Upper Dungeon
-	'upper_dungeon' : (1048, 652),
-	'ch1_upper_dungeon' : (439, 275),
-	'ch2_upper_dungeon' : (853, 276),
-	'ch3_upper_dungeon' : (441, 355),
-	'ch4_upper_dungeon' : (845, 358),
-	'ch5_upper_dungeon' : (449, 436),
-	'ch6_upper_dungeon' : (840, 435),
-	'ch7_upper_dungeon' : (445, 520),
-	'ch8_upper_dungeon' : (840, 520),
+    # Upper Dungeon
+    'upper_dungeon' : (1048, 652),
+    'ch1_upper_dungeon' : (439, 275),
+    'ch2_upper_dungeon' : (853, 276),
+    'ch3_upper_dungeon' : (441, 355),
+    'ch4_upper_dungeon' : (845, 358),
+    'ch5_upper_dungeon' : (449, 436),
+    'ch6_upper_dungeon' : (840, 435),
+    'ch7_upper_dungeon' : (445, 520),
+    'ch8_upper_dungeon' : (840, 520),
     
     # Nox background
     'nox_launchgame' : (640, 350),  # Center of screen
@@ -124,6 +126,10 @@ points = {
     'main_HeroList_Position3' : (470, 286),
     'main_HeroList_Position4' : (150, 600),  # This value is found through testing
     'main_HeroList_DeselectPosition' : (1132, 318),
+
+    # Kill King's Raid
+    'main_killkingsraid_top' : (1160, 90),
+    'main_killkingsraid_bottom' : (1160, 629),
 
     # Mailbox
     'mailbox_claimall' : (950, 600),
@@ -176,8 +182,9 @@ points = {
     # Stockade
     'stockade_enter' : (650, 360),
     'stockade_engage_leftmost' : (234, 650),                # Ensured that we do not accidentally click hero when we are at "Get Ready for Battle" screen
-    'stockade_engage_middle_ok_autobattle' : (756, 650),
+    'stockade_engage_middle_ok_autobattle' : (612, 650),
     'stockade_engage_rightmost' : (975, 650),               # Ensured that we do not accidentally click "Start Battle" when we are at "Get Ready for Battle" screen
+    'stockade_engage_autobattle' : (827, 650),
     #'stockade_engage_readyforbattle' : (980, 660),
     'stockade_engage_claimskill1' : (489, 368),
     'stockade_engage_claimskill2' : (589, 368),
@@ -221,16 +228,16 @@ points = {
 }
 
 rects = {
-	'exit_raid' : ((1171, 596), (1233, 654)),
-	'abandon_raid' : ((766, 589), (883, 641)),
-	'bid_raid' : ((905, 589), (1025, 641)),
-	'start_raid' : ((999, 621), (1182, 671)),
-	'raid_hero_lineup' : ((125, 182), (1151, 404)),
-	'raid_hero_select' : ((81, 483), (390, 683)),
-	'claim_reward' : ((766, 589), (1025, 641)),
-	'raid_info' : ((853, 615), (977, 680)),
-	'stam_potion' : ((593,292), (686, 387)),
-	'stam_potion_raid_5' : ((593,292), (675, 387)),
+    'exit_raid' : ((1171, 596), (1233, 654)),
+    'abandon_raid' : ((766, 589), (883, 641)),
+    'bid_raid' : ((905, 589), (1025, 641)),
+    'start_raid' : ((999, 621), (1182, 671)),
+    'raid_hero_lineup' : ((125, 182), (1151, 404)),
+    'raid_hero_select' : ((81, 483), (390, 683)),
+    'claim_reward' : ((766, 589), (1025, 641)),
+    'raid_info' : ((853, 615), (977, 680)),
+    'stam_potion' : ((593,292), (686, 387)),
+    'stam_potion_raid_5' : ((593,292), (675, 387)),
 }
 
 
@@ -243,65 +250,74 @@ def get_resolution_from_settings () :
                           Settings.Main[Settings.Main_sResolutionY])
 
 def print_macro_details():
-	global macro_name
-	global file_path
-	global desc
+    global macro_name
+    global file_path
+    global desc
 
-	print()
-	if macro_name:
-		print('Destination Macro Name: {0}'.format(macro_name))
-	print('Destination File: {0}'.format(file_path))
-	print('Selected Macro: {0}'.format(desc))
+    print()
+    if macro_name:
+        print('Destination Macro Name: {0}'.format(macro_name))
+    print('Destination File: {0}'.format(file_path))
+    print('Selected Macro: {0}'.format(desc))
 
 def conquest_plus_upper_dungeon():
-	Conquest.gen_conquest()
-	nox.time += 15000 # sleep for 15s in between
-	UpperDungeon.gen_upper_dungeon()
+    Conquest.gen_conquest()
+    nox.time += 15000 # sleep for 15s in between
+    UpperDungeon.gen_upper_dungeon()
 
 
 try:
-	macro_generators = [
-		#("NPC Gear Purchasing and Grinding", gen_grindhouse),
-		("AFK Raid (Member)", DragonRaid.gen_raid),
-		("AFK Raid (Leader)", DragonRaid.gen_raid_leader),
-		("Story Repeat w/ Natural Stamina Regen", Campaign.gen_natural_stamina_farm),
-		("Conquests (beta)", Conquest.gen_conquest),
-		("Upper Dungeon (beta)", UpperDungeon.gen_upper_dungeon),
-		("Conquest + Upper Dungeon combo (beta)", conquest_plus_upper_dungeon),
+    Settings.SETTINGS_FILENAME = nox.select_settings_file_interactive()
+
+    macro_generators = [
+        #("NPC Gear Purchasing and Grinding", gen_grindhouse),
+        ("Generate Default data to selected settings file", DoAllDailies.Gen_DefaultData),
+        ("AFK Raid (Member)", DragonRaid.gen_raid),
+        ("AFK Raid (Leader)", DragonRaid.gen_raid_leader),
+        ("Story Repeat w/ Natural Stamina Regen", Campaign.gen_natural_stamina_farm),
+        ("Conquests (beta)", Conquest.gen_conquest),
+        ("Upper Dungeon (beta)", UpperDungeon.gen_upper_dungeon),
+        ("Conquest + Upper Dungeon combo (beta)", conquest_plus_upper_dungeon),
         ("Do all dailies (Experimental)", DoAllDailies.Gen_DoAllDailies),
-        ("Do DragonRaid after NOX restart", DoAllDailies.Gen_DoLaunchNOX_DragonRaid)
-		]
-	if args.enable_developer_commands:
-		macro_generators.extend([
-			("**DEV** Natural Stamina Regen Raid Farming (Non-Leader)", DragonRaid.gen_raid_experimental),
-			("**DEV** Re-enter adventure (potion)", lambda : Campaign.re_enter_adventure(True)),
-			("**DEV** Re-enter adventure (no potion)", lambda : Campaign.re_enter_adventure(False)),
-		])
+        ("Do DragonRaid after NOX restart", DoAllDailies.Gen_DoLaunchNOX_DragonRaid),
+        ("Do Story after NOX restart", DoAllDailies.Gen_DoLaunchNOX_Story)
+        ]
+    if args.enable_developer_commands:
+        macro_generators.extend([
+            ("**DEV** Natural Stamina Regen Raid Farming (Non-Leader)", DragonRaid.gen_raid_experimental),
+            ("**DEV** Re-enter adventure (potion)", lambda : Campaign.re_enter_adventure(True)),
+            ("**DEV** Re-enter adventure (no potion)", lambda : Campaign.re_enter_adventure(False)),
+        ])
 
-	print()
-	for (n,(desc,fn)) in enumerate(macro_generators):
-		print('{0}) {1}'.format(n+1, desc))
+    print()
+    for (n,(desc,fn)) in enumerate(macro_generators):
+        print('{0}) {1}'.format(n+1, desc))
 
-	macro_number = nox.prompt_user_for_int('Enter the macro you wish to generate: ',
-										   min=1, max=len(macro_generators))
+    macro_number = nox.prompt_user_for_int('Enter the macro you wish to generate: ',
+                                           min=1, max=len(macro_generators))
+    if 1 == macro_number:
+        (desc, fn) = macro_generators[macro_number - 1]
+        # Generate the macro
+        fn()
+    else:
+        (macro_name, file_path) = nox.load_macro_file()
 
-	(macro_name, file_path) = nox.load_macro_file()
+        (desc, fn) = macro_generators[macro_number - 1]
 
-	(desc, fn) = macro_generators[macro_number - 1]
+        print_macro_details()
+        # Generate the macro
+        fn()
 
-	print_macro_details()
-	# Generate the macro
-	fn()
+        # At this point we're back where we started and the macro can loop.
+        nox.close()
 
-	# At this point we're back where we started and the macro can loop.
-	nox.close()
+        print('File {0} successfully written.'.format(file_path))
 
-	print('File {0} successfully written.'.format(file_path))
 except SystemExit:
-	pass
+    pass
 except:
-	print('Something happened.  Please report this and paste the below text.')
-	import traceback
-	traceback.print_exc()
-	print('Press any key to exit')
-	nox.do_input()
+    print('Something happened.  Please report this and paste the below text.')
+    import traceback
+    traceback.print_exc()
+    print('Press any key to exit')
+    nox.do_input()

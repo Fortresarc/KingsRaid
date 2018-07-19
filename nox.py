@@ -143,10 +143,7 @@ def _mouse_drag(startposition, endposition, wait_milliseconds, speed, max_genera
             time))
         wait(timeIntervalBetweenInterpolated)
 
-    # TODO this may be redundant
-    #file.write("0ScRiPtSePaRaToR{0}|{1}|MULTI:0:6ScRiPtSePaRaToR{2}\n".format(resolution[0], resolution[1], time))
-    #file.write("0ScRiPtSePaRaToR{0}|{1}|MULTI:0:6ScRiPtSePaRaToR{2}\n".format(resolution[0], resolution[1], time))
-    #file.write("0ScRiPtSePaRaToR{0}|{1}|MULTI:0:1ScRiPtSePaRaToR{2}\n".format(resolution[0], resolution[1], time))
+    # Mouse button release
     file.write("0ScRiPtSePaRaToR{0}|{1}|MSBRL:15:2750055ScRiPtSePaRaToR{2}\n".format(resolution[0], resolution[1], time))
 
     # This is the delay between finishing one click and beginning the next click.  This needs to account
@@ -289,6 +286,22 @@ def is_integer(s):
         pass
  
     return False
+
+# Prompt user to use this settings file
+def select_settings_file_interactive():
+    currentDirList = os.listdir(".")
+    settingsList = []
+    for filename in currentDirList:
+        if filename.endswith(".json"):
+            settingsList.append(filename)
+    
+    for i in range (0, len(settingsList)):
+        print('{0}) {1}'.format(i+1, settingsList[i]))
+    value = prompt_user_for_int('Enter the settings file you wish to read/write: ', min=1, max=len(settingsList))
+    index = value - 1
+
+    # returns string
+    return settingsList[index]
 
 def select_macro_interactive(json_obj):
     if len(json_obj) == 0:

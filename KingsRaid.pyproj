@@ -28,8 +28,14 @@
     <Compile Include="DragonRaid.py" />
     <Compile Include="GenerateDefaultSettingsFile.py" />
     <Compile Include="Inventory.py" />
+    <Compile Include="KRCommon.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="krjs.py" />
     <Compile Include="krng.py" />
+    <Compile Include="KRSelect.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="nox.py" />
     <Compile Include="NPC.py" />
     <Compile Include="Settings.py" />

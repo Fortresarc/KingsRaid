@@ -54,7 +54,8 @@ Stockade_sSingleBattleDuration                      = 'SingleBattleDuration'
 # Conquests
 Conquest_sConquest                                  = 'Conquest'
 Conquest_sHighestClearedChapter                     = 'HighestClearedChapter'
-Conquest_sHardContentNoOfTimesToRetry               = 'HardContentNoOfTimesToRetry'
+Conquest_sHardContent_StartsFrom                    = 'HardContent_StartsFrom'
+Conquest_sHardContent_NoOfTimesToRetry              = 'HardContent_NoOfTimesToRetry'
 Conquest_sLongestRunTime_Chap2                      = 'LongestRunTime_Chap2'
 Conquest_sLongestRunTime_Chap3                      = 'LongestRunTime_Chap3'
 Conquest_sLongestRunTime_Chap4                      = 'LongestRunTime_Chap4'
@@ -66,7 +67,8 @@ Conquest_sLongestRunTime_Chap8                      = 'LongestRunTime_Chap8'
 # Upper Dungeons
 UpperDungeon_sUpperDungeon                          = 'UpperDungeon'
 UpperDungeon_sHighestClearedChapter                 = 'HighestClearedChapter'
-UpperDungeon_sHardContentNoOfTimesToRetry           = 'HardContentNoOfTimesToRetry'
+UpperDungeon_sHardContent_StartsFrom                = 'HardContent_StartsFrom'
+UpperDungeon_sHardContent_NoOfTimesToRetry          = 'HardContent_NoOfTimesToRetry'
 UpperDungeon_sLongestRunTime_Chap1                  = 'LongestRunTime_Chap1'
 UpperDungeon_sLongestRunTime_Chap2                  = 'LongestRunTime_Chap2'
 UpperDungeon_sLongestRunTime_Chap3                  = 'LongestRunTime_Chap3'
@@ -129,7 +131,8 @@ Stockade = {
 
 Conquest = {
     Conquest_sHighestClearedChapter                 : 8,
-    Conquest_sHardContentNoOfTimesToRetry           : 9,
+    Conquest_sHardContent_StartsFrom                : 8,
+    Conquest_sHardContent_NoOfTimesToRetry          : 9,
     Conquest_sLongestRunTime_Chap2                  : 50,       #secs
     Conquest_sLongestRunTime_Chap3                  : 50,
     Conquest_sLongestRunTime_Chap4                  : 50,
@@ -140,7 +143,7 @@ Conquest = {
     Main_sEasy_Hero1_Position                       : 3,
     Main_sEasy_Hero2_Position                       : 5,
     Main_sEasy_Hero3_Position                       : 8,
-    Main_sEasy_Hero4_Position                       : 18,
+    Main_sEasy_Hero4_Position                       : 15,
     Main_sHard_Hero1_Position                       : 1,
     Main_sHard_Hero2_Position                       : 3,
     Main_sHard_Hero3_Position                       : 5,
@@ -149,7 +152,8 @@ Conquest = {
 
 UpperDungeon = {
     UpperDungeon_sHighestClearedChapter             : 8,
-    UpperDungeon_sHardContentNoOfTimesToRetry       : 9,
+    UpperDungeon_sHardContent_StartsFrom            : 8,
+    UpperDungeon_sHardContent_NoOfTimesToRetry      : 9,
     UpperDungeon_sLongestRunTime_Chap1              : 50,       #secs
     UpperDungeon_sLongestRunTime_Chap2              : 50,
     UpperDungeon_sLongestRunTime_Chap3              : 50,
@@ -161,7 +165,7 @@ UpperDungeon = {
     Main_sEasy_Hero1_Position                       : 3,
     Main_sEasy_Hero2_Position                       : 5,
     Main_sEasy_Hero3_Position                       : 8,
-    Main_sEasy_Hero4_Position                       : 18,
+    Main_sEasy_Hero4_Position                       : 15,
     Main_sHard_Hero1_Position                       : 1,
     Main_sHard_Hero2_Position                       : 3,
     Main_sHard_Hero3_Position                       : 5,
@@ -236,7 +240,8 @@ def WriteDefaultSettingsFile () :
             },
         Conquest_sConquest : {
             Conquest_sHighestClearedChapter : Conquest[Conquest_sHighestClearedChapter],
-            Conquest_sHardContentNoOfTimesToRetry : Conquest[Conquest_sHardContentNoOfTimesToRetry],
+            Conquest_sHardContent_StartsFrom : Conquest[Conquest_sHardContent_StartsFrom],
+            Conquest_sHardContent_NoOfTimesToRetry : Conquest[Conquest_sHardContent_NoOfTimesToRetry],
             Conquest_sLongestRunTime_Chap2 : Conquest[Conquest_sLongestRunTime_Chap2],
             Conquest_sLongestRunTime_Chap3 : Conquest[Conquest_sLongestRunTime_Chap3],
             Conquest_sLongestRunTime_Chap4 : Conquest[Conquest_sLongestRunTime_Chap4],
@@ -255,7 +260,8 @@ def WriteDefaultSettingsFile () :
             },
         UpperDungeon_sUpperDungeon : {
             UpperDungeon_sHighestClearedChapter : UpperDungeon[UpperDungeon_sHighestClearedChapter],
-            UpperDungeon_sHardContentNoOfTimesToRetry : UpperDungeon[UpperDungeon_sHardContentNoOfTimesToRetry],
+            UpperDungeon_sHardContent_StartsFrom : UpperDungeon[UpperDungeon_sHardContent_StartsFrom],
+            UpperDungeon_sHardContent_NoOfTimesToRetry : UpperDungeon[UpperDungeon_sHardContent_NoOfTimesToRetry],
             UpperDungeon_sLongestRunTime_Chap1 : UpperDungeon[UpperDungeon_sLongestRunTime_Chap1],
             UpperDungeon_sLongestRunTime_Chap2 : UpperDungeon[UpperDungeon_sLongestRunTime_Chap2],
             UpperDungeon_sLongestRunTime_Chap3 : UpperDungeon[UpperDungeon_sLongestRunTime_Chap3],
