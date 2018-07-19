@@ -9,6 +9,10 @@ import math
 # Don't change anything in this file unless you know what you're doing.
 # ==================================================================================================================
 
+keypress_Back                   = 158   # Back button - exit current page
+keypress_ShowDesktop            = 102   # Home button - show nox desktop
+keypress_RecentApps             = 221   # RecentApps - show all apps from background
+
 file = None
 button_points = {}
 button_rects = {}
@@ -34,6 +38,32 @@ def repeat_generator_for(fn, seconds):
 
     while time - initial < milliseconds:
         fn()
+
+def keypress(i_bButton, i_nwait_milliseconds):
+    global file
+    global time
+    global resolution
+    print ("resolution = {0}, {1}".format(resolution[0], resolution[1]))
+
+    # NOTE: Not really needed, add a little time before clicking
+    time += 100
+    # Keyboard press
+    file.write("0ScRiPtSePaRaToR{0}|{1}|KBDPR:{2}:0ScRiPtSePaRaToR{3}\n".format(
+        resolution[0], resolution[1], i_bButton, time))
+    # Keyboard release
+    file.write("0ScRiPtSePaRaToR{0}|{1}|KBDRL:{2}:0ScRiPtSePaRaToR{3}\n".format(
+        resolution[0], resolution[1], i_bButton, time))
+    # Keyboard release 2
+    file.write("0ScRiPtSePaRaToR{0}|{1}|KBDRL:1:0ScRiPtSePaRaToR{2}\n".format(
+        resolution[0], resolution[1], time))
+
+    # This is the delay between finishing one click and beginning the next click.  This needs to account
+    # for how fast the game can transition from one screen to the next.  For example, if you're repeatedly
+    # clicking a buy button with the game not really doing anything between each click, this can be very
+    # low.  On the other hand, if a click causes the game to transition from one screen to another (e.g.
+    # using a portal and the game having to load into Orvel and load an entirely new area) then it should
+    # be fairly high.
+    wait(i_nwait_milliseconds)
 
 def click_loc(loc, wait_milliseconds):
     global file
