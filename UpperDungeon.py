@@ -28,7 +28,7 @@ def gen_upper_dungeon():
     print('All Upper Dungeons should have set levels.  To do this manually, you can start and then stop a battle on the chosen level per dungeon.  This is also a good way to alter which levels/fragments you want to focus on.')
 
     nSelectEasyContentHeroesAt = 1  # Select heroes for easy content
-    KRCommon.Gen_Conquest_UpperDungeon_Helper(  'upper_dungeon',    # Portal > UpperDungeon
+    KRCommon.Gen_Conquest_UpperDungeon_Helper(  'upper_dungeon',    # button name.. Portal > UpperDungeon
                                                 chapterList,
                                                 longestRunTimeList,
                                                 Settings.UpperDungeon[Settings.UpperDungeon_sHighestClearedChapter],

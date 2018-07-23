@@ -2,6 +2,7 @@ import nox
 import DoAllDailies
 import Settings
 import KRCommon
+import Manager
 
 def gen_conquest():
     chapterList = {
@@ -25,7 +26,7 @@ def gen_conquest():
 
     nSelectEasyContentHeroesAt = 1  # Select heroes for easy content
     nSelectHardContentHeroesAt = Settings.Conquest[Settings.Conquest_sHardContent_StartsFrom]  # Select heroes for hard content (Chapter 8)
-    KRCommon.Gen_Conquest_UpperDungeon_Helper('conquests',    # Portal > Conquest
+    KRCommon.Gen_Conquest_UpperDungeon_Helper('conquests',    # button name.. Portal > Conquest
                                             chapterList,
                                             longestRunTimeList,
                                             Settings.Conquest[Settings.Conquest_sHighestClearedChapter] - 1,    # Conquests chapters starts from 2, therefore index-1

@@ -36,6 +36,9 @@
     <Compile Include="KRSelect.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Manager.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="nox.py" />
     <Compile Include="NPC.py" />
     <Compile Include="Settings.py" />

@@ -5,6 +5,7 @@ import nox
 import Common
 import Inventory
 import Settings
+import Manager
 
 def prompt_inventory_management_properties():
     choice = nox.prompt_choices(
@@ -17,12 +18,12 @@ def prompt_inventory_management_properties():
 def do_generate_inventory_management_for_adventure(should_grind, should_sell):
     # At this point we're at the victory screen.  We need to click the Inventory button on the
     # left side.  This involves a loading screen and can take quite some time, so wait 15 seconds.
-    nox.click_loc((80, 230), 25000)
+    Manager.click_loc((80, 230), 25000)
 
     Inventory.manage_inventory(should_grind, should_sell)
 
     # Exit back to Orvel map
-    nox.click_button('exit', 3500)
+    Manager.click_button('exit', 3500)
 
 def gen_natural_stamina_farm():
     if False == nox.find_settings_file :
@@ -83,19 +84,19 @@ def gen_natural_stamina_farm():
         # one of our heroes and remove them from the lineup.  By putting this click first
         # it guarantees that we either enter the battle, or get the stamina window (in
         # which case the click doesn't go through to the button underneath).
-        nox.click_button('start_adventure', 500)
+        Manager.click_button('start_adventure', 500)
 
         # Be careful with the x coordinate here so that it clicks in between items in the
         # inventory if your inventory is full.
-        nox.click_loc((503, 352), 500)      # Continue (game pauses sometimes mid-battle)
+        Manager.click_loc((503, 352), 500)      # Continue (game pauses sometimes mid-battle)
 
-        nox.click_loc((1204, 494), 500)     # Retry
-        nox.click_loc((572, 467), 500)      # Single Repeat button.  Careful not to click the button that
+        Manager.click_loc((1204, 494), 500)     # Retry
+        Manager.click_loc((572, 467), 500)      # Single Repeat button.  Careful not to click the button that
                                             # edits the count of stamina potions to use.
         if use_pot:
-            nox.click_loc((759, 558), 500)      # Stamina Potion OK
+            Manager.click_loc((759, 558), 500)      # Stamina Potion OK
         else:
-            nox.click_loc((940, 190), 500)      # Close stamina pop-up
+            Manager.click_loc((940, 190), 500)      # Close stamina pop-up
 
     if inventory_management == -1:
         # If we don't need to manage inventory, just generate a simple macro that can loop forever.
@@ -110,10 +111,10 @@ def gen_natural_stamina_farm():
         # Hopefully 3 minutes is enough to finish any story level.
         def get_to_victory_screen():
             # Continue (game pauses sometimes mid-battle)
-            nox.click_loc((503, 352), 1000)
+            Manager.click_loc((503, 352), 1000)
 
             # Need to make sure to click below the loot results so they get dismissed properly
-            nox.click_loc((503, 500), 1000)
+            Manager.click_loc((503, 500), 1000)
 
         nox.repeat_generator_for(get_to_victory_screen, inv_management_sync * 60)
 
@@ -126,12 +127,12 @@ def gen_natural_stamina_farm():
 
 def re_enter_adventure(use_potion):
     # Re-enter the map.  Since there's a loading transition, this takes a little extra time.
-    nox.click_button('enter_node', 3500)
+    Manager.click_button('enter_node', 3500)
 
     # Prepare battle -> start adventure.
-    nox.click_button('start_adventure', 3500)
-    nox.click_button('start_adventure', 3500)
+    Manager.click_button('start_adventure', 3500)
+    Manager.click_button('start_adventure', 3500)
 
     # The stamina window may have popped up.  Use a potion
     if use_potion:
-        nox.click_loc((759, 558), 2000)      # Stamina Potion OK
+        Manager.click_loc((759, 558), 2000)      # Stamina Potion OK

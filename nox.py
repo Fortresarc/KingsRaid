@@ -43,7 +43,6 @@ def keypress(i_bButton, i_nwait_milliseconds):
     global file
     global time
     global resolution
-    print ("resolution = {0}, {1}".format(resolution[0], resolution[1]))
 
     # NOTE: Not really needed, add a little time before clicking
     time += 100

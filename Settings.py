@@ -9,8 +9,8 @@ SETTINGS_FILENAME                                   = 'settings.json'
 Main_sMain                                          = 'Main'
 Main_sResolutionX                                   = 'ResolutionX'
 Main_sResolutionY                                   = 'ResolutionY'
-Main_sGameLauch_TapToPlayDuration                   = 'GameLaunch_TapToPlayDuration'
-Main_sGameLauch_MainGameScreenDuration              = 'GameLaunch_MainGameScreenDuration'
+Main_sGameLaunch_TapToPlayDuration                   = 'GameLaunch_TapToPlayDuration'
+Main_sGameLaunch_MainGameScreenDuration              = 'GameLaunch_MainGameScreenDuration'
 Main_sNoOfClicksToClearAdvertisement                = 'NoOfClicksToClearAdvertisement'
 Main_sTransitionDuration_Alter                      = 'TransitionDuration_Alter'
 Main_sDurationAfterClick                            = 'DurationAfterClick'
@@ -34,6 +34,11 @@ Main_sHard_Hero1_Position                           = 'Hard_Hero1_Position'
 Main_sHard_Hero2_Position                           = 'Hard_Hero2_Position'
 Main_sHard_Hero3_Position                           = 'Hard_Hero3_Position'
 Main_sHard_Hero4_Position                           = 'Hard_Hero4_Position'
+
+# World boss
+WorldBoss_sWorldBoss                                = 'WorldBoss'
+WorldBoss_sNoOfKeys                                 = 'NoOfKeys'
+WorldBoss_sSingleBattleDuration                     = 'SingleBattleDuration'
 
 # Ancient royal vault
 Vault_sVault                                        = 'Vault'
@@ -97,8 +102,8 @@ Black_DragonRaid_sBlackDragonRaid                   = 'Black_DragonRaid'
 Main = {
     Main_sResolutionX                               : 1280,
     Main_sResolutionY                               : 720,
-    Main_sGameLauch_TapToPlayDuration               : 50000,    # From game launched to Tap to Play
-    Main_sGameLauch_MainGameScreenDuration          : 10000,    # From Press to Enter to Main game screen
+    Main_sGameLaunch_TapToPlayDuration               : 50000,    # From game launched to Tap to Play
+    Main_sGameLaunch_MainGameScreenDuration          : 10000,    # From Press to Enter to Main game screen
     Main_sNoOfClicksToClearAdvertisement            : 5,
     Main_sTransitionDuration_Alter                  : 2000,
     Main_sDurationAfterClick                        : 2000,
@@ -113,10 +118,15 @@ Main = {
     Main_sAutoStory_GrindOrSellInventory            : 'g',      # g = grind, s = sell
 }
 
+WorldBoss = {
+    WorldBoss_sNoOfKeys                             : 2,        # number of keys for the day
+    WorldBoss_sSingleBattleDuration                 : 320000    # millisecs i.e. 5 mins 20 secs
+}
+
 Vault = {
     Vault_sHighestClearedFloor                      : 45,
     Vault_sLongestRunTime                           : 90000,    # 90 secs
-    Vault_sNumOfKeysToday                           : 10
+    Vault_sNumOfKeysToday                           : 5
 }
 
 Arena = {
@@ -153,7 +163,7 @@ Conquest = {
 UpperDungeon = {
     UpperDungeon_sHighestClearedChapter             : 8,
     UpperDungeon_sHardContent_StartsFrom            : 8,
-    UpperDungeon_sHardContent_NoOfTimesToRetry      : 9,
+    UpperDungeon_sHardContent_NoOfTimesToRetry      : 11,
     UpperDungeon_sLongestRunTime_Chap1              : 50,       #secs
     UpperDungeon_sLongestRunTime_Chap2              : 50,
     UpperDungeon_sLongestRunTime_Chap3              : 50,
@@ -182,9 +192,9 @@ UpperDungeon = {
 DragonRaidConfig = {
     DragonRaidConfig_sSelectDragonToAuto            : 'Fire_DragonRaid',    # Fire_DragonRaid, Frost_DragonRaid, Poison_DragonRaid, Black_DragonRaid
     DragonRaidConfig_sHero1_Position                : 1,                    # Please select in ascending order i.e. Hero1_Pos=1, Hero2_Pos=3 and so on
-    DragonRaidConfig_sHero2_Position                : 3,                    # Please select in ascending order i.e. Hero1_Pos=1, Hero2_Pos=3 and so on
-    DragonRaidConfig_sHero3_Position                : 5,                    # Please select in ascending order i.e. Hero1_Pos=1, Hero2_Pos=3 and so on
-    DragonRaidConfig_sHero4_Position                : 8                     # Please select in ascending order i.e. Hero1_Pos=1, Hero2_Pos=3 and so on
+    DragonRaidConfig_sHero2_Position                : 5,                    # Please select in ascending order i.e. Hero1_Pos=1, Hero2_Pos=3 and so on
+    DragonRaidConfig_sHero3_Position                : 9,                    # Please select in ascending order i.e. Hero1_Pos=1, Hero2_Pos=3 and so on
+    DragonRaidConfig_sHero4_Position                : 10                     # Please select in ascending order i.e. Hero1_Pos=1, Hero2_Pos=3 and so on
 }
 
 Fire_DragonRaid = {
@@ -210,8 +220,8 @@ Black_DragonRaid = {
 def WriteDefaultSettingsFile () :
     data = {
         Main_sMain : {
-            Main_sGameLauch_TapToPlayDuration : Main[Main_sGameLauch_TapToPlayDuration],
-            Main_sGameLauch_MainGameScreenDuration : Main[Main_sGameLauch_MainGameScreenDuration],
+            Main_sGameLaunch_TapToPlayDuration : Main[Main_sGameLaunch_TapToPlayDuration],
+            Main_sGameLaunch_MainGameScreenDuration : Main[Main_sGameLaunch_MainGameScreenDuration],
             Main_sNoOfClicksToClearAdvertisement : Main[Main_sNoOfClicksToClearAdvertisement],
             Main_sTransitionDuration_Alter : Main[Main_sTransitionDuration_Alter],
             Main_sDurationAfterClick : Main[Main_sDurationAfterClick],
@@ -224,6 +234,10 @@ def WriteDefaultSettingsFile () :
             Main_sAutoStory_LongestRunningTime : Main[Main_sAutoStory_LongestRunningTime],
             Main_sAutoStory_ManageInventoryInterval : Main[Main_sAutoStory_ManageInventoryInterval],
             Main_sAutoStory_GrindOrSellInventory : Main[Main_sAutoStory_GrindOrSellInventory]
+            },
+        WorldBoss_sWorldBoss : {
+            WorldBoss_sNoOfKeys : WorldBoss[WorldBoss_sNoOfKeys],
+            WorldBoss_sSingleBattleDuration : WorldBoss[WorldBoss_sSingleBattleDuration]
             },
         Vault_sVault : {
             Vault_sHighestClearedFloor : Vault[Vault_sHighestClearedFloor],
@@ -325,6 +339,9 @@ def ReadFromFile () :
         if key == Main_sMain :
             for value in json_obj[key] :
                 Main[value] = json_obj[Main_sMain][value]
+        elif key == WorldBoss_sWorldBoss :
+            for value in json_obj[key] :
+                WorldBoss[value] = json_obj[WorldBoss_sWorldBoss][value]
         elif key == Vault_sVault :
             for value in json_obj[key] :
                 Vault[value] = json_obj[Vault_sVault][value]

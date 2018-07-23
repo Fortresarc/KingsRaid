@@ -67,6 +67,8 @@ points = {
     'ch8_conquest_naviTo_story_8_24' : (900, 395),
     'ch8_conquest_naviTo_story_8_23' : (774, 588),
     'ch8_conquest_naviTo_story_8_23_2' : (997, 150),
+    # Story - Chap 7
+    'ch7_conquest_naviTo_story_7_8' : (540, 460),
     # Story - Chap 6
     'ch6_conquest_naviTo_story_6_10' : (888, 499),
 
@@ -162,6 +164,9 @@ points = {
     'portal_orvel_forge' : (500, 430),
     'portal_orvel_orvelcastle' : (790, 430),
     'portal_orvel_guild' : (500, 512),
+
+    # World Boss
+    'worldboss_readyforbattle' : (918, 638),
 
     # Orvel Castle
     'vault_enterancient' : (630, 366),
