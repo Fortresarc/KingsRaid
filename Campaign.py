@@ -23,7 +23,7 @@ def do_generate_inventory_management_for_adventure(should_grind, should_sell):
     Inventory.manage_inventory(should_grind, should_sell)
 
     # Exit back to Orvel map
-    Manager.click_button('exit', 3500)
+    Manager.click_button_msecs('exit', 3500, False)
 
 def gen_natural_stamina_farm():
     if False == nox.find_settings_file :
@@ -35,8 +35,8 @@ def gen_natural_stamina_farm():
             "To disable inventory management, press Enter without entering a value: ", min=1,
             default = -1)
     else :
-        use_pot = Settings.Main[Settings.Main_sAutoStory_UseStaminaPot]
-        inventory_management = Settings.Main[Settings.Main_sAutoStory_ManageInventoryInterval]
+        use_pot = Settings.Story[Settings.Story_sUseStaminaPot]
+        inventory_management = Settings.Story[Settings.Story_sManageInventoryInterval_m]
 
     inv_management_sync = None
     properties={'Use Potion': use_pot}
@@ -50,8 +50,8 @@ def gen_natural_stamina_farm():
                 'to complete a story dungeon.  (Default = 3): ', default = 3)
             (should_grind, should_sell) = prompt_inventory_management_properties()
         else :
-            inv_management_sync = Settings.Main[Settings.Main_sAutoStory_LongestRunningTime]
-            if 'g' == Settings.Main[Settings.Main_sAutoStory_GrindOrSellInventory] :
+            inv_management_sync = Settings.Story[Settings.Story_sLongestRunningTime_s] / 60
+            if 'g' == Settings.Story[Settings.Story_sGrindOrSellInventory] :
                 (should_grind, should_sell) = (True, False)
             else :
                 (should_grind, should_sell) = (False, True)
@@ -84,7 +84,7 @@ def gen_natural_stamina_farm():
         # one of our heroes and remove them from the lineup.  By putting this click first
         # it guarantees that we either enter the battle, or get the stamina window (in
         # which case the click doesn't go through to the button underneath).
-        Manager.click_button('start_adventure', 500)
+        Manager.click_button_msecs('start_adventure', 500, False)
 
         # Be careful with the x coordinate here so that it clicks in between items in the
         # inventory if your inventory is full.
@@ -127,11 +127,11 @@ def gen_natural_stamina_farm():
 
 def re_enter_adventure(use_potion):
     # Re-enter the map.  Since there's a loading transition, this takes a little extra time.
-    Manager.click_button('enter_node', 3500)
+    Manager.click_button_msecs('enter_node', 3500, False)
 
     # Prepare battle -> start adventure.
-    Manager.click_button('start_adventure', 3500)
-    Manager.click_button('start_adventure', 3500)
+    Manager.click_button_msecs('start_adventure', 3500, False)
+    Manager.click_button_msecs('start_adventure', 3500, False)
 
     # The stamina window may have popped up.  Use a potion
     if use_potion:

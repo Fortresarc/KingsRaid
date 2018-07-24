@@ -15,13 +15,13 @@ def gen_conquest():
         7 : 'ch8_conquest'
         }
     longestRunTimeList = {
-        'ch2_conquest' : Settings.Conquest[Settings.Conquest_sLongestRunTime_Chap2],
-        'ch3_conquest' : Settings.Conquest[Settings.Conquest_sLongestRunTime_Chap3],
-        'ch4_conquest' : Settings.Conquest[Settings.Conquest_sLongestRunTime_Chap4],
-        'ch5_conquest' : Settings.Conquest[Settings.Conquest_sLongestRunTime_Chap5],
-        'ch6_conquest' : Settings.Conquest[Settings.Conquest_sLongestRunTime_Chap6],
-        'ch7_conquest' : Settings.Conquest[Settings.Conquest_sLongestRunTime_Chap7],
-        'ch8_conquest' : Settings.Conquest[Settings.Conquest_sLongestRunTime_Chap8]
+        'ch2_conquest' : Settings.Conquest[Settings.Conquest_sLongestRunTime_Chap2_s],
+        'ch3_conquest' : Settings.Conquest[Settings.Conquest_sLongestRunTime_Chap3_s],
+        'ch4_conquest' : Settings.Conquest[Settings.Conquest_sLongestRunTime_Chap4_s],
+        'ch5_conquest' : Settings.Conquest[Settings.Conquest_sLongestRunTime_Chap5_s],
+        'ch6_conquest' : Settings.Conquest[Settings.Conquest_sLongestRunTime_Chap6_s],
+        'ch7_conquest' : Settings.Conquest[Settings.Conquest_sLongestRunTime_Chap7_s],
+        'ch8_conquest' : Settings.Conquest[Settings.Conquest_sLongestRunTime_Chap8_s]
         }
 
     nSelectEasyContentHeroesAt = 1  # Select heroes for easy content

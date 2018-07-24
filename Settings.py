@@ -9,20 +9,15 @@ SETTINGS_FILENAME                                   = 'settings.json'
 Main_sMain                                          = 'Main'
 Main_sResolutionX                                   = 'ResolutionX'
 Main_sResolutionY                                   = 'ResolutionY'
-Main_sGameLaunch_TapToPlayDuration                   = 'GameLaunch_TapToPlayDuration'
-Main_sGameLaunch_MainGameScreenDuration              = 'GameLaunch_MainGameScreenDuration'
+Main_sGameLaunch_TapToPlayDuration_s                = 'GameLaunch_TapToPlayDuration_secs'
+Main_sGameLaunch_MainGameScreenDuration_s           = 'GameLaunch_MainGameScreenDuration_secs'
 Main_sNoOfClicksToClearAdvertisement                = 'NoOfClicksToClearAdvertisement'
-Main_sTransitionDuration_Alter                      = 'TransitionDuration_Alter'
-Main_sDurationAfterClick                            = 'DurationAfterClick'
-Main_sDurationAfterClick_Short                      = 'DurationAfterClick_Short'
-Main_sDurationAfterClick_Long                       = 'DurationAfterClick_Long'
-Main_sAnyGameScreenLoadingTime                      = 'AnyGameScreenLoadingTime'
-Main_sReceiveNewHeroDuration                        = 'ReceiveNewHeroDuration'
-Main_sAutoStory_AtChapter                           = 'AutoStory_AtChapter'
-Main_sAutoStory_UseStaminaPot                       = 'AutoStory_UseStaminaPot'
-Main_sAutoStory_LongestRunningTime                  = 'AutoStory_LongestRunningTime'
-Main_sAutoStory_ManageInventoryInterval             = 'AutoStory_ManageInventoryInterval'
-Main_sAutoStory_GrindOrSellInventory                = 'AutoStory_GrindOrSellInventory'
+Main_sTransitionDuration_ms                         = 'TransitionDuration_msecs'
+Main_sDurationAfterClick_ms                         = 'DurationAfterClick_msecs'
+Main_sDurationAfterClick_Short_ms                   = 'DurationAfterClick_Short_msecs'
+Main_sDurationAfterClick_Long_ms                    = 'DurationAfterClick_Long_msecs'
+Main_sAnyGameScreenLoadingTime_s                    = 'AnyGameScreenLoadingTime_secs'
+Main_sReceiveNewHeroDuration_s                      = 'ReceiveNewHeroDuration_secs'
 # Conquests and upper dungeons
 Main_sEasyContent                                   = "EasyContent"
 Main_sHardContent                                   = "HardContent"
@@ -38,50 +33,58 @@ Main_sHard_Hero4_Position                           = 'Hard_Hero4_Position'
 # World boss
 WorldBoss_sWorldBoss                                = 'WorldBoss'
 WorldBoss_sNoOfKeys                                 = 'NoOfKeys'
-WorldBoss_sSingleBattleDuration                     = 'SingleBattleDuration'
+WorldBoss_sSingleBattleDuration_s                   = 'SingleBattleDuration_secs'
 
 # Ancient royal vault
 Vault_sVault                                        = 'Vault'
 Vault_sHighestClearedFloor                          = 'HighestClearedFloor'
-Vault_sLongestRunTime                               = 'LongestRunTime'
+Vault_sLongestRunTime_s                             = 'LongestRunTime_secs'
 Vault_sNumOfKeysToday                               = 'NumOfKeysToday'
 
 # Arena
 Arena_sArena                                        = 'Arena'
 Arena_sNoOfMatches                                  = 'NoOfMatches'
-Arena_sMatchDuration                                = 'MatchDuration'
+Arena_sMatchDuration_s                              = 'MatchDuration_secs'
 
 # Stockade
 Stockade_sStockade                                  = 'Stockade'
 Stockade_sClaimSkillBook                            = 'ClaimSkillBook'
-Stockade_sSingleBattleDuration                      = 'SingleBattleDuration'
+Stockade_sSingleBattleDuration_s                    = 'SingleBattleDuration_secs'
+
+# Story
+Story_sStory                                        = 'Story'
+Story_sAutoRepeatAtChapter                          = 'AutoRepeatAtChapter'
+Story_sUseStaminaPot                                = 'UseStaminaPot'
+Story_sLongestRunningTime_s                         = 'LongestRunningTime_secs'
+Story_sManageInventoryInterval_m                    = 'ManageInventoryInterval_mins'
+Story_sGrindOrSellInventory                         = 'GrindOrSellInventory'
 
 # Conquests
 Conquest_sConquest                                  = 'Conquest'
 Conquest_sHighestClearedChapter                     = 'HighestClearedChapter'
 Conquest_sHardContent_StartsFrom                    = 'HardContent_StartsFrom'
 Conquest_sHardContent_NoOfTimesToRetry              = 'HardContent_NoOfTimesToRetry'
-Conquest_sLongestRunTime_Chap2                      = 'LongestRunTime_Chap2'
-Conquest_sLongestRunTime_Chap3                      = 'LongestRunTime_Chap3'
-Conquest_sLongestRunTime_Chap4                      = 'LongestRunTime_Chap4'
-Conquest_sLongestRunTime_Chap5                      = 'LongestRunTime_Chap5'
-Conquest_sLongestRunTime_Chap6                      = 'LongestRunTime_Chap6'
-Conquest_sLongestRunTime_Chap7                      = 'LongestRunTime_Chap7'
-Conquest_sLongestRunTime_Chap8                      = 'LongestRunTime_Chap8'
+Conquest_sLongestRunTime_Chap2_s                    = 'LongestRunTime_Chap2_secs'
+Conquest_sLongestRunTime_Chap3_s                    = 'LongestRunTime_Chap3_secs'
+Conquest_sLongestRunTime_Chap4_s                    = 'LongestRunTime_Chap4_secs'
+Conquest_sLongestRunTime_Chap5_s                    = 'LongestRunTime_Chap5_secs'
+Conquest_sLongestRunTime_Chap6_s                    = 'LongestRunTime_Chap6_secs'
+Conquest_sLongestRunTime_Chap7_s                    = 'LongestRunTime_Chap7_secs'
+Conquest_sLongestRunTime_Chap8_s                    = 'LongestRunTime_Chap8_secs'
 
 # Upper Dungeons
 UpperDungeon_sUpperDungeon                          = 'UpperDungeon'
 UpperDungeon_sHighestClearedChapter                 = 'HighestClearedChapter'
 UpperDungeon_sHardContent_StartsFrom                = 'HardContent_StartsFrom'
 UpperDungeon_sHardContent_NoOfTimesToRetry          = 'HardContent_NoOfTimesToRetry'
-UpperDungeon_sLongestRunTime_Chap1                  = 'LongestRunTime_Chap1'
-UpperDungeon_sLongestRunTime_Chap2                  = 'LongestRunTime_Chap2'
-UpperDungeon_sLongestRunTime_Chap3                  = 'LongestRunTime_Chap3'
-UpperDungeon_sLongestRunTime_Chap4                  = 'LongestRunTime_Chap4'
-UpperDungeon_sLongestRunTime_Chap5                  = 'LongestRunTime_Chap5'
-UpperDungeon_sLongestRunTime_Chap6                  = 'LongestRunTime_Chap6'
-UpperDungeon_sLongestRunTime_Chap7                  = 'LongestRunTime_Chap7'
-UpperDungeon_sLongestRunTime_Chap8                  = 'LongestRunTime_Chap8'
+UpperDungeon_sLongestRunTime_Chap1_s                = 'LongestRunTime_Chap1_secs'
+UpperDungeon_sLongestRunTime_Chap2_s                = 'LongestRunTime_Chap2_secs'
+UpperDungeon_sLongestRunTime_Chap3_s                = 'LongestRunTime_Chap3_secs'
+UpperDungeon_sLongestRunTime_Chap4_s                = 'LongestRunTime_Chap4_secs'
+UpperDungeon_sLongestRunTime_Chap5_s                = 'LongestRunTime_Chap5_secs'
+UpperDungeon_sLongestRunTime_Chap6_s                = 'LongestRunTime_Chap6_secs'
+UpperDungeon_sLongestRunTime_Chap7_s                = 'LongestRunTime_Chap7_secs'
+UpperDungeon_sLongestRunTime_Chap8_s                = 'LongestRunTime_Chap8_secs'
 
 # Dragon Raid configuration for all
 DragonRaidConfig_sHero1_Position                    = 'Hero1_Position'
@@ -102,54 +105,57 @@ Black_DragonRaid_sBlackDragonRaid                   = 'Black_DragonRaid'
 Main = {
     Main_sResolutionX                               : 1280,
     Main_sResolutionY                               : 720,
-    Main_sGameLaunch_TapToPlayDuration               : 50000,    # From game launched to Tap to Play
-    Main_sGameLaunch_MainGameScreenDuration          : 10000,    # From Press to Enter to Main game screen
+    Main_sGameLaunch_TapToPlayDuration_s            : 50,    # 50s From game launched to Tap to Play
+    Main_sGameLaunch_MainGameScreenDuration_s       : 10,    # 10s From Press to Enter to Main game screen
     Main_sNoOfClicksToClearAdvertisement            : 5,
-    Main_sTransitionDuration_Alter                  : 2000,
-    Main_sDurationAfterClick                        : 2000,
-    Main_sDurationAfterClick_Short                  : 600,
-    Main_sDurationAfterClick_Long                   : 5000,
-    Main_sAnyGameScreenLoadingTime                  : 15000,    # E.g. Arena exit can take a long time
-    Main_sReceiveNewHeroDuration                    : 12000,    # 12 s
-    Main_sAutoStory_AtChapter                       : 8,        # Auto repeat this chapter
-    Main_sAutoStory_UseStaminaPot                   : 'N',
-    Main_sAutoStory_LongestRunningTime              : 3,        # 3 minutes
-    Main_sAutoStory_ManageInventoryInterval         : 60,       # Every 60 minutes do inventory management
-    Main_sAutoStory_GrindOrSellInventory            : 'g',      # g = grind, s = sell
+    Main_sTransitionDuration_ms                     : 2000,
+    Main_sDurationAfterClick_ms                     : 2000,
+    Main_sDurationAfterClick_Short_ms               : 600,
+    Main_sDurationAfterClick_Long_ms                : 5000,
+    Main_sAnyGameScreenLoadingTime_s                : 15,    # 15s E.g. Arena exit can take a long time
+    Main_sReceiveNewHeroDuration_s                  : 12,    # 12 s
 }
 
 WorldBoss = {
     WorldBoss_sNoOfKeys                             : 2,        # number of keys for the day
-    WorldBoss_sSingleBattleDuration                 : 320000    # millisecs i.e. 5 mins 20 secs
+    WorldBoss_sSingleBattleDuration_s               : 350       # 350s i.e. 5 mins 50 secs
 }
 
 Vault = {
     Vault_sHighestClearedFloor                      : 45,
-    Vault_sLongestRunTime                           : 90000,    # 90 secs
+    Vault_sLongestRunTime_s                         : 90,    # 90 secs
     Vault_sNumOfKeysToday                           : 5
 }
 
 Arena = {
     Arena_sNoOfMatches                              : 5,
-    Arena_sMatchDuration                            : 95000     #1min 25secs inclusive of "New challenger delay"
+    Arena_sMatchDuration_s                          : 95     # 90s i.e. 1min 25secs inclusive of "New challenger delay"
 }
 
 Stockade = {
     Stockade_sClaimSkillBook                        : 4,        # Claim skill book 1 or 2 or 3 or 4
-    Stockade_sSingleBattleDuration                  : 80000
+    Stockade_sSingleBattleDuration_s                : 80        # 80s
+}
+
+Story = {
+    Story_sAutoRepeatAtChapter                      : 8,        # Auto repeat this chapter
+    Story_sUseStaminaPot                            : 'N',
+    Story_sLongestRunningTime_s                     : 180,      # 180s i.e. 3 minutes
+    Story_sManageInventoryInterval_m                : 60,       # Every 60 minutes do inventory management
+    Story_sGrindOrSellInventory                     : 'g',      # g = grind, s = sell
 }
 
 Conquest = {
     Conquest_sHighestClearedChapter                 : 8,
     Conquest_sHardContent_StartsFrom                : 8,
     Conquest_sHardContent_NoOfTimesToRetry          : 9,
-    Conquest_sLongestRunTime_Chap2                  : 50,       #secs
-    Conquest_sLongestRunTime_Chap3                  : 50,
-    Conquest_sLongestRunTime_Chap4                  : 50,
-    Conquest_sLongestRunTime_Chap5                  : 70,
-    Conquest_sLongestRunTime_Chap6                  : 55,
-    Conquest_sLongestRunTime_Chap7                  : 75,
-    Conquest_sLongestRunTime_Chap8                  : 150,
+    Conquest_sLongestRunTime_Chap2_s                : 50,       #secs
+    Conquest_sLongestRunTime_Chap3_s                : 50,
+    Conquest_sLongestRunTime_Chap4_s                : 50,
+    Conquest_sLongestRunTime_Chap5_s                : 70,
+    Conquest_sLongestRunTime_Chap6_s                : 55,
+    Conquest_sLongestRunTime_Chap7_s                : 75,
+    Conquest_sLongestRunTime_Chap8_s                : 150,
     Main_sEasy_Hero1_Position                       : 3,
     Main_sEasy_Hero2_Position                       : 5,
     Main_sEasy_Hero3_Position                       : 8,
@@ -164,14 +170,14 @@ UpperDungeon = {
     UpperDungeon_sHighestClearedChapter             : 8,
     UpperDungeon_sHardContent_StartsFrom            : 8,
     UpperDungeon_sHardContent_NoOfTimesToRetry      : 11,
-    UpperDungeon_sLongestRunTime_Chap1              : 50,       #secs
-    UpperDungeon_sLongestRunTime_Chap2              : 50,
-    UpperDungeon_sLongestRunTime_Chap3              : 50,
-    UpperDungeon_sLongestRunTime_Chap4              : 50,
-    UpperDungeon_sLongestRunTime_Chap5              : 55,
-    UpperDungeon_sLongestRunTime_Chap6              : 55,
-    UpperDungeon_sLongestRunTime_Chap7              : 95,
-    UpperDungeon_sLongestRunTime_Chap8              : 190,
+    UpperDungeon_sLongestRunTime_Chap1_s            : 50,       #secs
+    UpperDungeon_sLongestRunTime_Chap2_s            : 50,
+    UpperDungeon_sLongestRunTime_Chap3_s            : 50,
+    UpperDungeon_sLongestRunTime_Chap4_s            : 50,
+    UpperDungeon_sLongestRunTime_Chap5_s            : 55,
+    UpperDungeon_sLongestRunTime_Chap6_s            : 55,
+    UpperDungeon_sLongestRunTime_Chap7_s            : 95,
+    UpperDungeon_sLongestRunTime_Chap8_s            : 190,
     Main_sEasy_Hero1_Position                       : 3,
     Main_sEasy_Hero2_Position                       : 5,
     Main_sEasy_Hero3_Position                       : 8,
@@ -220,49 +226,51 @@ Black_DragonRaid = {
 def WriteDefaultSettingsFile () :
     data = {
         Main_sMain : {
-            Main_sGameLaunch_TapToPlayDuration : Main[Main_sGameLaunch_TapToPlayDuration],
-            Main_sGameLaunch_MainGameScreenDuration : Main[Main_sGameLaunch_MainGameScreenDuration],
+            Main_sGameLaunch_TapToPlayDuration_s : Main[Main_sGameLaunch_TapToPlayDuration_s],
+            Main_sGameLaunch_MainGameScreenDuration_s : Main[Main_sGameLaunch_MainGameScreenDuration_s],
             Main_sNoOfClicksToClearAdvertisement : Main[Main_sNoOfClicksToClearAdvertisement],
-            Main_sTransitionDuration_Alter : Main[Main_sTransitionDuration_Alter],
-            Main_sDurationAfterClick : Main[Main_sDurationAfterClick],
-            Main_sDurationAfterClick_Short : Main[Main_sDurationAfterClick_Short],
-            Main_sDurationAfterClick_Long : Main[Main_sDurationAfterClick_Long],
-            Main_sAnyGameScreenLoadingTime : Main[Main_sAnyGameScreenLoadingTime],
-            Main_sReceiveNewHeroDuration : Main[Main_sReceiveNewHeroDuration],
-            Main_sAutoStory_AtChapter : Main[Main_sAutoStory_AtChapter],
-            Main_sAutoStory_UseStaminaPot : Main[Main_sAutoStory_UseStaminaPot],
-            Main_sAutoStory_LongestRunningTime : Main[Main_sAutoStory_LongestRunningTime],
-            Main_sAutoStory_ManageInventoryInterval : Main[Main_sAutoStory_ManageInventoryInterval],
-            Main_sAutoStory_GrindOrSellInventory : Main[Main_sAutoStory_GrindOrSellInventory]
-            },
+            Main_sTransitionDuration_ms : Main[Main_sTransitionDuration_ms],
+            Main_sDurationAfterClick_ms : Main[Main_sDurationAfterClick_ms],
+            Main_sDurationAfterClick_Short_ms : Main[Main_sDurationAfterClick_Short_ms],
+            Main_sDurationAfterClick_Long_ms : Main[Main_sDurationAfterClick_Long_ms],
+            Main_sAnyGameScreenLoadingTime_s : Main[Main_sAnyGameScreenLoadingTime_s],
+            Main_sReceiveNewHeroDuration_s : Main[Main_sReceiveNewHeroDuration_s]
+        },
         WorldBoss_sWorldBoss : {
             WorldBoss_sNoOfKeys : WorldBoss[WorldBoss_sNoOfKeys],
-            WorldBoss_sSingleBattleDuration : WorldBoss[WorldBoss_sSingleBattleDuration]
+            WorldBoss_sSingleBattleDuration_s : WorldBoss[WorldBoss_sSingleBattleDuration_s]
             },
         Vault_sVault : {
             Vault_sHighestClearedFloor : Vault[Vault_sHighestClearedFloor],
-            Vault_sLongestRunTime : Vault[Vault_sLongestRunTime],
+            Vault_sLongestRunTime_s : Vault[Vault_sLongestRunTime_s],
             Vault_sNumOfKeysToday : Vault[Vault_sNumOfKeysToday]
             },
         Arena_sArena : {
             Arena_sNoOfMatches : Arena[Arena_sNoOfMatches],
-            Arena_sMatchDuration : Arena[Arena_sMatchDuration]
+            Arena_sMatchDuration_s : Arena[Arena_sMatchDuration_s]
             },
         Stockade_sStockade : {
             Stockade_sClaimSkillBook : Stockade[Stockade_sClaimSkillBook],
-            Stockade_sSingleBattleDuration : Stockade[Stockade_sSingleBattleDuration]
+            Stockade_sSingleBattleDuration_s : Stockade[Stockade_sSingleBattleDuration_s]
+            },
+        Story_sStory : {
+            Story_sAutoRepeatAtChapter : Story[Story_sAutoRepeatAtChapter],
+            Story_sUseStaminaPot : Story[Story_sUseStaminaPot],
+            Story_sLongestRunningTime_s : Story[Story_sLongestRunningTime_s],
+            Story_sManageInventoryInterval_m : Story[Story_sManageInventoryInterval_m],
+            Story_sGrindOrSellInventory : Story[Story_sGrindOrSellInventory]
             },
         Conquest_sConquest : {
             Conquest_sHighestClearedChapter : Conquest[Conquest_sHighestClearedChapter],
             Conquest_sHardContent_StartsFrom : Conquest[Conquest_sHardContent_StartsFrom],
             Conquest_sHardContent_NoOfTimesToRetry : Conquest[Conquest_sHardContent_NoOfTimesToRetry],
-            Conquest_sLongestRunTime_Chap2 : Conquest[Conquest_sLongestRunTime_Chap2],
-            Conquest_sLongestRunTime_Chap3 : Conquest[Conquest_sLongestRunTime_Chap3],
-            Conquest_sLongestRunTime_Chap4 : Conquest[Conquest_sLongestRunTime_Chap4],
-            Conquest_sLongestRunTime_Chap5 : Conquest[Conquest_sLongestRunTime_Chap5],
-            Conquest_sLongestRunTime_Chap6 : Conquest[Conquest_sLongestRunTime_Chap6],
-            Conquest_sLongestRunTime_Chap7 : Conquest[Conquest_sLongestRunTime_Chap7],
-            Conquest_sLongestRunTime_Chap8 : Conquest[Conquest_sLongestRunTime_Chap8],
+            Conquest_sLongestRunTime_Chap2_s : Conquest[Conquest_sLongestRunTime_Chap2_s],
+            Conquest_sLongestRunTime_Chap3_s : Conquest[Conquest_sLongestRunTime_Chap3_s],
+            Conquest_sLongestRunTime_Chap4_s : Conquest[Conquest_sLongestRunTime_Chap4_s],
+            Conquest_sLongestRunTime_Chap5_s : Conquest[Conquest_sLongestRunTime_Chap5_s],
+            Conquest_sLongestRunTime_Chap6_s : Conquest[Conquest_sLongestRunTime_Chap6_s],
+            Conquest_sLongestRunTime_Chap7_s : Conquest[Conquest_sLongestRunTime_Chap7_s],
+            Conquest_sLongestRunTime_Chap8_s : Conquest[Conquest_sLongestRunTime_Chap8_s],
             Main_sEasy_Hero1_Position : Conquest[Main_sEasy_Hero1_Position],
             Main_sEasy_Hero2_Position : Conquest[Main_sEasy_Hero2_Position],
             Main_sEasy_Hero3_Position : Conquest[Main_sEasy_Hero3_Position],
@@ -276,14 +284,14 @@ def WriteDefaultSettingsFile () :
             UpperDungeon_sHighestClearedChapter : UpperDungeon[UpperDungeon_sHighestClearedChapter],
             UpperDungeon_sHardContent_StartsFrom : UpperDungeon[UpperDungeon_sHardContent_StartsFrom],
             UpperDungeon_sHardContent_NoOfTimesToRetry : UpperDungeon[UpperDungeon_sHardContent_NoOfTimesToRetry],
-            UpperDungeon_sLongestRunTime_Chap1 : UpperDungeon[UpperDungeon_sLongestRunTime_Chap1],
-            UpperDungeon_sLongestRunTime_Chap2 : UpperDungeon[UpperDungeon_sLongestRunTime_Chap2],
-            UpperDungeon_sLongestRunTime_Chap3 : UpperDungeon[UpperDungeon_sLongestRunTime_Chap3],
-            UpperDungeon_sLongestRunTime_Chap4 : UpperDungeon[UpperDungeon_sLongestRunTime_Chap4],
-            UpperDungeon_sLongestRunTime_Chap5 : UpperDungeon[UpperDungeon_sLongestRunTime_Chap5],
-            UpperDungeon_sLongestRunTime_Chap6 : UpperDungeon[UpperDungeon_sLongestRunTime_Chap6],
-            UpperDungeon_sLongestRunTime_Chap7 : UpperDungeon[UpperDungeon_sLongestRunTime_Chap7],
-            UpperDungeon_sLongestRunTime_Chap8 : UpperDungeon[UpperDungeon_sLongestRunTime_Chap8],
+            UpperDungeon_sLongestRunTime_Chap1_s : UpperDungeon[UpperDungeon_sLongestRunTime_Chap1_s],
+            UpperDungeon_sLongestRunTime_Chap2_s : UpperDungeon[UpperDungeon_sLongestRunTime_Chap2_s],
+            UpperDungeon_sLongestRunTime_Chap3_s : UpperDungeon[UpperDungeon_sLongestRunTime_Chap3_s],
+            UpperDungeon_sLongestRunTime_Chap4_s : UpperDungeon[UpperDungeon_sLongestRunTime_Chap4_s],
+            UpperDungeon_sLongestRunTime_Chap5_s : UpperDungeon[UpperDungeon_sLongestRunTime_Chap5_s],
+            UpperDungeon_sLongestRunTime_Chap6_s : UpperDungeon[UpperDungeon_sLongestRunTime_Chap6_s],
+            UpperDungeon_sLongestRunTime_Chap7_s : UpperDungeon[UpperDungeon_sLongestRunTime_Chap7_s],
+            UpperDungeon_sLongestRunTime_Chap8_s : UpperDungeon[UpperDungeon_sLongestRunTime_Chap8_s],
             Main_sEasy_Hero1_Position : Conquest[Main_sEasy_Hero1_Position],
             Main_sEasy_Hero2_Position : Conquest[Main_sEasy_Hero2_Position],
             Main_sEasy_Hero3_Position : Conquest[Main_sEasy_Hero3_Position],
@@ -351,6 +359,9 @@ def ReadFromFile () :
         elif key == Stockade_sStockade :
             for value in json_obj[key] :
                 Stockade[value] = json_obj[Stockade_sStockade][value]
+        elif key == Story_sStory:
+            for value in json_obj[key] :
+                Story[value] = json_obj[Story_sStory][value]
         elif key == Conquest_sConquest :
             for value in json_obj[key] :
                 Conquest[value] = json_obj[Conquest_sConquest][value]

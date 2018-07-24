@@ -12,23 +12,23 @@ def Gen_SelectQuestHero (i_nQuestType, i_bNavigateToHeroSelectScreen, i_sEasyOrH
 
     # Navigate to upper dungeon
     if i_bNavigateToHeroSelectScreen :        
-        Manager.click_button('main_portal', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
-        Manager.click_button('upper_dungeon', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
-        Manager.click_button('ch1_upper_dungeon', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+        Manager.click_button_msecs('main_portal', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+        Manager.click_button_msecs('upper_dungeon', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+        Manager.click_button_msecs('ch1_upper_dungeon', Settings.Main[Settings.Main_sDurationAfterClick_ms])
         # This has to wait longer because we are transiting to another big game screen    
-        Manager.click_button('minipopup_confirmbutton', Settings.Main[Settings.Main_sAnyGameScreenLoadingTime] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+        Manager.click_button_secs('minipopup_confirmbutton', Settings.Main[Settings.Main_sAnyGameScreenLoadingTime_s])
 
         # Go to Heroes selection screen
-        Manager.click_button('main_preparebattle', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+        Manager.click_button_msecs('main_preparebattle', Settings.Main[Settings.Main_sDurationAfterClick_ms])
         pagesOpened += 1
-        Manager.click_button('get_ready_for_battle', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+        Manager.click_button_msecs('get_ready_for_battle', Settings.Main[Settings.Main_sDurationAfterClick_ms])
         pagesOpened += 1
 
     # Deselect all heroes
-    Manager.click_button('main_HeroList_DeselectPosition', Settings.Main[Settings.Main_sDurationAfterClick_Short] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
-    Manager.click_button('main_HeroList_DeselectPosition', Settings.Main[Settings.Main_sDurationAfterClick_Short] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
-    Manager.click_button('main_HeroList_DeselectPosition', Settings.Main[Settings.Main_sDurationAfterClick_Short] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
-    Manager.click_button('main_HeroList_DeselectPosition', Settings.Main[Settings.Main_sDurationAfterClick_Short] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+    Manager.click_button_msecs('main_HeroList_DeselectPosition', Settings.Main[Settings.Main_sDurationAfterClick_Short_ms])
+    Manager.click_button_msecs('main_HeroList_DeselectPosition', Settings.Main[Settings.Main_sDurationAfterClick_Short_ms])
+    Manager.click_button_msecs('main_HeroList_DeselectPosition', Settings.Main[Settings.Main_sDurationAfterClick_Short_ms])
+    Manager.click_button_msecs('main_HeroList_DeselectPosition', Settings.Main[Settings.Main_sDurationAfterClick_Short_ms])
 
     if QuestType_UpperDungeon == i_nQuestType:
         lQuestList = Settings.UpperDungeon.copy()
@@ -65,7 +65,7 @@ def Gen_SelectQuestHero (i_nQuestType, i_bNavigateToHeroSelectScreen, i_sEasyOrH
     if i_bExitBackToMainPage :
         # Exit to main game screen
         for i in range(0, pagesOpened):
-            Manager.click_button('main_backbutton', Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter])
+            Manager.click_button_msecs('main_backbutton', Settings.Main[Settings.Main_sDurationAfterClick_ms])
 
 # Dragon Raid hero selection:
 # The numbering goes like this
@@ -119,11 +119,11 @@ def _Gen_SelectHero( i_MaxHeroesAllowed,
         if (1 <= numOfLevelsToDrag) and (i_MaxHeroesIn1Row < i_lSelectedHeroPosition[i+1]):  #modSelectedHeroPosition :
             # If selected hero in not in first row, drag list upwards until it is in 1st row
             for j in range (0, numOfLevelsToDrag-dragCount) :
-                nox.mouse_drag(i_sDragFromPosition,
-                               i_sDragToPosition,
-                               Settings.Main[Settings.Main_sDurationAfterClick] + Settings.Main[Settings.Main_sTransitionDuration_Alter],
-                               0.3,
-                               15)
+                Manager.mouse_drag_msecs(i_sDragFromPosition,
+                                         i_sDragToPosition,
+                                         Settings.Main[Settings.Main_sDurationAfterClick_ms],
+                                         0.3,
+                                         15)
                 dragCount += 1
                 print("j={0}, numOfLevelsToDrag={1}, dragCount={2}".format(j, numOfLevelsToDrag, dragCount))
-        Manager.click_button(i_lClickHeroPosition[modSelectedHeroPosition], Settings.Main[Settings.Main_sDurationAfterClick])
+        Manager.click_button_msecs(i_lClickHeroPosition[modSelectedHeroPosition], Settings.Main[Settings.Main_sDurationAfterClick_ms], False)
