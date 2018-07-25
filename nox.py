@@ -4,9 +4,14 @@ import json
 import os
 import re
 import sys
+import math
     
 # Don't change anything in this file unless you know what you're doing.
 # ==================================================================================================================
+
+keypress_Back                   = 158   # Back button - exit current page
+keypress_ShowDesktop            = 102   # Home button - show nox desktop
+keypress_RecentApps             = 221   # RecentApps - show all apps from background
 
 file = None
 button_points = {}
@@ -33,6 +38,31 @@ def repeat_generator_for(fn, seconds):
 
     while time - initial < milliseconds:
         fn()
+
+def keypress(i_bButton, i_nwait_milliseconds):
+    global file
+    global time
+    global resolution
+
+    # NOTE: Not really needed, add a little time before clicking
+    time += 100
+    # Keyboard press
+    file.write("0ScRiPtSePaRaToR{0}|{1}|KBDPR:{2}:0ScRiPtSePaRaToR{3}\n".format(
+        resolution[0], resolution[1], i_bButton, time))
+    # Keyboard release
+    file.write("0ScRiPtSePaRaToR{0}|{1}|KBDRL:{2}:0ScRiPtSePaRaToR{3}\n".format(
+        resolution[0], resolution[1], i_bButton, time))
+    # Keyboard release 2
+    file.write("0ScRiPtSePaRaToR{0}|{1}|KBDRL:1:0ScRiPtSePaRaToR{2}\n".format(
+        resolution[0], resolution[1], time))
+
+    # This is the delay between finishing one click and beginning the next click.  This needs to account
+    # for how fast the game can transition from one screen to the next.  For example, if you're repeatedly
+    # clicking a buy button with the game not really doing anything between each click, this can be very
+    # low.  On the other hand, if a click causes the game to transition from one screen to another (e.g.
+    # using a portal and the game having to load into Orvel and load an entirely new area) then it should
+    # be fairly high.
+    wait(i_nwait_milliseconds)
 
 def click_loc(loc, wait_milliseconds):
     global file
@@ -69,6 +99,70 @@ def click_button(button, wait_milliseconds):
     global button_points
     loc = button_points[button]
     return click_loc(loc, wait_milliseconds)
+
+# Drag helper
+# speed = distance(pixels) / time(millisecs) = 50 / 500 = 0.1 pixels/msecs
+# max_generated_interpolation_points = the number of lines generated in the nox macro file from start pos to end
+def _mouse_drag(startposition, endposition, wait_milliseconds, speed, max_generated_interpolation_points):
+    global file
+    global resolution
+    global time
+
+    # Available mouse actions
+    MouseNoAction = 0
+    MouseRelease = 1
+    MouseDrag = 2
+
+    def scale(xy):
+        global resolution
+        return (int(xy[0]*resolution[0]/1280), 
+                int(xy[1]*resolution[1]/720))
+
+    startX, startY = scale(startposition)
+    endX, endY = scale(endposition)
+
+    # Calculate distance
+    distanceToMoveSquared = math.pow(endY - startY, 2) + math.pow(endX - startX, 2)
+    distanceToMove = math.sqrt(distanceToMoveSquared)
+    
+    # Calculate time to move at that speed
+    timeToMove = int(distanceToMove/speed)
+    timeIntervalBetweenInterpolated = int(timeToMove/max_generated_interpolation_points)
+
+    # First point of movement
+    file.write("0ScRiPtSePaRaToR{0}|{1}|MULTI:1:{2}:{3}:{4}ScRiPtSePaRaToR{5}\n".format(
+        resolution[0], resolution[1], MouseNoAction, startX, startY, time))
+
+    # interpolation of points between start to end position
+    for i in range(0, max_generated_interpolation_points) :
+        file.write("0ScRiPtSePaRaToR{0}|{1}|MULTI:1:{2}:{3}:{4}ScRiPtSePaRaToR{5}\n".format(
+            resolution[0], resolution[1], MouseDrag, 
+            int(startX + (i*(endX - startX)/max_generated_interpolation_points)),
+            int(startY + (i*(endY - startY)/max_generated_interpolation_points)),
+            time))
+        wait(timeIntervalBetweenInterpolated)
+
+    # Mouse button release
+    file.write("0ScRiPtSePaRaToR{0}|{1}|MSBRL:15:2750055ScRiPtSePaRaToR{2}\n".format(resolution[0], resolution[1], time))
+
+    # This is the delay between finishing one click and beginning the next click.  This needs to account
+    # for how fast the game can transition from one screen to the next.  For example, if you're repeatedly
+    # clicking a buy button with the game not really doing anything between each click, this can be very
+    # low.  On the other hand, if a click causes the game to transition from one screen to another (e.g.
+    # using a portal and the game having to load into Orvel and load an entirely new area) then it should
+    # be fairly high.
+    wait(wait_milliseconds)
+
+# mouse_drag to be called from outside 
+# - wait_milliseconds = delay after drag is done
+# - speed = speed for drag movement (default 0.01pixels/msecs)
+def mouse_drag(fromposition, toposition, wait_milliseconds, speed=0.2, max_generated_interpolation_points=20) :
+    global button_points
+    locfrom = button_points[fromposition]
+    locto = button_points[toposition]
+    
+    # default speed = 0.1 pixels/msecs
+    return _mouse_drag(locfrom, locto, wait_milliseconds, speed, max_generated_interpolation_points)
 
 def click_rect(rect, wait_milliseconds, dont_click = None):
     '''Click a single rectangle, optionally *not* clicking in any one of a list of rectangles'''
@@ -152,6 +246,12 @@ def prompt_user_yes_no(message, default=False):
             break
     return result
 
+def find_settings_file(i_filename = 'Settings.json'):
+    if os.getcwd().find(i_filename) :
+        return True
+    else:
+        return False
+
 def find_nox_install():
     app_data = None
     if sys.platform == 'darwin':
@@ -185,6 +285,22 @@ def is_integer(s):
         pass
  
     return False
+
+# Prompt user to use this settings file
+def select_settings_file_interactive():
+    currentDirList = os.listdir(".")
+    settingsList = []
+    for filename in currentDirList:
+        if filename.endswith(".json"):
+            settingsList.append(filename)
+    
+    for i in range (0, len(settingsList)):
+        print('{0}) {1}'.format(i+1, settingsList[i]))
+    value = prompt_user_for_int('Enter the settings file you wish to read/write: ', min=1, max=len(settingsList))
+    index = value - 1
+
+    # returns string
+    return settingsList[index]
 
 def select_macro_interactive(json_obj):
     if len(json_obj) == 0:
@@ -227,10 +343,12 @@ def get_nox_macro_interactive():
     fp.close()
     return (name, macro_file)
 
-def initialize(points, rects):
+def initialize(points, rects, i_bskip_resolution_interactive=False):
     global button_points
     global button_rects
-    select_resolution_interactive()
+
+    if False == i_bskip_resolution_interactive :
+        select_resolution_interactive()
 
     button_points = points
     button_rects = rects
