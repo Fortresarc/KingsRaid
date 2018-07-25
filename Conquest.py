@@ -26,11 +26,12 @@ def gen_conquest():
 
     nSelectEasyContentHeroesAt = 1  # Select heroes for easy content
     nSelectHardContentHeroesAt = Settings.Conquest[Settings.Conquest_sHardContent_StartsFrom]  # Select heroes for hard content (Chapter 8)
-    KRCommon.Gen_Conquest_UpperDungeon_Helper('conquests',    # button name.. Portal > Conquest
-                                            chapterList,
-                                            longestRunTimeList,
-                                            Settings.Conquest[Settings.Conquest_sHighestClearedChapter] - 1,    # Conquests chapters starts from 2, therefore index-1
-                                            Settings.Conquest[Settings.Conquest_sHardContent_NoOfTimesToRetry],
-                                            nSelectEasyContentHeroesAt,
-                                            nSelectHardContentHeroesAt - 1)     # Conquests chapters starts from 2, therefore index-1
+    KRCommon.Gen_Conquest_UpperDungeon_Helper(  'conquests',    # button name.. Portal > Conquest
+                                                chapterList,
+                                                longestRunTimeList,
+                                                Settings.Conquest[Settings.Conquest_sHighestClearedChapter] - 1,    # Conquests chapters starts from 2, therefore index-1
+                                                Settings.Conquest[Settings.Conquest_sHardContent_NoOfTimesToRetry],
+                                                nSelectEasyContentHeroesAt,
+                                                nSelectHardContentHeroesAt - 1,
+                                                1)     # Conquests chapters starts from 2, therefore index-1
     

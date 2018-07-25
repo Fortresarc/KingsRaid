@@ -14,10 +14,11 @@ import NPC
 import UpperDungeon
 import DoAllDailies
 import Settings
+import Manager
 
 print('Nox Macro Generator v2.1')
-print('By: cpp (Reddit: u/cpp_is_king, Discord: @cpp#0120)')
-print('Paypal: cppisking@gmail.com')
+#print('By: cpp (Reddit: u/cpp_is_king, Discord: @cpp#0120)')
+#print('Paypal: cppisking@gmail.com')
 print()
 
 if sys.version_info < (3,5):
@@ -272,6 +273,7 @@ def conquest_plus_upper_dungeon():
 
 
 try:
+    Manager.OpenLogFile()
     Settings.SETTINGS_FILENAME = nox.select_settings_file_interactive()
 
     macro_generators = [
@@ -317,6 +319,8 @@ try:
         nox.close()
 
         print('File {0} successfully written.'.format(file_path))
+
+    Manager.Close()
 
 except SystemExit:
     pass

@@ -1,6 +1,13 @@
+import os
 import nox
 import Settings
 import KRCommon
+
+##############
+# Log file
+##############
+LogFileName = 'settings_log.txt'
+LogFile = None
 
 ##############
 # Macro total run time
@@ -22,17 +29,57 @@ ClaimEXPGoldStepsList = {
     }
 
 ##############
-# Macro total run time - functions
+# All functions
 ##############
+def OpenLogFile():
+    global LogFile
+    
+    if os.path.isfile(LogFileName):
+        os.remove(LogFileName)
+
+    # plus sign - create a file if it doesn't exist
+    LogFile = open(LogFileName, "a+")
+
+def Close():
+    global LogFile
+    LogFile.close()
+
+def Trace1 (i_sLogText):
+    global LogFile
+    print (i_sLogText)
+    LogFile.write(i_sLogText + '\n')
+    
+def Trace2 (i_sLogText):
+    global LogFile
+    sFormattedLogText = "\t" + i_sLogText
+    print (sFormattedLogText)
+    LogFile.write(sFormattedLogText + '\n')
+
+def GetString_TotalRunTime (i_nFromTime = 0):
+    global TotalRunTime
+    fTotalRunTime_Secs = (TotalRunTime - i_nFromTime)/1000.0
+    nTotalRunTime_Mins = int(fTotalRunTime_Secs/60)
+    nReturnString = ""
+
+    if (60.0 >= fTotalRunTime_Secs):
+        nReturnString = "%f secs" % (fTotalRunTime_Secs)
+    else:
+        nReturnString = "%d mins" % (nTotalRunTime_Mins)
+        
+    return nReturnString
+
 def PrintTotalRunTime():
     global TotalRunTime
     nTotalRunTime_Secs = TotalRunTime/1000
     nTotalRunTime_Mins = nTotalRunTime_Secs/60
 
+    Trace1 ("\n")
+    Trace1 ("###################################################")
     if (60 >= nTotalRunTime_Secs):
-        print ("Current Total runtime = {0} secs".format(nTotalRunTime_Secs))
+        Trace1 ("Current Total runtime = {0} secs".format(nTotalRunTime_Secs))
     else:
-        print ("Current Total runtime = {0} mins".format(nTotalRunTime_Mins))
+        Trace1 ("Current Total runtime = {0} mins".format(nTotalRunTime_Mins))
+    Trace1("___________________________________________________")
 
 def AddTotalRunTime (i_nTimeMillisecs):
     global TotalRunTime

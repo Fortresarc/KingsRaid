@@ -193,7 +193,7 @@ def _Gen_Single_Conquest_or_UpperDungeon_Chapter(i_sQuestButtonName,
             "Enter longest run in seconds for {0} or 0 to skip (45-90s suggested for hell): ".format(i_nChapterName))  
     else :
         longest_run_time_s = i_nLongestRunTime_CurrentChapter
-        print ("{0} longest run time = {1}".format(i_nChapterName, longest_run_time_s))
+        Manager.Trace2 ("{0} longest run time = {1}".format(i_nChapterName, longest_run_time_s))
 
     if longest_run_time_s > 0:
         Gen_GoToChapter(i_sQuestButtonName, i_nChapterName, i_nTransition_duration_alter)
@@ -206,23 +206,36 @@ def _Gen_Single_Conquest_or_UpperDungeon_Chapter(i_sQuestButtonName,
                                          i_sEasyOrHardContent)
 
         if Settings.Main_sHardContent == i_sEasyOrHardContent :            
-            print("Single chap gen (HARD)")
+            Manager.Trace2("Single chap gen (HARD)")
             # Start battle instead of Auto repeat
             Manager.click_button_secs('getreadyforbattle_startbattle', longest_run_time_s, False)
             # loop starts from 1 as we've already started the timer after 'Start battle' is clicked
             for i in range(1, i_nHardContentNoOfTimesToRetry) :
-                Manager.click_button_msecs('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick_Long_ms] + Settings.Main[Settings.Main_sTransitionDuration_ms])
-                Manager.click_button_msecs('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick_ms] + Settings.Main[Settings.Main_sTransitionDuration_ms])
-                Manager.click_button_msecs('battlecompletion_retry', Settings.Main[Settings.Main_sDurationAfterClick_ms] + Settings.Main[Settings.Main_sTransitionDuration_ms])
-                Manager.click_button_msecs('repeatpopup_singlerepeat', Settings.Main[Settings.Main_sDurationAfterClick_Long_ms] + Settings.Main[Settings.Main_sTransitionDuration_ms])
-                Manager.click_button_msecs('repeatpopup_close', Settings.Main[Settings.Main_sDurationAfterClick_ms] + Settings.Main[Settings.Main_sTransitionDuration_ms])
-                Manager.click_button_secs('repeatpopup_close', longest_run_time_s, False)
+                Manager.click_button_msecs('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick_Long_ms])
+                Manager.click_button_msecs('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+                # Just to be sure we have clicked away all obtained messages
+                Manager.click_button_msecs('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+
+                Manager.click_button_msecs('battlecompletion_retry', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+                Manager.click_button_msecs('repeatpopup_singlerepeat', Settings.Main[Settings.Main_sDurationAfterClick_Long_ms])
+                Manager.click_button_msecs('repeatpopup_close', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+                Manager.click_button_msecs('repeatpopup_close', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+                # Just to be sure
+                Manager.click_button_msecs('repeatpopup_close', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+                Manager.wait_secs(longest_run_time_s)
             
             # After we complete click away the obtained message
             Manager.click_button_msecs('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick_Long_ms])
+            # Just to be sure
+            Manager.click_button_msecs('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick_Long_ms])
+            # Just to be sure
+            Manager.click_button_msecs('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick_Long_ms])
+            # Just to be sure once more
+            Manager.click_button_msecs('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick_Long_ms])
+            # Back to map
             Manager.click_button_msecs('battlecompletion_exit', Settings.Main[Settings.Main_sDurationAfterClick_Long_ms])
         else :            
-            print("Single chap gen (EASY)")
+            Manager.Trace2("Single chap gen (EASY)")
             Manager.click_button_msecs('auto_repeat', 2000 + i_nTransition_duration_alter, False)
             Manager.click_button_secs('repeat_ok', (longest_run_time_s * 5), False)  # for now this will be 60s per run or 5 min total.  We can make this smarter later.
             # Manager.click_button_msecs('insufficient_keys', 2000 + i_nTransition_duration_alter, False) # should click x_out instead
@@ -243,7 +256,7 @@ def Gen_Conquest_UpperDungeon_Helper (i_sQuestButtonName,           #button name
                                       i_nSelectEasyContentHeroesAt,
                                       i_nSelectHardContentHeroesAt,
                                       i_nStartAtChapter = 1):
-    #print('All Upper Dungeons should have set levels.  To do this manually, you can start and then stop a battle on the chosen level per dungeon.  This is also a good way to alter which levels/fragments you want to focus on.')
+    #Manager.Trace2('All Upper Dungeons should have set levels.  To do this manually, you can start and then stop a battle on the chosen level per dungeon.  This is also a good way to alter which levels/fragments you want to focus on.')
 
     if False == nox.find_settings_file :
         transition_duration_alter = nox.prompt_user_for_int(
@@ -259,18 +272,19 @@ def Gen_Conquest_UpperDungeon_Helper (i_sQuestButtonName,           #button name
     bEasyHeroHasBeenSelected = False
     bHardHeroHasBeenSelected = False
 
+    # Select easy/ hard heroes before doing conquest / upper dungeon for single chap
     for i in range (i_nStartAtChapter, i_nHighestClearedChapter+1) :
         sContent = sNONE
         if (i_nSelectHardContentHeroesAt <= i) :
             if (False == bHardHeroHasBeenSelected) :
                 sContent = Settings.Main_sHardContent
                 bHardHeroHasBeenSelected = True
-                print ("Hard content from: {0}) {1}".format(i, i_lChapterList[i]))
+                Manager.Trace2 ("Hard content from: {0}) {1}".format(i, i_lChapterList[i]))
         elif (i_nSelectEasyContentHeroesAt <= i):
             if (False == bEasyHeroHasBeenSelected):
                 sContent = Settings.Main_sEasyContent
                 bEasyHeroHasBeenSelected = True
-                print ("Easy content from: {0}) {1}".format(i, i_lChapterList[i]))
+                Manager.Trace2 ("Easy content from: {0}) {1}".format(i, i_lChapterList[i]))
         _Gen_Single_Conquest_or_UpperDungeon_Chapter(i_sQuestButtonName,
                                                     i_lChapterList[i],
                                                     i_lChapterList,

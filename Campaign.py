@@ -27,7 +27,7 @@ def do_generate_inventory_management_for_adventure(should_grind, should_sell):
 
 def gen_natural_stamina_farm():
     if False == nox.find_settings_file :
-        print()
+        Manager.Trace2()
         use_pot = nox.prompt_user_yes_no(
             "Should the macro automatically use a stamina potion when you run out?")
         inventory_management = nox.prompt_user_for_int(

@@ -19,42 +19,53 @@ def Gen_DoAllDailies() :
     # Read our settings file
     Settings.ReadFromFile()
 
-    KRCommon.Gen_LaunchKingsRaidAndGoToMainScreen()
+    Manager.Trace1 ("NOTES:")
+    Manager.Trace1 ("- Main story and conquest share same hero selection list")
+
+    # Do sequence as read from settings file
+    for key in Settings.DoAllDailiesSequence :
+        Manager.Trace1 ("\n")
+        Manager.Trace1 ("###################################################")
+        nTimeTemp = Manager.TotalRunTime
+        _ExecuteSingleDailyFunction(Settings.DoAllDailiesSequence[key])
+        Manager.Trace1 ("  ------------------------------------------------")
+        Manager.Trace1 ("  Do all dailies {0} : {1} .. Will execute for {2}".format(key, Settings.DoAllDailiesSequence[key], Manager.GetString_TotalRunTime(nTimeTemp)))
+        Manager.Trace1 ("___________________________________________________")
+
+    #KRCommon.Gen_LaunchKingsRaidAndGoToMainScreen()
     
-    KRCommon.Gen_ClaimMailbox()
-    Gen_ExchangeAmity()
-    KRCommon.Gen_ClearInventory()
+    #KRCommon.Gen_ClaimMailbox()
+    #Gen_ExchangeAmity()
+    #KRCommon.Gen_ClearInventory()
 
-    Gen_Stockade(False)
+    #Gen_Stockade(False)
 
-    KRCommon.Gen_NavigateToMain('portal_orvel_herosinn', False)
-    Gen_Daily_HerosInn(False)
-    UpperDungeon.gen_upper_dungeon()
+    #KRCommon.Gen_NavigateToMain('portal_orvel_herosinn', False)
+    #Gen_Daily_HerosInn(False)
+    #UpperDungeon.gen_upper_dungeon()
 
-    KRCommon.Gen_NavigateToMain('portal_orvel_arena', False)
-    Gen_Arena()
-    Gen_WorldBoss()
+    #KRCommon.Gen_NavigateToMain('portal_orvel_arena', False)
+    #Gen_Arena()
+    #Gen_WorldBoss()
     
-    # This is to save some time navigating to Orvel castle after we collected EXP and Gold hot time
-    KRCommon.Gen_NavigateToMain('portal_orvel_orvelcastle', False)
-    KRCommon.Back()
-    Manager.Gen_ClaimEnergyGoldHotTime(Manager.ClaimEXPGoldStepsList[Manager.sClaim_1stEXP_1stGold])
+    ## This is to save some time navigating to Orvel castle after we collected EXP and Gold hot time
+    #KRCommon.Gen_NavigateToMain('portal_orvel_orvelcastle', False)
+    #KRCommon.Back()
+    #Manager.Gen_ClaimEnergyGoldHotTime(Manager.ClaimEXPGoldStepsList[Manager.sClaim_1stEXP_1stGold])
     
-    KRCommon.Gen_NavigateToMain('portal_orvel_orvelcastle', True)
-    Gen_AncientRoyalVault()
+    #KRCommon.Gen_NavigateToMain('portal_orvel_orvelcastle', True)
+    #Gen_AncientRoyalVault()
 
-    Conquest.gen_conquest()
+    #Conquest.gen_conquest()
 
-    Manager.Gen_ClaimEnergyGoldHotTime(Manager.ClaimEXPGoldStepsList[Manager.sClaim_BonusStamina_BonusGold])
-    KRCommon.Gen_DoStory(Settings.Story[Settings.Story_sAutoRepeatAtChapter])
-    KRCommon.Gen_ClaimDailyMission(6, True)
+    #Manager.Gen_ClaimEnergyGoldHotTime(Manager.ClaimEXPGoldStepsList[Manager.sClaim_BonusStamina_BonusGold])
+    #KRCommon.Gen_DoStory(Settings.Story[Settings.Story_sAutoRepeatAtChapter])
+    #KRCommon.Gen_ClaimDailyMission(6, True)
 
     Manager.PrintTotalRunTime()
-    print ("NOTES:")
-    print ("- Main story and conquest share same hero selection list")
 
     # TEST CODES
-
+    
 def Gen_DoLaunchNOX_DragonRaid() :
     _Gen_DoLaunchNOX_DoQuest(True)
     
@@ -67,11 +78,28 @@ def _Gen_DoLaunchNOX_DoQuest(i_bIsDragonRaid = True) :
     # Read our settings file
     Settings.ReadFromFile()
 
-    KRCommon.Gen_LaunchKingsRaidAndGoToMainScreen()
-    KRCommon.Gen_ClaimMailbox()
-    Gen_ExchangeAmity()
-    KRCommon.Gen_ClaimDailyMission()
-    KRCommon.Gen_ClearInventory()
+    CommonQuestSequence = {
+        0 : Settings.DoAllDailies_sLaunchKingsRaidAndGoToMainScreen,
+        1 : Settings.DoAllDailies_sClaimMailbox,
+        2 : Settings.DoAllDailies_sExchangeAmity,
+        3 : Settings.DoAllDailies_sClaimDailyMission,
+        4 : Settings.DoAllDailies_sClearInventory
+    }
+    sQuestType = 'Story'
+    if(i_bIsDragonRaid):
+        sQuestType = 'DragonRaid'
+
+    for key in CommonQuestSequence:
+        Manager.Trace1 ("\n")
+        Manager.Trace1 ("###################################################")
+        nTimeTemp = Manager.TotalRunTime
+        _ExecuteSingleDailyFunction(CommonQuestSequence[key])
+        Manager.Trace1 ("  ------------------------------------------------")
+        Manager.Trace1 ("  Do {0} after NOX restarts {1} : {2} .. Will execute for {3}".format( sQuestType,
+                                                                                                key,
+                                                                                                CommonQuestSequence[key],
+                                                                                                Manager.GetString_TotalRunTime(nTimeTemp)))
+        Manager.Trace1 ("___________________________________________________")
 
     if i_bIsDragonRaid :
         KRCommon.Gen_DoDragonRaid()
@@ -81,6 +109,58 @@ def _Gen_DoLaunchNOX_DoQuest(i_bIsDragonRaid = True) :
         KRCommon.Gen_DoStory(Settings.Story[Settings.Story_sAutoRepeatAtChapter])
 
     Manager.PrintTotalRunTime()
+    
+def _ExecuteSingleDailyFunction(i_sDailyFunctionName):
+    if Settings.DoAllDailies_sLaunchKingsRaidAndGoToMainScreen == i_sDailyFunctionName:
+        KRCommon.Gen_LaunchKingsRaidAndGoToMainScreen()
+
+    elif Settings.DoAllDailies_sClaimMailbox == i_sDailyFunctionName:
+        KRCommon.Gen_ClaimMailbox()
+
+    elif Settings.DoAllDailies_sExchangeAmity == i_sDailyFunctionName:
+        Gen_ExchangeAmity()
+
+    elif Settings.DoAllDailies_sClearInventory == i_sDailyFunctionName:
+        KRCommon.Gen_ClearInventory()
+
+    elif Settings.DoAllDailies_sStockade == i_sDailyFunctionName:
+        Gen_Stockade(False)
+
+    elif Settings.DoAllDailies_sHerosInn == i_sDailyFunctionName:
+        KRCommon.Gen_NavigateToMain('portal_orvel_herosinn', False)
+        Gen_Daily_HerosInn(False)
+
+    elif Settings.DoAllDailies_sUpperDungeon == i_sDailyFunctionName:
+        UpperDungeon.gen_upper_dungeon()
+
+    elif Settings.DoAllDailies_sArena == i_sDailyFunctionName:
+        KRCommon.Gen_NavigateToMain('portal_orvel_arena', False)
+        Gen_Arena()
+
+    elif Settings.DoAllDailies_sWorldBoss == i_sDailyFunctionName:
+        Gen_WorldBoss()
+
+    elif Settings.DoAllDailies_sClaim_1stEXPNGold == i_sDailyFunctionName:
+        Manager.Gen_ClaimEnergyGoldHotTime(Manager.ClaimEXPGoldStepsList[Manager.sClaim_1stEXP_1stGold])
+
+    elif Settings.DoAllDailies_sAncientRoyalVault == i_sDailyFunctionName:
+        KRCommon.Gen_NavigateToMain('portal_orvel_orvelcastle', False)
+        Gen_AncientRoyalVault()
+
+    elif Settings.DoAllDailies_sConquest == i_sDailyFunctionName:
+        Conquest.gen_conquest()
+
+    elif Settings.DoAllDailies_sClaim_2ndEXPNGoldWStamina == i_sDailyFunctionName:
+        Manager.Gen_ClaimEnergyGoldHotTime(Manager.ClaimEXPGoldStepsList[Manager.sClaim_BonusStamina_BonusGold])
+
+    elif Settings.DoAllDailies_sDoStory == i_sDailyFunctionName:
+        KRCommon.Gen_DoStory(Settings.Story[Settings.Story_sAutoRepeatAtChapter])
+
+    elif Settings.DoAllDailies_sDoDragonRaid == i_sDailyFunctionName:
+        KRCommon.Gen_DoDragonRaid()
+
+    elif Settings.DoAllDailies_sClaimDailyMission == i_sDailyFunctionName:
+        KRCommon.Gen_ClaimDailyMission(6, True)
 
 def Gen_WorldBoss():
     pagesOpened = 0
@@ -201,6 +281,9 @@ def Gen_Arena() :
         # First click: just in case we level up
         Manager.click_button_msecs('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick_Short_ms])
         Manager.click_button_secs('arena_select_start_retry', Settings.Arena[Settings.Arena_sMatchDuration_s])
+
+    # Just to be safe wait another Match duration in case another match has started
+    Manager.wait_secs(Settings.Arena[Settings.Arena_sMatchDuration_s])
 
     # Arena competing done
     Manager.click_button_secs('arena_select_start_exit', Settings.Main[Settings.Main_sAnyGameScreenLoadingTime_s])

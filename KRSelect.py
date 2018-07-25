@@ -99,6 +99,9 @@ def _Gen_SelectHero( i_MaxHeroesAllowed,
                     i_lClickHeroPosition,
                     i_sDragFromPosition,
                     i_sDragToPosition) :
+    Manager.Trace2("\n")
+    Manager.Trace2("+++++++++++++++++++++++++++++++")
+    Manager.Trace2(" Hero select (Start)")
     modSelectedHeroPosition = 1
     dragCount = 0
     for i in range (0, i_MaxHeroesAllowed) :
@@ -109,8 +112,8 @@ def _Gen_SelectHero( i_MaxHeroesAllowed,
             modSelectedHeroPosition = i_MaxHeroesIn1Row
             numOfLevelsToDrag -= 1
 
-        print ("i={0}, numOfLevelsToDrag={1}, modSelectedHeroPosition={2}, i_lSelectedHeroPosition[i+1]={3}"
-            .format(i, numOfLevelsToDrag, modSelectedHeroPosition, i_lSelectedHeroPosition[i+1]))
+        Manager.Trace2 ("numOfLevelsToDrag={0}, Hero[{1}] = {2} position"
+            .format(numOfLevelsToDrag, i+1, i_lSelectedHeroPosition[i+1]))
         
         # First row icon's half size  = (574-484)/2 = 45
         # Second row icon's half size = (591-574)/2 = 8.5
@@ -125,5 +128,7 @@ def _Gen_SelectHero( i_MaxHeroesAllowed,
                                          0.3,
                                          15)
                 dragCount += 1
-                print("j={0}, numOfLevelsToDrag={1}, dragCount={2}".format(j, numOfLevelsToDrag, dragCount))
+                Manager.Trace2("Dragged {0} time(s)".format(dragCount))
         Manager.click_button_msecs(i_lClickHeroPosition[modSelectedHeroPosition], Settings.Main[Settings.Main_sDurationAfterClick_ms], False)
+
+    Manager.Trace2("------------ Hero Select (END) \n")

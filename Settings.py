@@ -1,10 +1,32 @@
 import nox
 import json
 import os
+import Manager
 
 SETTINGS_FILENAME                                   = 'settings.json'
 
 # Settings read from file
+
+# TODO : Customizable sequences for doing all dailies
+# Do all dailies sequence
+DoAllDailies_sDoAllDailies                          = 'DoAllDailiesSequence'
+DoAllDailies_sLaunchKingsRaidAndGoToMainScreen      = 'LaunchKingsRaidAndGoToMainScreen'
+DoAllDailies_sClaimMailbox                          = 'ClaimMailbox'
+DoAllDailies_sExchangeAmity                         = 'ExchangeAmity'
+DoAllDailies_sClearInventory                        = 'ClearInventory'
+DoAllDailies_sStockade                              = 'Stockade'
+DoAllDailies_sHerosInn                              = 'HerosInn'
+DoAllDailies_sUpperDungeon                          = 'UpperDungeon'
+DoAllDailies_sArena                                 = 'Arena'
+DoAllDailies_sWorldBoss                             = 'WorldBoss'
+DoAllDailies_sClaim_1stEXPNGold                     = 'Claim_1stEXPNGold'
+DoAllDailies_sAncientRoyalVault                     = 'AncientRoyalVault'
+DoAllDailies_sConquest                              = 'Conquest'
+DoAllDailies_sClaim_2ndEXPNGoldWStamina             = 'Claim_2ndEXPNGoldWStamina'
+DoAllDailies_sDoStory                               = 'DoStory'
+DoAllDailies_sDoDragonRaid                          = 'DoDragonRaid'
+DoAllDailies_sClaimDailyMission                     = 'ClaimDailyMission'
+
 # Main
 Main_sMain                                          = 'Main'
 Main_sResolutionX                                   = 'ResolutionX'
@@ -102,6 +124,24 @@ Frost_DragonRaid_sFrostDragonRaid                   = 'Frost_DragonRaid'
 Poison_DragonRaid_sPoisonDragonRaid                 = 'Poison_DragonRaid'
 Black_DragonRaid_sBlackDragonRaid                   = 'Black_DragonRaid'
 
+DoAllDailiesSequence = {           
+    0 : DoAllDailies_sLaunchKingsRaidAndGoToMainScreen,
+    1 : DoAllDailies_sClaimMailbox,
+    2 : DoAllDailies_sExchangeAmity,
+    3 : DoAllDailies_sClearInventory,
+    4 : DoAllDailies_sStockade,
+    5 : DoAllDailies_sHerosInn,
+    6 : DoAllDailies_sUpperDungeon,
+    7 : DoAllDailies_sArena,
+    8 : DoAllDailies_sWorldBoss,
+    9 : DoAllDailies_sClaim_1stEXPNGold,
+    10 : DoAllDailies_sAncientRoyalVault,
+    11 : DoAllDailies_sConquest,
+    12 : DoAllDailies_sClaim_2ndEXPNGoldWStamina,
+    13 : DoAllDailies_sDoStory,
+    14 : DoAllDailies_sClaimDailyMission,
+}
+
 Main = {
     Main_sResolutionX                               : 1280,
     Main_sResolutionY                               : 720,
@@ -118,7 +158,7 @@ Main = {
 
 WorldBoss = {
     WorldBoss_sNoOfKeys                             : 2,        # number of keys for the day
-    WorldBoss_sSingleBattleDuration_s               : 350       # 350s i.e. 5 mins 50 secs
+    WorldBoss_sSingleBattleDuration_s               : 400       # 400 i.e. 6 mins 40 secs
 }
 
 Vault = {
@@ -129,12 +169,12 @@ Vault = {
 
 Arena = {
     Arena_sNoOfMatches                              : 5,
-    Arena_sMatchDuration_s                          : 95     # 90s i.e. 1min 25secs inclusive of "New challenger delay"
+    Arena_sMatchDuration_s                          : 110     # 110s i.e. 1 min 50secs inclusive of "New challenger delay"
 }
 
 Stockade = {
     Stockade_sClaimSkillBook                        : 4,        # Claim skill book 1 or 2 or 3 or 4
-    Stockade_sSingleBattleDuration_s                : 80        # 80s
+    Stockade_sSingleBattleDuration_s                : 85        # 85s
 }
 
 Story = {
@@ -159,7 +199,7 @@ Conquest = {
     Main_sEasy_Hero1_Position                       : 3,
     Main_sEasy_Hero2_Position                       : 5,
     Main_sEasy_Hero3_Position                       : 8,
-    Main_sEasy_Hero4_Position                       : 15,
+    Main_sEasy_Hero4_Position                       : 16,
     Main_sHard_Hero1_Position                       : 1,
     Main_sHard_Hero2_Position                       : 3,
     Main_sHard_Hero3_Position                       : 5,
@@ -170,18 +210,18 @@ UpperDungeon = {
     UpperDungeon_sHighestClearedChapter             : 8,
     UpperDungeon_sHardContent_StartsFrom            : 8,
     UpperDungeon_sHardContent_NoOfTimesToRetry      : 11,
-    UpperDungeon_sLongestRunTime_Chap1_s            : 50,       #secs
-    UpperDungeon_sLongestRunTime_Chap2_s            : 50,
-    UpperDungeon_sLongestRunTime_Chap3_s            : 50,
-    UpperDungeon_sLongestRunTime_Chap4_s            : 50,
-    UpperDungeon_sLongestRunTime_Chap5_s            : 55,
+    UpperDungeon_sLongestRunTime_Chap1_s            : 40,       #secs
+    UpperDungeon_sLongestRunTime_Chap2_s            : 40,
+    UpperDungeon_sLongestRunTime_Chap3_s            : 40,
+    UpperDungeon_sLongestRunTime_Chap4_s            : 45,
+    UpperDungeon_sLongestRunTime_Chap5_s            : 45,
     UpperDungeon_sLongestRunTime_Chap6_s            : 55,
     UpperDungeon_sLongestRunTime_Chap7_s            : 95,
     UpperDungeon_sLongestRunTime_Chap8_s            : 190,
     Main_sEasy_Hero1_Position                       : 3,
     Main_sEasy_Hero2_Position                       : 5,
     Main_sEasy_Hero3_Position                       : 8,
-    Main_sEasy_Hero4_Position                       : 15,
+    Main_sEasy_Hero4_Position                       : 16,
     Main_sHard_Hero1_Position                       : 1,
     Main_sHard_Hero2_Position                       : 3,
     Main_sHard_Hero3_Position                       : 5,
@@ -200,7 +240,7 @@ DragonRaidConfig = {
     DragonRaidConfig_sHero1_Position                : 1,                    # Please select in ascending order i.e. Hero1_Pos=1, Hero2_Pos=3 and so on
     DragonRaidConfig_sHero2_Position                : 5,                    # Please select in ascending order i.e. Hero1_Pos=1, Hero2_Pos=3 and so on
     DragonRaidConfig_sHero3_Position                : 9,                    # Please select in ascending order i.e. Hero1_Pos=1, Hero2_Pos=3 and so on
-    DragonRaidConfig_sHero4_Position                : 10                     # Please select in ascending order i.e. Hero1_Pos=1, Hero2_Pos=3 and so on
+    DragonRaidConfig_sHero4_Position                : 10                    # Please select in ascending order i.e. Hero1_Pos=1, Hero2_Pos=3 and so on
 }
 
 Fire_DragonRaid = {
@@ -225,6 +265,25 @@ Black_DragonRaid = {
 
 def WriteDefaultSettingsFile () :
     data = {
+        DoAllDailies_sDoAllDailies : {            
+            0 : DoAllDailies_sLaunchKingsRaidAndGoToMainScreen,
+            1 : DoAllDailies_sClaimMailbox,
+            2 : DoAllDailies_sExchangeAmity,
+            3 : DoAllDailies_sClearInventory,
+            4 : DoAllDailies_sStockade,
+            5 : DoAllDailies_sHerosInn,
+            6 : DoAllDailies_sUpperDungeon,
+            7 : DoAllDailies_sArena,
+            8 : DoAllDailies_sWorldBoss,
+            9 : DoAllDailies_sClaim_1stEXPNGold,
+            10 : DoAllDailies_sAncientRoyalVault,
+            11 : DoAllDailies_sConquest,
+            12 : DoAllDailies_sClaim_2ndEXPNGoldWStamina,
+            13 : DoAllDailies_sDoStory,
+            14 : DoAllDailies_sClaimDailyMission,
+            15 : "",
+            16 : ""
+        },
         Main_sMain : {
             Main_sGameLaunch_TapToPlayDuration_s : Main[Main_sGameLaunch_TapToPlayDuration_s],
             Main_sGameLaunch_MainGameScreenDuration_s : Main[Main_sGameLaunch_MainGameScreenDuration_s],
@@ -344,7 +403,12 @@ def ReadFromFile () :
 
     # Loops through all to populate global arrays    
     for key in json_obj :
-        if key == Main_sMain :
+        if key == DoAllDailies_sDoAllDailies :
+            nDoAllDailiesSeq_Count = 0
+            for value in json_obj[key]:
+                DoAllDailiesSequence[nDoAllDailiesSeq_Count] = json_obj[DoAllDailies_sDoAllDailies][value]
+                nDoAllDailiesSeq_Count += 1
+        elif key == Main_sMain :
             for value in json_obj[key] :
                 Main[value] = json_obj[Main_sMain][value]
         elif key == WorldBoss_sWorldBoss :
@@ -390,36 +454,38 @@ def ReadFromFile () :
     fp.close()
 
 def PrintToScreen (i_jsonobject) :
-    print ("\n")
-    print ("*** Printing settings read from Settings.json ***")
+    Manager.Trace1 ("###################################################\n")
+    Manager.Trace1 ("  Printing settings read from {0}".format(SETTINGS_FILENAME))
+    Manager.Trace1 ("  -------------------------------------------------\n")
     for key in i_jsonobject :
-        print ("{0}".format(key))
+        Manager.Trace1 ("{0}".format(key))
         for value in i_jsonobject[key] :
-            print ("\t{0} = {1}".format(value, i_jsonobject[key][value]))
-    print ("*** END Settings.json ***")
-    print ("\n")
+            Manager.Trace1 ("\t{0} = {1}".format(value, i_jsonobject[key][value]))
+    Manager.Trace1 ("*** END Settings.json ***")
+    Manager.Trace1 ("___________________________________________________\n")
 
 # Unused
 def PrintLoadedValuesToScreen () :
-    print ("\n")
-    print ("*** Printing settings read from Settings.json ***")
-    print ("\n")
+    Manager.Trace1 ("\n")
+    Manager.Trace1 ("*** Printing settings read from Settings.json ***")
+    Manager.Trace1 ("\n")
     for key in Main :
-        print ("{0}->{1} = {2}".format(Main_sMain, key, Main[key]))
-    print ("\n")
+        Manager.Trace1 ("{0}->{1} = {2}".format(Main_sMain, key, Main[key]))
+    Manager.Trace1 ("\n")
     for key in Arena :
-        print ("{0}->{1} = {2}".format(Arena_sArena, key, Arena[key]))
-    print ("\n")
-    print ("*** END Settings.json ***")
-    print ("\n")
+        Manager.Trace1 ("{0}->{1} = {2}".format(Arena_sArena, key, Arena[key]))
+    Manager.Trace1 ("\n")
+    Manager.Trace1 ("*** END Settings.json ***")
+    Manager.Trace1 ("\n")
 
 # Pretty prints jsondata to file
 def WriteJsonDataToFile(data, filename):
     try:
         jsondata = json.dumps(data, indent=2)
-        fd = open(filename, 'w')
+        # plus sign = create if not exists
+        fd = open(filename, 'w+')
         fd.write(jsondata)
         fd.close()
     except Exception as e:
-        print('ERROR writing {0}    {1}'.format(filename, e))
+        Manager.Trace1('ERROR writing {0}    {1}'.format(filename, e))
         pass
