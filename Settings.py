@@ -23,9 +23,11 @@ DoAllDailies_sClaim_1stEXPNGold                     = 'Claim_1stEXPNGold'
 DoAllDailies_sAncientRoyalVault                     = 'AncientRoyalVault'
 DoAllDailies_sConquest                              = 'Conquest'
 DoAllDailies_sClaim_2ndEXPNGoldWStamina             = 'Claim_2ndEXPNGoldWStamina'
-DoAllDailies_sDoStory                               = 'DoStory'
+DoAllDailies_sDoStory_UptoInventoryManagement       = 'DoStory_UptoInventoryManagement'
 DoAllDailies_sDoDragonRaid                          = 'DoDragonRaid'
+DoAllDailies_sClaim_3rdEXP_3rdGold                  = 'Claim_3rdEXP_3rdGold'
 DoAllDailies_sClaimDailyMission                     = 'ClaimDailyMission'
+DoAllDailies_sClaim_4thEXP_4thdGold                 = 'Claim_4thEXP_4thdGold'
 
 # Main
 Main_sMain                                          = 'Main'
@@ -138,8 +140,16 @@ DoAllDailiesSequence = {
     10 : DoAllDailies_sAncientRoyalVault,
     11 : DoAllDailies_sConquest,
     12 : DoAllDailies_sClaim_2ndEXPNGoldWStamina,
-    13 : DoAllDailies_sDoStory,
+    13 : DoAllDailies_sDoStory_UptoInventoryManagement,
     14 : DoAllDailies_sClaimDailyMission,
+    15 : DoAllDailies_sClaim_3rdEXP_3rdGold,
+    16 : DoAllDailies_sDoStory_UptoInventoryManagement,
+    17 : DoAllDailies_sClaim_4thEXP_4thdGold,
+    18 : DoAllDailies_sDoStory_UptoInventoryManagement,
+    19 : DoAllDailies_sDoDragonRaid,
+    20 : "",
+    21 : "",
+    22 : ""
 }
 
 Main = {
@@ -173,13 +183,17 @@ Arena = {
 }
 
 Stockade = {
-    Stockade_sClaimSkillBook                        : 4,        # Claim skill book 1 or 2 or 3 or 4
-    Stockade_sSingleBattleDuration_s                : 85        # 85s
+    Stockade_sClaimSkillBook                        : 3,        # Claim skill book 1 or 2 or 3 or 4
+    Stockade_sSingleBattleDuration_s                : 75,       # 75s
+    Main_sEasy_Hero1_Position                       : 3,
+    Main_sEasy_Hero2_Position                       : 5,
+    Main_sEasy_Hero3_Position                       : 8,
+    Main_sEasy_Hero4_Position                       : 16
 }
 
 Story = {
     Story_sAutoRepeatAtChapter                      : 8,        # Auto repeat this chapter
-    Story_sUseStaminaPot                            : 'N',
+    Story_sUseStaminaPot                            : 'Y',
     Story_sLongestRunningTime_s                     : 180,      # 180s i.e. 3 minutes
     Story_sManageInventoryInterval_m                : 60,       # Every 60 minutes do inventory management
     Story_sGrindOrSellInventory                     : 'g',      # g = grind, s = sell
@@ -189,17 +203,17 @@ Conquest = {
     Conquest_sHighestClearedChapter                 : 8,
     Conquest_sHardContent_StartsFrom                : 8,
     Conquest_sHardContent_NoOfTimesToRetry          : 9,
-    Conquest_sLongestRunTime_Chap2_s                : 50,       #secs
-    Conquest_sLongestRunTime_Chap3_s                : 50,
-    Conquest_sLongestRunTime_Chap4_s                : 50,
-    Conquest_sLongestRunTime_Chap5_s                : 70,
-    Conquest_sLongestRunTime_Chap6_s                : 55,
+    Conquest_sLongestRunTime_Chap2_s                : 25,       #secs
+    Conquest_sLongestRunTime_Chap3_s                : 30,
+    Conquest_sLongestRunTime_Chap4_s                : 30,
+    Conquest_sLongestRunTime_Chap5_s                : 45,
+    Conquest_sLongestRunTime_Chap6_s                : 50,
     Conquest_sLongestRunTime_Chap7_s                : 75,
     Conquest_sLongestRunTime_Chap8_s                : 150,
     Main_sEasy_Hero1_Position                       : 3,
     Main_sEasy_Hero2_Position                       : 5,
     Main_sEasy_Hero3_Position                       : 8,
-    Main_sEasy_Hero4_Position                       : 16,
+    Main_sEasy_Hero4_Position                       : 14,
     Main_sHard_Hero1_Position                       : 1,
     Main_sHard_Hero2_Position                       : 3,
     Main_sHard_Hero3_Position                       : 5,
@@ -209,19 +223,19 @@ Conquest = {
 UpperDungeon = {
     UpperDungeon_sHighestClearedChapter             : 8,
     UpperDungeon_sHardContent_StartsFrom            : 8,
-    UpperDungeon_sHardContent_NoOfTimesToRetry      : 11,
+    UpperDungeon_sHardContent_NoOfTimesToRetry      : 8,
     UpperDungeon_sLongestRunTime_Chap1_s            : 40,       #secs
     UpperDungeon_sLongestRunTime_Chap2_s            : 40,
     UpperDungeon_sLongestRunTime_Chap3_s            : 40,
     UpperDungeon_sLongestRunTime_Chap4_s            : 45,
     UpperDungeon_sLongestRunTime_Chap5_s            : 45,
-    UpperDungeon_sLongestRunTime_Chap6_s            : 55,
-    UpperDungeon_sLongestRunTime_Chap7_s            : 95,
-    UpperDungeon_sLongestRunTime_Chap8_s            : 190,
+    UpperDungeon_sLongestRunTime_Chap6_s            : 45,
+    UpperDungeon_sLongestRunTime_Chap7_s            : 85,
+    UpperDungeon_sLongestRunTime_Chap8_s            : 175,
     Main_sEasy_Hero1_Position                       : 3,
     Main_sEasy_Hero2_Position                       : 5,
     Main_sEasy_Hero3_Position                       : 8,
-    Main_sEasy_Hero4_Position                       : 16,
+    Main_sEasy_Hero4_Position                       : 14,
     Main_sHard_Hero1_Position                       : 1,
     Main_sHard_Hero2_Position                       : 3,
     Main_sHard_Hero3_Position                       : 5,
@@ -239,8 +253,8 @@ DragonRaidConfig = {
     DragonRaidConfig_sSelectDragonToAuto            : 'Fire_DragonRaid',    # Fire_DragonRaid, Frost_DragonRaid, Poison_DragonRaid, Black_DragonRaid
     DragonRaidConfig_sHero1_Position                : 1,                    # Please select in ascending order i.e. Hero1_Pos=1, Hero2_Pos=3 and so on
     DragonRaidConfig_sHero2_Position                : 5,                    # Please select in ascending order i.e. Hero1_Pos=1, Hero2_Pos=3 and so on
-    DragonRaidConfig_sHero3_Position                : 9,                    # Please select in ascending order i.e. Hero1_Pos=1, Hero2_Pos=3 and so on
-    DragonRaidConfig_sHero4_Position                : 10                    # Please select in ascending order i.e. Hero1_Pos=1, Hero2_Pos=3 and so on
+    DragonRaidConfig_sHero3_Position                : 8,                    # Please select in ascending order i.e. Hero1_Pos=1, Hero2_Pos=3 and so on
+    DragonRaidConfig_sHero4_Position                : 9                    # Please select in ascending order i.e. Hero1_Pos=1, Hero2_Pos=3 and so on
 }
 
 Fire_DragonRaid = {
@@ -266,23 +280,29 @@ Black_DragonRaid = {
 def WriteDefaultSettingsFile () :
     data = {
         DoAllDailies_sDoAllDailies : {            
-            0 : DoAllDailies_sLaunchKingsRaidAndGoToMainScreen,
-            1 : DoAllDailies_sClaimMailbox,
-            2 : DoAllDailies_sExchangeAmity,
-            3 : DoAllDailies_sClearInventory,
-            4 : DoAllDailies_sStockade,
-            5 : DoAllDailies_sHerosInn,
-            6 : DoAllDailies_sUpperDungeon,
-            7 : DoAllDailies_sArena,
-            8 : DoAllDailies_sWorldBoss,
-            9 : DoAllDailies_sClaim_1stEXPNGold,
-            10 : DoAllDailies_sAncientRoyalVault,
-            11 : DoAllDailies_sConquest,
-            12 : DoAllDailies_sClaim_2ndEXPNGoldWStamina,
-            13 : DoAllDailies_sDoStory,
-            14 : DoAllDailies_sClaimDailyMission,
-            15 : "",
-            16 : ""
+            0 : DoAllDailiesSequence[0],
+            1 : DoAllDailiesSequence[1],
+            2 : DoAllDailiesSequence[2],
+            3 : DoAllDailiesSequence[3],
+            4 : DoAllDailiesSequence[4],
+            5 : DoAllDailiesSequence[5],
+            6 : DoAllDailiesSequence[6],
+            7 : DoAllDailiesSequence[7],
+            8 : DoAllDailiesSequence[8],
+            9 : DoAllDailiesSequence[9],
+            10 : DoAllDailiesSequence[10],
+            11 : DoAllDailiesSequence[11],
+            12 : DoAllDailiesSequence[12],
+            13 : DoAllDailiesSequence[13],
+            14 : DoAllDailiesSequence[14],
+            15 : DoAllDailiesSequence[15],
+            16 : DoAllDailiesSequence[16],
+            17 : DoAllDailiesSequence[17],
+            18 : DoAllDailiesSequence[18],
+            19 : DoAllDailiesSequence[19],
+            20 : DoAllDailiesSequence[20],
+            21 : DoAllDailiesSequence[21],
+            22 : DoAllDailiesSequence[22]
         },
         Main_sMain : {
             Main_sGameLaunch_TapToPlayDuration_s : Main[Main_sGameLaunch_TapToPlayDuration_s],
@@ -310,7 +330,11 @@ def WriteDefaultSettingsFile () :
             },
         Stockade_sStockade : {
             Stockade_sClaimSkillBook : Stockade[Stockade_sClaimSkillBook],
-            Stockade_sSingleBattleDuration_s : Stockade[Stockade_sSingleBattleDuration_s]
+            Stockade_sSingleBattleDuration_s : Stockade[Stockade_sSingleBattleDuration_s],
+            Main_sEasy_Hero1_Position : Stockade[Main_sEasy_Hero1_Position],
+            Main_sEasy_Hero2_Position : Stockade[Main_sEasy_Hero2_Position],
+            Main_sEasy_Hero3_Position : Stockade[Main_sEasy_Hero3_Position],
+            Main_sEasy_Hero4_Position : Stockade[Main_sEasy_Hero4_Position],
             },
         Story_sStory : {
             Story_sAutoRepeatAtChapter : Story[Story_sAutoRepeatAtChapter],
@@ -454,7 +478,7 @@ def ReadFromFile () :
     fp.close()
 
 def PrintToScreen (i_jsonobject) :
-    Manager.Trace1 ("###################################################\n")
+    Manager.TraceHeader1 ()
     Manager.Trace1 ("  Printing settings read from {0}".format(SETTINGS_FILENAME))
     Manager.Trace1 ("  -------------------------------------------------\n")
     for key in i_jsonobject :
@@ -462,7 +486,7 @@ def PrintToScreen (i_jsonobject) :
         for value in i_jsonobject[key] :
             Manager.Trace1 ("\t{0} = {1}".format(value, i_jsonobject[key][value]))
     Manager.Trace1 ("*** END Settings.json ***")
-    Manager.Trace1 ("___________________________________________________\n")
+    Manager.TraceFooter1 ()
 
 # Unused
 def PrintLoadedValuesToScreen () :

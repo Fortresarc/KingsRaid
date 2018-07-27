@@ -18,12 +18,12 @@ TotalRunTime = 0 # millisecs
 # NRG, gold
 ##############
 sClaim_1stEXP_1stGold           = 'Claim_1stEXP_1stGold'
-sClaim_BonusStamina_BonusGold   = 'Claim_BonusStamina_BonusGold'
+sClaim_2ndEXPNGoldWStamina      = 'Claim_2ndEXPNGoldWStamina'
 sClaim_3rdEXP_3rdGold           = 'Claim_3rdEXP_3rdGold'
 sClaim_4thEXP_4thGold           = 'Claim_4thEXP_4thGold'
 ClaimEXPGoldStepsList = {
     sClaim_1stEXP_1stGold : 0,
-    sClaim_BonusStamina_BonusGold : 1,       # (i.e Claiming "Today's Bonus Stamina" and "Today's Bonus Gold")
+    sClaim_2ndEXPNGoldWStamina : 1,       # (i.e Claiming "Today's Bonus Stamina" and "Today's Bonus Gold")
     sClaim_3rdEXP_3rdGold : 2,
     sClaim_4thEXP_4thGold : 3
     }
@@ -44,11 +44,31 @@ def Close():
     global LogFile
     LogFile.close()
 
+# no indentation
+def TraceHeader1 ():
+    Trace1 ("\n")
+    Trace1 ("###################################################")
+
+def TraceSubHeader1 ():
+    Trace1 ("/## ******************************************* ##/")
+
+def TraceFooter1():
+    Trace1 ("## _____________________________________________ ##")
+
+# no indentation
 def Trace1 (i_sLogText):
     global LogFile
     print (i_sLogText)
     LogFile.write(i_sLogText + '\n')
     
+# no indentation
+def TraceHeader2 ():
+    Trace2 ("================================================")
+
+def TraceFooter2():
+    Trace2 ("== ------------------------------------------ ==")
+
+# indented 1 tab space
 def Trace2 (i_sLogText):
     global LogFile
     sFormattedLogText = "\t" + i_sLogText
@@ -73,13 +93,12 @@ def PrintTotalRunTime():
     nTotalRunTime_Secs = TotalRunTime/1000
     nTotalRunTime_Mins = nTotalRunTime_Secs/60
 
-    Trace1 ("\n")
-    Trace1 ("###################################################")
+    TraceHeader1 ()
     if (60 >= nTotalRunTime_Secs):
         Trace1 ("Current Total runtime = {0} secs".format(nTotalRunTime_Secs))
     else:
         Trace1 ("Current Total runtime = {0} mins".format(nTotalRunTime_Mins))
-    Trace1("___________________________________________________")
+    TraceFooter1()
 
 def AddTotalRunTime (i_nTimeMillisecs):
     global TotalRunTime
@@ -195,19 +214,23 @@ def Gen_ClaimEnergyGoldHotTime(i_nClaimEventCounter) :
         # Claim Use Gold hot time (1/3)
         click_button_msecs('mission_claim_position4', Settings.Main[Settings.Main_sDurationAfterClick_ms])
         click_button_msecs('minipopup_confirmbutton', Settings.Main[Settings.Main_sDurationAfterClick_ms])
-    elif ClaimEXPGoldStepsList[sClaim_BonusStamina_BonusGold] == i_nClaimEventCounter:
-        # Claim Today's Bonus Stamina
+    elif ClaimEXPGoldStepsList[sClaim_2ndEXPNGoldWStamina] == i_nClaimEventCounter:
+        # Claim Today's Bonus Stamina (Exp)
         click_button_msecs('mission_claim_position1', Settings.Main[Settings.Main_sDurationAfterClick_ms])
         click_button_msecs('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick_ms])
-        # Claim Today's Bonus Gold
+        # Claim Today's Bonus Gold (Gold)
         click_button_msecs('mission_claim_position1', Settings.Main[Settings.Main_sDurationAfterClick_ms])
         click_button_msecs('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick_ms])
-        # Claim Full of Stamina! 1/5
-        click_button_msecs('mission_claim_position3', Settings.Main[Settings.Main_sDurationAfterClick_ms])
-        click_button_msecs('minipopup_confirmbutton', Settings.Main[Settings.Main_sDurationAfterClick_ms])
-        # Claim Stamina Rush! 1/5
-        click_button_msecs('mission_claim_position4', Settings.Main[Settings.Main_sDurationAfterClick_ms])
-        click_button_msecs('minipopup_confirmbutton', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+        
+        # NOTE: We are commenting this away because, there are too much Energy to expense for 1 hour
+        #       Lets do those in Claim_3rdEXP_3rdGold
+        ## Claim Full of Stamina! 1/5 (Gold)
+        #click_button_msecs('mission_claim_position3', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+        #click_button_msecs('minipopup_confirmbutton', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+        ## Claim Stamina Rush! 1/5 (Exp)
+        #click_button_msecs('mission_claim_position4', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+        #click_button_msecs('minipopup_confirmbutton', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+        
         # Claim Use EXP hot time (2/3)
         click_button_msecs('mission_claim_position1', Settings.Main[Settings.Main_sDurationAfterClick_ms])
         click_button_msecs('minipopup_confirmbutton', Settings.Main[Settings.Main_sDurationAfterClick_ms])
@@ -215,23 +238,23 @@ def Gen_ClaimEnergyGoldHotTime(i_nClaimEventCounter) :
         click_button_msecs('mission_claim_position2', Settings.Main[Settings.Main_sDurationAfterClick_ms])
         click_button_msecs('minipopup_confirmbutton', Settings.Main[Settings.Main_sDurationAfterClick_ms])
     elif ClaimEXPGoldStepsList[sClaim_3rdEXP_3rdGold] <= i_nClaimEventCounter:
-        # Doesn't how much we claim, we just want to expanse it away
-        for i in range (0, 3) :
-            # Claim Full of Stamina! 2-4/5
+        # Claim 1st stamina = 100, 2nd = 200, 3rd = 300
+        for i in range (0, 2) :
+            # Claim Full of Stamina! 1 - 3/5
             click_button_msecs('mission_claim_position3', Settings.Main[Settings.Main_sDurationAfterClick_ms])
             click_button_msecs('minipopup_confirmbutton', Settings.Main[Settings.Main_sDurationAfterClick_ms])
-            # Claim Stamina Rush! 2-4/5
+            # Claim Stamina Rush! 1 - 3/5
             click_button_msecs('mission_claim_position4', Settings.Main[Settings.Main_sDurationAfterClick_ms])
             click_button_msecs('minipopup_confirmbutton', Settings.Main[Settings.Main_sDurationAfterClick_ms])
         # Claim Use EXP hot time (3/3)
         click_button_msecs('mission_claim_position1', Settings.Main[Settings.Main_sDurationAfterClick_ms])
         click_button_msecs('minipopup_confirmbutton', Settings.Main[Settings.Main_sDurationAfterClick_ms])
         # Claim Use Gold hot time (3/3)
-        click_button_msecs('mission_claim_position2', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+        click_button_msecs('mission_claim_position1', Settings.Main[Settings.Main_sDurationAfterClick_ms])
         click_button_msecs('minipopup_confirmbutton', Settings.Main[Settings.Main_sDurationAfterClick_ms])        
     elif ClaimEXPGoldStepsList[sClaim_4thEXP_4thdGold] <= i_nClaimEventCounter:
         # Doesn't how much we claim, we just want to expanse it away
-        for i in range (0, 3) :
+        for i in range (0, 1) :
             # Claim Full of Stamina! ?/5
             click_button_msecs('mission_claim_position1', Settings.Main[Settings.Main_sDurationAfterClick_ms])
             click_button_msecs('minipopup_confirmbutton', Settings.Main[Settings.Main_sDurationAfterClick_ms])
