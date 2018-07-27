@@ -25,7 +25,7 @@ def do_generate_inventory_management_for_adventure(should_grind, should_sell):
     # Exit back to Orvel map
     Manager.click_button_msecs('exit', 3500, False)
 
-def gen_natural_stamina_farm():
+def gen_natural_stamina_farm(i_bReenterStoryAfterGrindOrSell = True):
     if False == nox.find_settings_file :
         Manager.Trace2()
         use_pot = nox.prompt_user_yes_no(
@@ -35,7 +35,12 @@ def gen_natural_stamina_farm():
             "To disable inventory management, press Enter without entering a value: ", min=1,
             default = -1)
     else :
-        use_pot = Settings.Story[Settings.Story_sUseStaminaPot]
+        user_input = Settings.Story[Settings.Story_sUseStaminaPot]
+        user_input = user_input.lower()
+        if user_input == 'n':
+            use_pot = False
+        if user_input == 'y':
+            use_pot = True
         inventory_management = Settings.Story[Settings.Story_sManageInventoryInterval_m]
 
     inv_management_sync = None
@@ -122,8 +127,9 @@ def gen_natural_stamina_farm():
         # so initiate the process of clicking, grinding/selling, and getting back into the battle.
         do_generate_inventory_management_for_adventure(should_grind, should_sell)
 
-        # Re-enter the battle from the world map, using a potion if necessary
-        re_enter_adventure(use_pot)
+        if i_bReenterStoryAfterGrindOrSell:
+            # Re-enter the battle from the world map, using a potion if necessary
+            re_enter_adventure(use_pot)
 
 def re_enter_adventure(use_potion):
     # Re-enter the map.  Since there's a loading transition, this takes a little extra time.

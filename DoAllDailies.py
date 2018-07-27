@@ -5,8 +5,6 @@ import Settings
 import Manager
 import KRCommon
 import KRSelect
-
-# TODO REMOVE THIS
 import UpperDungeon
 import Conquest
 import Campaign
@@ -24,14 +22,19 @@ def Gen_DoAllDailies() :
 
     # Do sequence as read from settings file
     for key in Settings.DoAllDailiesSequence :
-        Manager.Trace1 ("\n")
-        Manager.Trace1 ("###################################################")
+        Manager.TraceHeader1 ()
         nTimeTemp = Manager.TotalRunTime
         _ExecuteSingleDailyFunction(Settings.DoAllDailiesSequence[key])
-        Manager.Trace1 ("  ------------------------------------------------")
-        Manager.Trace1 ("  Do all dailies {0} : {1} .. Will execute for {2}".format(key, Settings.DoAllDailiesSequence[key], Manager.GetString_TotalRunTime(nTimeTemp)))
-        Manager.Trace1 ("___________________________________________________")
+        Manager.TraceSubHeader1 ()
+        Manager.Trace1 ("Do all dailies {0} : {1} .. Will execute for {2}".format(key, Settings.DoAllDailiesSequence[key], Manager.GetString_TotalRunTime(nTimeTemp)))
+        Manager.TraceFooter1 ()
 
+    #TEST()
+
+    Manager.PrintTotalRunTime()
+
+# TEST CODES
+#def TEST ():
     #KRCommon.Gen_LaunchKingsRaidAndGoToMainScreen()
     
     #KRCommon.Gen_ClaimMailbox()
@@ -58,14 +61,10 @@ def Gen_DoAllDailies() :
 
     #Conquest.gen_conquest()
 
-    #Manager.Gen_ClaimEnergyGoldHotTime(Manager.ClaimEXPGoldStepsList[Manager.sClaim_BonusStamina_BonusGold])
+    #Manager.Gen_ClaimEnergyGoldHotTime(Manager.ClaimEXPGoldStepsList[Manager.sClaim_2ndEXPNGoldWStamina])
     #KRCommon.Gen_DoStory(Settings.Story[Settings.Story_sAutoRepeatAtChapter])
     #KRCommon.Gen_ClaimDailyMission(6, True)
 
-    Manager.PrintTotalRunTime()
-
-    # TEST CODES
-    
 def Gen_DoLaunchNOX_DragonRaid() :
     _Gen_DoLaunchNOX_DoQuest(True)
     
@@ -90,16 +89,15 @@ def _Gen_DoLaunchNOX_DoQuest(i_bIsDragonRaid = True) :
         sQuestType = 'DragonRaid'
 
     for key in CommonQuestSequence:
-        Manager.Trace1 ("\n")
-        Manager.Trace1 ("###################################################")
+        Manager.TraceHeader1()
         nTimeTemp = Manager.TotalRunTime
         _ExecuteSingleDailyFunction(CommonQuestSequence[key])
-        Manager.Trace1 ("  ------------------------------------------------")
-        Manager.Trace1 ("  Do {0} after NOX restarts {1} : {2} .. Will execute for {3}".format( sQuestType,
-                                                                                                key,
-                                                                                                CommonQuestSequence[key],
-                                                                                                Manager.GetString_TotalRunTime(nTimeTemp)))
-        Manager.Trace1 ("___________________________________________________")
+        Manager.TraceSubHeader1 ()
+        Manager.Trace1 ("Do {0} after NOX restarts {1} : {2} .. Will execute for {3}".format( sQuestType,
+                                                                                              key,
+                                                                                              CommonQuestSequence[key],
+                                                                                              Manager.GetString_TotalRunTime(nTimeTemp)))
+        Manager.TraceFooter1 ()
 
     if i_bIsDragonRaid :
         KRCommon.Gen_DoDragonRaid()
@@ -151,16 +149,23 @@ def _ExecuteSingleDailyFunction(i_sDailyFunctionName):
         Conquest.gen_conquest()
 
     elif Settings.DoAllDailies_sClaim_2ndEXPNGoldWStamina == i_sDailyFunctionName:
-        Manager.Gen_ClaimEnergyGoldHotTime(Manager.ClaimEXPGoldStepsList[Manager.sClaim_BonusStamina_BonusGold])
+        Manager.Gen_ClaimEnergyGoldHotTime(Manager.ClaimEXPGoldStepsList[Manager.sClaim_2ndEXPNGoldWStamina])
 
-    elif Settings.DoAllDailies_sDoStory == i_sDailyFunctionName:
-        KRCommon.Gen_DoStory(Settings.Story[Settings.Story_sAutoRepeatAtChapter])
+    elif Settings.DoAllDailies_sDoStory_UptoInventoryManagement == i_sDailyFunctionName:
+        KRCommon.Gen_DoStory(Settings.Story[Settings.Story_sAutoRepeatAtChapter], False)
 
     elif Settings.DoAllDailies_sDoDragonRaid == i_sDailyFunctionName:
         KRCommon.Gen_DoDragonRaid()
 
+    elif Settings.DoAllDailies_sClaim_3rdEXP_3rdGold == i_sDailyFunctionName:
+        Manager.Gen_ClaimEnergyGoldHotTime(Manager.ClaimEXPGoldStepsList[Manager.sClaim_3rdEXP_3rdGold])
+
     elif Settings.DoAllDailies_sClaimDailyMission == i_sDailyFunctionName:
         KRCommon.Gen_ClaimDailyMission(6, True)
+
+    elif Settings.DoAllDailies_sClaim_4thEXP_4thdGold == i_sDailyFunctionName:
+        Manager.Gen_ClaimEnergyGoldHotTime(Manager.ClaimEXPGoldStepsList[Manager.sClaim_4thEXP_4thGold])
+        
 
 def Gen_WorldBoss():
     pagesOpened = 0
@@ -231,10 +236,13 @@ def Gen_Stockade(i_EnterFromArena) :
     
     StockadePagesOpened += 1
     # loop these to get to autobattle screen
-    for i in range (0, 4) :
+    for i in range (0, 3) :
         Manager.click_button_msecs('stockade_engage_leftmost', Settings.Main[Settings.Main_sDurationAfterClick_Short_ms])
         Manager.click_button_msecs('stockade_engage_middle_ok_autobattle', Settings.Main[Settings.Main_sDurationAfterClick_Short_ms])
         Manager.click_button_msecs('stockade_engage_rightmost', Settings.Main[Settings.Main_sDurationAfterClick_Short_ms])
+
+    # Select heroes
+    KRSelect.Gen_SelectQuestHero(KRSelect.QuestType_Stockade, False, Settings.Main_sEasyContent)
 
     # Click autobattle
     Manager.click_button_msecs('stockade_engage_autobattle', Settings.Main[Settings.Main_sDurationAfterClick_ms])
@@ -295,7 +303,7 @@ def Gen_Arena() :
 # Hero's inn dailies
 def Gen_Daily_HerosInn(i_WaitForReceivingNewHero) :
     HerosInnMAX = int(15)
-    HerosInnRouletteDuration_ms = 7000
+    HerosInnRouletteDuration_ms = 8000
     HerosInnPagesOpened = 0
 
     Manager.click_button_msecs('herosinn_visit', Settings.Main[Settings.Main_sDurationAfterClick_ms])

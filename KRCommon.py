@@ -50,7 +50,7 @@ def Gen_LaunchKingsRaidAndGoToMainScreen () :
     for i in range(0, Settings.Main[Settings.Main_sNoOfClicksToClearAdvertisement]) :
         Manager.click_button_msecs('main_advertisement_close', Settings.Main[Settings.Main_sDurationAfterClick_Short_ms])
         
-def Gen_DoStory(i_sWhichChapter = 8, i_bStartBattle = True) :
+def Gen_DoStory(i_sWhichChapter = 8, i_bReenterStoryAfterGrindOrSell = True) :
     # Navigate to chapter
     # currently only support chapter 6 to 8
     if 8 <= i_sWhichChapter :
@@ -67,13 +67,12 @@ def Gen_DoStory(i_sWhichChapter = 8, i_bStartBattle = True) :
         Gen_GoToChapter('conquests', 'ch6_conquest', Settings.Main[Settings.Main_sTransitionDuration_ms])
         Manager.click_button_msecs('ch6_conquest_naviTo_story_6_10', Settings.Main[Settings.Main_sDurationAfterClick_Long_ms])
 
-    if i_bStartBattle :
-        Manager.click_button_msecs('main_preparebattle', Settings.Main[Settings.Main_sDurationAfterClick_ms])
-        Manager.click_button_msecs('get_ready_for_battle', Settings.Main[Settings.Main_sDurationAfterClick_ms])
-        # For now we use Conquests Hero selection for story as well
-        KRSelect.Gen_SelectQuestHero(KRSelect.QuestType_Story, False, Settings.Main_sEasyContent)
+    Manager.click_button_msecs('main_preparebattle', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+    Manager.click_button_msecs('get_ready_for_battle', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+    # For now we use Conquests Hero selection for story as well
+    KRSelect.Gen_SelectQuestHero(KRSelect.QuestType_Story, False, Settings.Main_sEasyContent)
 
-        Campaign.gen_natural_stamina_farm()
+    Campaign.gen_natural_stamina_farm(i_bReenterStoryAfterGrindOrSell)
 
 def Gen_DoDragonRaid (i_bStartBattle = True) :
     whichDragonRaid = Settings.DragonRaidConfig[Settings.DragonRaidConfig_sSelectDragonToAuto]
@@ -140,8 +139,12 @@ def Gen_NavigateToMain(i_portal_orvel_placetogo, i_bAlreadyInTown = False) :
 def Gen_ClearInventory() :
     # Click inventory
     Manager.click_button_msecs('main_inventory', Settings.Main[Settings.Main_sDurationAfterClick_ms])
-    # Grind all (for now)
-    Inventory.manage_inventory(True, False)
+
+    if ('g' == Settings.Story[Settings.Story_sGrindOrSellInventory]):
+        Inventory.manage_inventory(True, False)
+    else:
+        Inventory.manage_inventory(False, True)
+
     # Back to main game screen
     Back()
 
@@ -273,17 +276,19 @@ def Gen_Conquest_UpperDungeon_Helper (i_sQuestButtonName,           #button name
     bHardHeroHasBeenSelected = False
 
     # Select easy/ hard heroes before doing conquest / upper dungeon for single chap
-    for i in range (i_nStartAtChapter, i_nHighestClearedChapter+1) :
+    for i in range(i_nStartAtChapter, i_nHighestClearedChapter + 1) :
         sContent = sNONE
         if (i_nSelectHardContentHeroesAt <= i) :
             if (False == bHardHeroHasBeenSelected) :
                 sContent = Settings.Main_sHardContent
                 bHardHeroHasBeenSelected = True
+                Manager.TraceHeader2()
                 Manager.Trace2 ("Hard content from: {0}) {1}".format(i, i_lChapterList[i]))
         elif (i_nSelectEasyContentHeroesAt <= i):
             if (False == bEasyHeroHasBeenSelected):
                 sContent = Settings.Main_sEasyContent
                 bEasyHeroHasBeenSelected = True
+                Manager.TraceHeader2()
                 Manager.Trace2 ("Easy content from: {0}) {1}".format(i, i_lChapterList[i]))
         _Gen_Single_Conquest_or_UpperDungeon_Chapter(i_sQuestButtonName,
                                                     i_lChapterList[i],

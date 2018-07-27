@@ -187,7 +187,7 @@ points = {
 
     # Stockade
     'stockade_enter' : (650, 360),
-    'stockade_engage_leftmost' : (234, 650),                # Ensured that we do not accidentally click hero when we are at "Get Ready for Battle" screen
+    'stockade_engage_leftmost' : (235, 650),                # Ensured that we do not accidentally click hero when we are at "Get Ready for Battle" screen
     'stockade_engage_middle_ok_autobattle' : (612, 650),
     'stockade_engage_rightmost' : (975, 650),               # Ensured that we do not accidentally click "Start Battle" when we are at "Get Ready for Battle" screen
     'stockade_engage_autobattle' : (827, 650),

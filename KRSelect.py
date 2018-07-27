@@ -5,17 +5,18 @@ import Manager
 QuestType_Story = 0
 QuestType_UpperDungeon = 1
 QuestType_Conquest = 2
+QuestType_Stockade = 3
 
 # For selecting heroes in Story, Upper dungeons, Conquests
 def Gen_SelectQuestHero (i_nQuestType, i_bNavigateToHeroSelectScreen, i_sEasyOrHardContent, i_bExitBackToMainPage = False) :
     pagesOpened = 0
 
     # Navigate to upper dungeon
-    if i_bNavigateToHeroSelectScreen :        
+    if i_bNavigateToHeroSelectScreen :
         Manager.click_button_msecs('main_portal', Settings.Main[Settings.Main_sDurationAfterClick_ms])
         Manager.click_button_msecs('upper_dungeon', Settings.Main[Settings.Main_sDurationAfterClick_ms])
         Manager.click_button_msecs('ch1_upper_dungeon', Settings.Main[Settings.Main_sDurationAfterClick_ms])
-        # This has to wait longer because we are transiting to another big game screen    
+        # This has to wait longer because we are transiting to another big game screen
         Manager.click_button_secs('minipopup_confirmbutton', Settings.Main[Settings.Main_sAnyGameScreenLoadingTime_s])
 
         # Go to Heroes selection screen
@@ -32,6 +33,8 @@ def Gen_SelectQuestHero (i_nQuestType, i_bNavigateToHeroSelectScreen, i_sEasyOrH
 
     if QuestType_UpperDungeon == i_nQuestType:
         lQuestList = Settings.UpperDungeon.copy()
+    elif QuestType_Stockade == i_nQuestType: 
+        lQuestList = Settings.Stockade.copy()
     else:   # Main story and conquest share same hero selection list
         lQuestList = Settings.Conquest.copy()
 
@@ -41,12 +44,14 @@ def Gen_SelectQuestHero (i_nQuestType, i_bNavigateToHeroSelectScreen, i_sEasyOrH
         3 : lQuestList[Settings.Main_sEasy_Hero3_Position],
         4 : lQuestList[Settings.Main_sEasy_Hero4_Position]
     }
-    SelectedHeroPosition_Hard = {
-        1 : lQuestList[Settings.Main_sHard_Hero1_Position],
-        2 : lQuestList[Settings.Main_sHard_Hero2_Position],
-        3 : lQuestList[Settings.Main_sHard_Hero3_Position],
-        4 : lQuestList[Settings.Main_sHard_Hero4_Position]
-    }
+    # Currently Stockade do not use Hard content heroes
+    if QuestType_Stockade != i_nQuestType: 
+        SelectedHeroPosition_Hard = {
+            1 : lQuestList[Settings.Main_sHard_Hero1_Position],
+            2 : lQuestList[Settings.Main_sHard_Hero2_Position],
+            3 : lQuestList[Settings.Main_sHard_Hero3_Position],
+            4 : lQuestList[Settings.Main_sHard_Hero4_Position]
+        }
 
     ClickHeroPosition = {
         1 : 'main_HeroList_Position1',
