@@ -26,6 +26,8 @@ def do_generate_inventory_management_for_adventure(should_grind, should_sell):
     Manager.click_button_msecs('exit', 3500, False)
 
 def gen_natural_stamina_farm(i_bReenterStoryAfterGrindOrSell = True):
+    Settings.ReadFromFile()
+
     if False == nox.find_settings_file :
         Manager.Trace2()
         use_pot = nox.prompt_user_yes_no(

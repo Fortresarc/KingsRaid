@@ -158,7 +158,7 @@ Main = {
     Main_sGameLaunch_TapToPlayDuration_s            : 50,    # 50s From game launched to Tap to Play
     Main_sGameLaunch_MainGameScreenDuration_s       : 10,    # 10s From Press to Enter to Main game screen
     Main_sNoOfClicksToClearAdvertisement            : 5,
-    Main_sTransitionDuration_ms                     : 2000,
+    Main_sTransitionDuration_ms                     : 3000,
     Main_sDurationAfterClick_ms                     : 2000,
     Main_sDurationAfterClick_Short_ms               : 600,
     Main_sDurationAfterClick_Long_ms                : 5000,
@@ -193,7 +193,7 @@ Stockade = {
 
 Story = {
     Story_sAutoRepeatAtChapter                      : 8,        # Auto repeat this chapter
-    Story_sUseStaminaPot                            : 'Y',
+    Story_sUseStaminaPot                            : 'N',
     Story_sLongestRunningTime_s                     : 180,      # 180s i.e. 3 minutes
     Story_sManageInventoryInterval_m                : 60,       # Every 60 minutes do inventory management
     Story_sGrindOrSellInventory                     : 'g',      # g = grind, s = sell
@@ -203,9 +203,9 @@ Conquest = {
     Conquest_sHighestClearedChapter                 : 8,
     Conquest_sHardContent_StartsFrom                : 8,
     Conquest_sHardContent_NoOfTimesToRetry          : 9,
-    Conquest_sLongestRunTime_Chap2_s                : 25,       #secs
-    Conquest_sLongestRunTime_Chap3_s                : 30,
-    Conquest_sLongestRunTime_Chap4_s                : 30,
+    Conquest_sLongestRunTime_Chap2_s                : 40,       #secs
+    Conquest_sLongestRunTime_Chap3_s                : 40,
+    Conquest_sLongestRunTime_Chap4_s                : 40,
     Conquest_sLongestRunTime_Chap5_s                : 45,
     Conquest_sLongestRunTime_Chap6_s                : 50,
     Conquest_sLongestRunTime_Chap7_s                : 75,
@@ -229,7 +229,7 @@ UpperDungeon = {
     UpperDungeon_sLongestRunTime_Chap3_s            : 40,
     UpperDungeon_sLongestRunTime_Chap4_s            : 45,
     UpperDungeon_sLongestRunTime_Chap5_s            : 45,
-    UpperDungeon_sLongestRunTime_Chap6_s            : 45,
+    UpperDungeon_sLongestRunTime_Chap6_s            : 55,
     UpperDungeon_sLongestRunTime_Chap7_s            : 85,
     UpperDungeon_sLongestRunTime_Chap8_s            : 175,
     Main_sEasy_Hero1_Position                       : 3,
