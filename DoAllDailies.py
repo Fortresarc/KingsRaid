@@ -126,7 +126,7 @@ def _ExecuteSingleDailyFunction(i_sDailyFunctionName):
 
     elif Settings.DoAllDailies_sHerosInn == i_sDailyFunctionName:
         KRCommon.Gen_NavigateToMain('portal_orvel_herosinn', False)
-        Gen_Daily_HerosInn(False)
+        Gen_Daily_HerosInn(True)
 
     elif Settings.DoAllDailies_sUpperDungeon == i_sDailyFunctionName:
         UpperDungeon.gen_upper_dungeon()
