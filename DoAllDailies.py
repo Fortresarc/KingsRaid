@@ -65,6 +65,10 @@ def Gen_DoAllDailies() :
     #KRCommon.Gen_DoStory(Settings.Story[Settings.Story_sAutoRepeatAtChapter])
     #KRCommon.Gen_ClaimDailyMission(6, True)
 
+
+#def Gen_TowerOfOrdeal():
+    # todo 17.55 - 20 mins
+
 def Gen_DoLaunchNOX_DragonRaid() :
     _Gen_DoLaunchNOX_DoQuest(True)
     
@@ -288,10 +292,20 @@ def Gen_Arena() :
     for i in range(0, Settings.Arena[Settings.Arena_sNoOfMatches]) :
         # First click: just in case we level up
         Manager.click_button_msecs('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick_Short_ms])
-        Manager.click_button_secs('arena_select_start_retry', Settings.Arena[Settings.Arena_sMatchDuration_s])
+        Manager.click_button_msecs('arena_select_start_retry', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+        # Close pop up "Arena ticket is lacking"
+        Manager.click_button_msecs('minipopup_closebutton', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+        # Close pop up "You have used up all the tickets for Arena"
+        Manager.click_button_msecs('minipopup_closebutton', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+        Manager.wait_secs(Settings.Arena[Settings.Arena_sMatchDuration_s])
 
     # Just to be safe wait another Match duration in case another match has started
     Manager.wait_secs(Settings.Arena[Settings.Arena_sMatchDuration_s])
+    
+    # Close pop up "Arena ticket is lacking"
+    Manager.click_button_msecs('minipopup_closebutton', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+    # Close pop up "You have used up all the tickets for Arena"
+    Manager.click_button_msecs('minipopup_closebutton', Settings.Main[Settings.Main_sDurationAfterClick_ms])
 
     # Arena competing done
     Manager.click_button_secs('arena_select_start_exit', Settings.Main[Settings.Main_sAnyGameScreenLoadingTime_s])
@@ -302,12 +316,17 @@ def Gen_Arena() :
     
 # Hero's inn dailies
 def Gen_Daily_HerosInn(i_WaitForReceivingNewHero) :
-    HerosInnMAX = int(15)
+    HerosInnMAX = int(10)
     HerosInnRouletteDuration_ms = 8000
     HerosInnPagesOpened = 0
 
     Manager.click_button_msecs('herosinn_visit', Settings.Main[Settings.Main_sDurationAfterClick_ms])
     HerosInnPagesOpened += 1
+
+    # Click away max affinity
+    Manager.click_button_msecs('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+    Manager.click_button_msecs('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+
     Manager.click_button_msecs('herosinn_visit_greet', Settings.Main[Settings.Main_sDurationAfterClick_ms])
     Manager.click_button_msecs('herosinn_visit_conversate', Settings.Main[Settings.Main_sDurationAfterClick_ms])
     

@@ -188,7 +188,7 @@ Stockade = {
     Main_sEasy_Hero1_Position                       : 3,
     Main_sEasy_Hero2_Position                       : 5,
     Main_sEasy_Hero3_Position                       : 8,
-    Main_sEasy_Hero4_Position                       : 16
+    Main_sEasy_Hero4_Position                       : 15
 }
 
 Story = {
@@ -204,7 +204,7 @@ Conquest = {
     Conquest_sHardContent_StartsFrom                : 8,
     Conquest_sHardContent_NoOfTimesToRetry          : 9,
     Conquest_sLongestRunTime_Chap2_s                : 40,       #secs
-    Conquest_sLongestRunTime_Chap3_s                : 40,
+    Conquest_sLongestRunTime_Chap3_s                : 50,
     Conquest_sLongestRunTime_Chap4_s                : 40,
     Conquest_sLongestRunTime_Chap5_s                : 45,
     Conquest_sLongestRunTime_Chap6_s                : 50,
@@ -213,7 +213,7 @@ Conquest = {
     Main_sEasy_Hero1_Position                       : 3,
     Main_sEasy_Hero2_Position                       : 5,
     Main_sEasy_Hero3_Position                       : 8,
-    Main_sEasy_Hero4_Position                       : 14,
+    Main_sEasy_Hero4_Position                       : 22,
     Main_sHard_Hero1_Position                       : 1,
     Main_sHard_Hero2_Position                       : 3,
     Main_sHard_Hero3_Position                       : 5,
@@ -235,7 +235,7 @@ UpperDungeon = {
     Main_sEasy_Hero1_Position                       : 3,
     Main_sEasy_Hero2_Position                       : 5,
     Main_sEasy_Hero3_Position                       : 8,
-    Main_sEasy_Hero4_Position                       : 14,
+    Main_sEasy_Hero4_Position                       : 22,
     Main_sHard_Hero1_Position                       : 1,
     Main_sHard_Hero2_Position                       : 3,
     Main_sHard_Hero3_Position                       : 5,
@@ -258,7 +258,7 @@ DragonRaidConfig = {
 }
 
 Fire_DragonRaid = {
-    DragonRaid_sHighestCleared                      : 86,
+    DragonRaid_sHighestCleared                      : 88,
     DragonRaid_sAutoAtThisLevel                     : 82
 }
 

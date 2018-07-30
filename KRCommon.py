@@ -248,7 +248,7 @@ def _Gen_Single_Conquest_or_UpperDungeon_Chapter(i_sQuestButtonName,
 
     # Done all conquests/ upper dungeons. 
     # This is to ensure that we exit to main screen (in this case to chapter map)
-    Manager.wait(Settings.Main[Settings.Main_sAnyGameScreenLoadingTime_s] + Settings.Main[Settings.Main_sTransitionDuration_ms])
+    Manager.wait_secs(Settings.Main[Settings.Main_sAnyGameScreenLoadingTime_s])
 
 # Highest cleared level shouldn't exceed amount of chapters available for clearing Conquest/Upper dungeon
 def Gen_Conquest_UpperDungeon_Helper (i_sQuestButtonName,           #button name.. 
