@@ -191,9 +191,9 @@ def wait_secs(i_nWaitSeconds, i_bAddTransitionDelay = True):
     nWaitFinal_ms = _SecsToMsecs(i_nWaitSeconds)
     if i_bAddTransitionDelay:
         nWaitFinal_ms += Settings.Main[Settings.Main_sTransitionDuration_ms]
-    return wait(nWaitFinal_ms)
+    return wait_msecs(nWaitFinal_ms)
 
-def wait(i_nWaitMilliseconds):
+def wait_msecs(i_nWaitMilliseconds):
     AddTotalRunTime(i_nWaitMilliseconds)
     return nox.wait(i_nWaitMilliseconds)
 # end wait -----------------
