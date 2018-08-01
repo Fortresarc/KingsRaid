@@ -317,7 +317,7 @@ def Gen_Arena() :
 # Hero's inn dailies
 def Gen_Daily_HerosInn(i_WaitForReceivingNewHero) :
     HerosInnMAX = int(10)
-    HerosInnRouletteDuration_ms = 8000
+    HerosInnRouletteDuration_ms = 9000
     HerosInnPagesOpened = 0
 
     Manager.click_button_msecs('herosinn_visit', Settings.Main[Settings.Main_sDurationAfterClick_ms])
@@ -344,6 +344,7 @@ def Gen_Daily_HerosInn(i_WaitForReceivingNewHero) :
     # Row roulette
     for i in range (1, HerosInnMAX) :
         Manager.click_button_msecs('herosinn_visit_minigame_start', HerosInnRouletteDuration_ms)
+        Manager.click_button_msecs('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick_ms])
 
     # Close Roulette of fortune popup    
     Manager.click_button_msecs('translucentpopup_close', HerosInnRouletteDuration_ms)
