@@ -206,14 +206,14 @@ Conquest = {
     Conquest_sLongestRunTime_Chap2_s                : 40,       #secs
     Conquest_sLongestRunTime_Chap3_s                : 50,
     Conquest_sLongestRunTime_Chap4_s                : 40,
-    Conquest_sLongestRunTime_Chap5_s                : 45,
+    Conquest_sLongestRunTime_Chap5_s                : 60,
     Conquest_sLongestRunTime_Chap6_s                : 50,
     Conquest_sLongestRunTime_Chap7_s                : 75,
     Conquest_sLongestRunTime_Chap8_s                : 150,
     Main_sEasy_Hero1_Position                       : 3,
     Main_sEasy_Hero2_Position                       : 5,
     Main_sEasy_Hero3_Position                       : 8,
-    Main_sEasy_Hero4_Position                       : 22,
+    Main_sEasy_Hero4_Position                       : 21,
     Main_sHard_Hero1_Position                       : 1,
     Main_sHard_Hero2_Position                       : 3,
     Main_sHard_Hero3_Position                       : 5,
@@ -223,19 +223,19 @@ Conquest = {
 UpperDungeon = {
     UpperDungeon_sHighestClearedChapter             : 8,
     UpperDungeon_sHardContent_StartsFrom            : 8,
-    UpperDungeon_sHardContent_NoOfTimesToRetry      : 8,
-    UpperDungeon_sLongestRunTime_Chap1_s            : 40,       #secs
-    UpperDungeon_sLongestRunTime_Chap2_s            : 40,
-    UpperDungeon_sLongestRunTime_Chap3_s            : 40,
-    UpperDungeon_sLongestRunTime_Chap4_s            : 45,
-    UpperDungeon_sLongestRunTime_Chap5_s            : 45,
+    UpperDungeon_sHardContent_NoOfTimesToRetry      : 9,
+    UpperDungeon_sLongestRunTime_Chap1_s            : 45,       #secs
+    UpperDungeon_sLongestRunTime_Chap2_s            : 50,
+    UpperDungeon_sLongestRunTime_Chap3_s            : 50,
+    UpperDungeon_sLongestRunTime_Chap4_s            : 50,
+    UpperDungeon_sLongestRunTime_Chap5_s            : 50,
     UpperDungeon_sLongestRunTime_Chap6_s            : 55,
     UpperDungeon_sLongestRunTime_Chap7_s            : 85,
     UpperDungeon_sLongestRunTime_Chap8_s            : 175,
     Main_sEasy_Hero1_Position                       : 3,
     Main_sEasy_Hero2_Position                       : 5,
     Main_sEasy_Hero3_Position                       : 8,
-    Main_sEasy_Hero4_Position                       : 22,
+    Main_sEasy_Hero4_Position                       : 21,
     Main_sHard_Hero1_Position                       : 1,
     Main_sHard_Hero2_Position                       : 3,
     Main_sHard_Hero3_Position                       : 5,
@@ -258,7 +258,7 @@ DragonRaidConfig = {
 }
 
 Fire_DragonRaid = {
-    DragonRaid_sHighestCleared                      : 88,
+    DragonRaid_sHighestCleared                      : 91,
     DragonRaid_sAutoAtThisLevel                     : 82
 }
 
@@ -412,7 +412,7 @@ def WriteDefaultSettingsFile () :
     # write to file 
     WriteJsonDataToFile(data, SETTINGS_FILENAME)
 
-def ReadFromFile () :
+def ReadFromFile (i_bPrintToScreen = True) :
     
     curDirpath = os.curdir
     settingsFile = os.path.join(curDirpath, SETTINGS_FILENAME)
@@ -473,7 +473,8 @@ def ReadFromFile () :
                 Black_DragonRaid[value] = json_obj[Black_DragonRaid_sBlackDragonRaid][value]
 
     # Debugging purpose
-    PrintToScreen(json_obj)
+    if i_bPrintToScreen:
+        PrintToScreen(json_obj)
 
     fp.close()
 
