@@ -86,6 +86,7 @@ points = {
     'move_to_conquest' : (395, 532), # precise to avoid ruby reset
     'prepare_battle' : (1189, 649),
     'get_ready_for_battle' : (955, 654),
+    'selectbattle_startbattle' : (475, 525),
     'auto_repeat' : (850, 664),
     'repeat_ok' : (395, 532), # precise to avoid ruby reset
     'insufficient_keys' : (395, 532), # precise to avoid ruby reset

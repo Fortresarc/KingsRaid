@@ -211,7 +211,8 @@ def _Gen_Single_Conquest_or_UpperDungeon_Chapter(i_sQuestButtonName,
         if Settings.Main_sHardContent == i_sEasyOrHardContent :            
             Manager.Trace2("Single chap gen (HARD)")
             # Start battle instead of Auto repeat
-            Manager.click_button_secs('getreadyforbattle_startbattle', longest_run_time_s, False)
+            Manager.click_button_msecs('getreadyforbattle_startbattle', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+            Manager.click_button_secs('selectbattle_startbattle', longest_run_time_s, False)
             # loop starts from 1 as we've already started the timer after 'Start battle' is clicked
             for i in range(1, i_nHardContentNoOfTimesToRetry) :
                 Manager.click_button_msecs('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick_Long_ms])
