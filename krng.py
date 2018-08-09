@@ -213,8 +213,8 @@ points = {
     'getreadyforbattle_autorepeat' : (838, 660),
     'battlecompletion_retry' : (1200, 492),
     'battlecompletion_exit' : (1200, 630),
-    'repeatpopup_singlerepeat' : (460, 450),
-    'repeatpopup_repeatbattle' : (790, 450),
+    'repeatpopup_singlerepeat' : (460, 520),
+    'repeatpopup_repeatbattle' : (790, 520),
     'repeatpopup_close' : (960, 165),
     'minipopup_confirmbutton' : (629, 528),
     'minipopup_closebutton' : (945, 186),   # Works for "Stockade key lacking popup", "Insufficient keys to enter"
