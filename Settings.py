@@ -74,6 +74,7 @@ Arena_sMatchDuration_s                              = 'MatchDuration_secs'
 Stockade_sStockade                                  = 'Stockade'
 Stockade_sClaimSkillBook                            = 'ClaimSkillBook'
 Stockade_sSingleBattleDuration_s                    = 'SingleBattleDuration_secs'
+Stockade_sMaxKeys                                   = 'MaxKeys'
 
 # Story
 Story_sStory                                        = 'Story'
@@ -115,6 +116,11 @@ DragonRaidConfig_sHero1_Position                    = 'Hero1_Position'
 DragonRaidConfig_sHero2_Position                    = 'Hero2_Position'
 DragonRaidConfig_sHero3_Position                    = 'Hero3_Position'
 DragonRaidConfig_sHero4_Position                    = 'Hero4_Position'
+DragonRaidConfig_sCoopHero1_Position                = 'CoopHero1_Position'
+DragonRaidConfig_sCoopHero2_Position                = 'CoopHero2_Position'
+DragonRaidConfig_sCoopHero3_Position                = 'CoopHero3_Position'
+DragonRaidConfig_sCoopHero4_Position                = 'CoopHero4_Position'
+
 
 # Dragon Raid
 DragonRaid_sDragonRaidConfig                        = 'DragonRaidConfig'
@@ -173,7 +179,7 @@ WorldBoss = {
 
 Vault = {
     Vault_sHighestClearedFloor                      : 45,
-    Vault_sLongestRunTime_s                         : 90,    # 90 secs
+    Vault_sLongestRunTime_s                         : 100,    # 100 secs
     Vault_sNumOfKeysToday                           : 5
 }
 
@@ -185,6 +191,7 @@ Arena = {
 Stockade = {
     Stockade_sClaimSkillBook                        : 3,        # Claim skill book 1 or 2 or 3 or 4
     Stockade_sSingleBattleDuration_s                : 75,       # 75s
+    Stockade_sMaxKeys                               : 10,
     Main_sEasy_Hero1_Position                       : 3,
     Main_sEasy_Hero2_Position                       : 5,
     Main_sEasy_Hero3_Position                       : 8,
@@ -213,7 +220,7 @@ Conquest = {
     Main_sEasy_Hero1_Position                       : 3,
     Main_sEasy_Hero2_Position                       : 5,
     Main_sEasy_Hero3_Position                       : 8,
-    Main_sEasy_Hero4_Position                       : 21,
+    Main_sEasy_Hero4_Position                       : 18,
     Main_sHard_Hero1_Position                       : 1,
     Main_sHard_Hero2_Position                       : 3,
     Main_sHard_Hero3_Position                       : 5,
@@ -235,7 +242,7 @@ UpperDungeon = {
     Main_sEasy_Hero1_Position                       : 3,
     Main_sEasy_Hero2_Position                       : 5,
     Main_sEasy_Hero3_Position                       : 8,
-    Main_sEasy_Hero4_Position                       : 21,
+    Main_sEasy_Hero4_Position                       : 18,
     Main_sHard_Hero1_Position                       : 1,
     Main_sHard_Hero2_Position                       : 3,
     Main_sHard_Hero3_Position                       : 5,
@@ -254,7 +261,11 @@ DragonRaidConfig = {
     DragonRaidConfig_sHero1_Position                : 1,                    # Please select in ascending order i.e. Hero1_Pos=1, Hero2_Pos=3 and so on
     DragonRaidConfig_sHero2_Position                : 5,                    # Please select in ascending order i.e. Hero1_Pos=1, Hero2_Pos=3 and so on
     DragonRaidConfig_sHero3_Position                : 8,                    # Please select in ascending order i.e. Hero1_Pos=1, Hero2_Pos=3 and so on
-    DragonRaidConfig_sHero4_Position                : 9                    # Please select in ascending order i.e. Hero1_Pos=1, Hero2_Pos=3 and so on
+    DragonRaidConfig_sHero4_Position                : 9,                    # Please select in ascending order i.e. Hero1_Pos=1, Hero2_Pos=3 and so on
+    DragonRaidConfig_sCoopHero1_Position            : 1,                    # 1
+    DragonRaidConfig_sCoopHero2_Position            : 5,                    # 10
+    DragonRaidConfig_sCoopHero3_Position            : 15,                   # 13
+    DragonRaidConfig_sCoopHero4_Position            : 0,
 }
 
 Fire_DragonRaid = {
@@ -331,6 +342,7 @@ def WriteDefaultSettingsFile () :
         Stockade_sStockade : {
             Stockade_sClaimSkillBook : Stockade[Stockade_sClaimSkillBook],
             Stockade_sSingleBattleDuration_s : Stockade[Stockade_sSingleBattleDuration_s],
+            Stockade_sMaxKeys : Stockade[Stockade_sMaxKeys],
             Main_sEasy_Hero1_Position : Stockade[Main_sEasy_Hero1_Position],
             Main_sEasy_Hero2_Position : Stockade[Main_sEasy_Hero2_Position],
             Main_sEasy_Hero3_Position : Stockade[Main_sEasy_Hero3_Position],
@@ -389,7 +401,11 @@ def WriteDefaultSettingsFile () :
             DragonRaidConfig_sHero1_Position : DragonRaidConfig[DragonRaidConfig_sHero1_Position],
             DragonRaidConfig_sHero2_Position : DragonRaidConfig[DragonRaidConfig_sHero2_Position],
             DragonRaidConfig_sHero3_Position : DragonRaidConfig[DragonRaidConfig_sHero3_Position],
-            DragonRaidConfig_sHero4_Position : DragonRaidConfig[DragonRaidConfig_sHero4_Position]
+            DragonRaidConfig_sHero4_Position : DragonRaidConfig[DragonRaidConfig_sHero4_Position],
+            DragonRaidConfig_sCoopHero1_Position : DragonRaidConfig[DragonRaidConfig_sCoopHero1_Position],
+            DragonRaidConfig_sCoopHero2_Position : DragonRaidConfig[DragonRaidConfig_sCoopHero2_Position],
+            DragonRaidConfig_sCoopHero3_Position : DragonRaidConfig[DragonRaidConfig_sCoopHero3_Position],
+            DragonRaidConfig_sCoopHero4_Position : DragonRaidConfig[DragonRaidConfig_sCoopHero4_Position]
             },
         Fire_DragonRaid_sFireDragonRaid : {
             DragonRaid_sHighestCleared : Fire_DragonRaid[DragonRaid_sHighestCleared],

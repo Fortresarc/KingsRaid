@@ -75,7 +75,7 @@ def Trace2 (i_sLogText):
     print (sFormattedLogText)
     LogFile.write(sFormattedLogText + '\n')
 
-def GetString_TotalRunTime (i_nFromTime = 0):
+def GetString_TimeLapsed (i_nFromTime = 0):
     global TotalRunTime
     fTotalRunTime_Secs = (TotalRunTime - i_nFromTime)/1000.0
     nTotalRunTime_Mins = int(fTotalRunTime_Secs/60)
@@ -88,17 +88,33 @@ def GetString_TotalRunTime (i_nFromTime = 0):
         
     return nReturnString
 
-def PrintTotalRunTime():
-    global TotalRunTime
-    nTotalRunTime_Secs = TotalRunTime/1000
-    nTotalRunTime_Mins = nTotalRunTime_Secs/60
+# Time format helper
+def ConvertTime_HMSFormat (i_nTimeMsecs = 1000):
+    nTotalTime_Secs = i_nTimeMsecs/1000
+    nTotalTime_Mins = nTotalTime_Secs/60
+    
+    nConvert_HMS_Hours = int( nTotalTime_Mins/60 )
+    nConvert_HMS_Mins  = int( (nTotalTime_Mins%60) )
+    nConvert_HMS_Secs  = int( (nTotalTime_Secs%60) )
 
-    TraceHeader1 ()
-    if (60 >= nTotalRunTime_Secs):
-        Trace1 ("Current Total runtime = {0} secs".format(nTotalRunTime_Secs))
-    else:
-        Trace1 ("Current Total runtime = {0} mins".format(nTotalRunTime_Mins))
-    TraceFooter1()
+    return nConvert_HMS_Hours, nConvert_HMS_Mins, nConvert_HMS_Secs
+
+def GetTimeString_SecsFormat(i_nTimeMsecs = 1000):
+    return "{0} secs".format(i_nTimeMsecs/1000)
+
+def GetTimeString_MinsFormat(i_nTimeMsecs = 1000):
+    return "{0} mins".format( (i_nTimeMsecs/1000) / 60)
+
+def GetTimeString_HMSFormat(i_nTimeMsecs = 1000):
+    nHours, nMins, nSecs = ConvertTime_HMSFormat(i_nTimeMsecs)
+    return "{0} hrs {1} mins {2}secs".format( nHours,
+                                               nMins,
+                                               nSecs)
+    
+def GetTimeString_TotalRunTime_HMSFormat():
+    global TotalRunTime
+    return "{0} ({1})".format( GetTimeString_MinsFormat(TotalRunTime),
+                               GetTimeString_HMSFormat(TotalRunTime) )
 
 def AddTotalRunTime (i_nTimeMillisecs):
     global TotalRunTime
