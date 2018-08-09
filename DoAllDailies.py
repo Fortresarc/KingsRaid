@@ -26,12 +26,15 @@ def Gen_DoAllDailies() :
         nTimeTemp = Manager.TotalRunTime
         _ExecuteSingleDailyFunction(Settings.DoAllDailiesSequence[key])
         Manager.TraceSubHeader1 ()
-        Manager.Trace1 ("Do all dailies {0} : {1} .. Will execute for {2}".format(key, Settings.DoAllDailiesSequence[key], Manager.GetString_TotalRunTime(nTimeTemp)))
+        Manager.Trace1 ("Do all dailies {0} : {1} - Time lapsed = {2}, Execution time {3}".format(key, 
+                                                                                        Settings.DoAllDailiesSequence[key], 
+                                                                                        Manager.GetTimeString_TotalRunTime_HMSFormat(),
+                                                                                        Manager.GetString_TimeLapsed(nTimeTemp)) )
         Manager.TraceFooter1 ()
 
     #TEST()
 
-    Manager.PrintTotalRunTime()
+    Manager.Trace1("DoAllDailies will run for {0}".format(Manager.GetTimeString_TotalRunTime_HMSFormat()))
 
 # TEST CODES
 #def TEST ():
@@ -100,7 +103,7 @@ def _Gen_DoLaunchNOX_DoQuest(i_bIsDragonRaid = True) :
         Manager.Trace1 ("Do {0} after NOX restarts {1} : {2} .. Will execute for {3}".format( sQuestType,
                                                                                               key,
                                                                                               CommonQuestSequence[key],
-                                                                                              Manager.GetString_TotalRunTime(nTimeTemp)))
+                                                                                              Manager.GetString_TimeLapsed(nTimeTemp)))
         Manager.TraceFooter1 ()
 
     if i_bIsDragonRaid :
@@ -110,7 +113,7 @@ def _Gen_DoLaunchNOX_DoQuest(i_bIsDragonRaid = True) :
         Manager.Gen_ClaimEnergyGoldHotTime(Manager.ClaimEXPGoldStepsList[Manager.sClaim_3rdEXP_3rdGold])
         KRCommon.Gen_DoStory(Settings.Story[Settings.Story_sAutoRepeatAtChapter])
 
-    Manager.PrintTotalRunTime()
+    Manager.Trace1("DoAllDailies will run for {0}".format(Manager.GetTimeString_TotalRunTime_HMSFormat()))
     
 def _ExecuteSingleDailyFunction(i_sDailyFunctionName):
     if Settings.DoAllDailies_sLaunchKingsRaidAndGoToMainScreen == i_sDailyFunctionName:
@@ -225,7 +228,6 @@ def GetStockadeClaimSkillBook(i_SkillBookToClaim) :
 # Stockade dailies
 def Gen_Stockade(i_EnterFromArena) :
     StockadePagesOpened = 0
-    MaxSkillBooksToClaim = 5    # We have only up till 5 now
 
     if True == i_EnterFromArena :        
         # Since we just finished Arena, we should be standing outside Arena in main game screen
@@ -260,7 +262,7 @@ def Gen_Stockade(i_EnterFromArena) :
     Manager.click_button_msecs('stockade_engage_ok', Settings.Main[Settings.Main_sDurationAfterClick_ms])
     
     # Finish autobattle
-    Manager.wait_secs(Settings.Stockade[Settings.Stockade_sSingleBattleDuration_s] * 5)
+    Manager.wait_secs(Settings.Stockade[Settings.Stockade_sSingleBattleDuration_s] * Settings.Stockade[Settings.Stockade_sMaxKeys])
     Manager.click_button_msecs('minipopup_closebutton', Settings.Main[Settings.Main_sDurationAfterClick_ms])
     Manager.click_button_msecs('minipopup_closebutton', Settings.Main[Settings.Main_sDurationAfterClick_ms])
     # Same exit button as conquest, this will take longer time to load
