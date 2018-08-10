@@ -191,7 +191,7 @@ Arena = {
 Stockade = {
     Stockade_sClaimSkillBook                        : 3,        # Claim skill book 1 or 2 or 3 or 4
     Stockade_sSingleBattleDuration_s                : 75,       # 75s
-    Stockade_sMaxKeys                               : 10,
+    Stockade_sMaxKeys                               : 5,
     Main_sEasy_Hero1_Position                       : 3,
     Main_sEasy_Hero2_Position                       : 5,
     Main_sEasy_Hero3_Position                       : 8,
