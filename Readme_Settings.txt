@@ -27,3 +27,4 @@ These are all the available actions you can sequence into this data field 'DoAll
 'Claim_3rdEXP_3rdGold'						//
 'ClaimDailyMission'							//
 'Claim_4thEXP_4thdGold'						//
+'DoSpecialEvent'							// Do Special event on Central Orvel

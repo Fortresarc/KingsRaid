@@ -172,7 +172,49 @@ def _ExecuteSingleDailyFunction(i_sDailyFunctionName):
 
     elif Settings.DoAllDailies_sClaim_4thEXP_4thdGold == i_sDailyFunctionName:
         Manager.Gen_ClaimEnergyGoldHotTime(Manager.ClaimEXPGoldStepsList[Manager.sClaim_4thEXP_4thGold])
-        
+
+    elif Settings.DoAllDailies_sDoSpecialEvent == i_sDailyFunctionName:
+        _Gen_DoSpecialEvent()
+
+def _Gen_DoSpecialEvent():
+    SpecialEventPagesOpened = 0
+
+    # Navigate to stockade the hard way
+    KRCommon.Gen_NavigateToMain('portal_orvel_centralorvel', False)
+    SpecialEventPagesOpened += 1
+    
+    Manager.click_button_msecs('specialevent_enterdungeon', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+    SpecialEventPagesOpened += 1
+
+    # loop these to get to autobattle screen
+    for i in range (0, 2) :
+        Manager.click_button_msecs('stockade_engage_leftmost', Settings.Main[Settings.Main_sDurationAfterClick_Short_ms])
+        Manager.click_button_msecs('stockade_engage_middle_ok_autobattle', Settings.Main[Settings.Main_sDurationAfterClick_Short_ms])
+        Manager.click_button_msecs('stockade_engage_rightmost', Settings.Main[Settings.Main_sDurationAfterClick_Short_ms])
+
+    # Select heroes
+    KRSelect.Gen_SelectQuestHero(KRSelect.QuestType_SpecialEvent, False, Settings.Main_sEasyContent)
+
+    # Click autobattle
+    Manager.click_button_msecs('getreadyforbattle_autorepeat', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+    
+    # ok to notice popup
+    nTimeToWait_s = Settings.SpecialEvent[Settings.SpecialEvent_sNoOfKeys] * Settings.SpecialEvent[Settings.SpecialEvent_sSingleBattleDuration_s]
+    Manager.click_button_secs('minipopup_confirmbutton', nTimeToWait_s)
+    
+    # Finish autobattle
+    # click close on Loot (Just in case)
+    Manager.click_button_msecs('minipopup_closebutton', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+    # click close on Notice : Auto repeat has ended due to insufficient tickets
+    Manager.click_button_msecs('minipopup_closebutton', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+    # click close on Notice : Festival entry ticket is lacking
+    Manager.click_button_msecs('minipopup_closebutton', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+    # Same exit button as conquest, this will take longer time to load
+    Manager.click_button_secs('exit_conquest', Settings.Main[Settings.Main_sAnyGameScreenLoadingTime_s])
+
+    # Exit to main game screen
+    for j in range(0, SpecialEventPagesOpened):
+        Manager.click_button_msecs('main_backbutton', Settings.Main[Settings.Main_sDurationAfterClick_ms])
 
 def Gen_WorldBoss():
     pagesOpened = 0

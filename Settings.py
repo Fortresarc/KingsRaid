@@ -28,6 +28,7 @@ DoAllDailies_sDoDragonRaid                          = 'DoDragonRaid'
 DoAllDailies_sClaim_3rdEXP_3rdGold                  = 'Claim_3rdEXP_3rdGold'
 DoAllDailies_sClaimDailyMission                     = 'ClaimDailyMission'
 DoAllDailies_sClaim_4thEXP_4thdGold                 = 'Claim_4thEXP_4thdGold'
+DoAllDailies_sDoSpecialEvent                        = 'DoSpecialEvent'
 
 # Main
 Main_sMain                                          = 'Main'
@@ -53,6 +54,11 @@ Main_sHard_Hero1_Position                           = 'Hard_Hero1_Position'
 Main_sHard_Hero2_Position                           = 'Hard_Hero2_Position'
 Main_sHard_Hero3_Position                           = 'Hard_Hero3_Position'
 Main_sHard_Hero4_Position                           = 'Hard_Hero4_Position'
+
+# Special event
+SpecialEvent_sSpecialEvent                          = 'SpecialEvent'
+SpecialEvent_sNoOfKeys                              = 'NoOfKeys'
+SpecialEvent_sSingleBattleDuration_s                = 'SingleBattleDuration_secs'
 
 # World boss
 WorldBoss_sWorldBoss                                = 'WorldBoss'
@@ -170,6 +176,15 @@ Main = {
     Main_sDurationAfterClick_Long_ms                : 5000,
     Main_sAnyGameScreenLoadingTime_s                : 15,    # 15s E.g. Arena exit can take a long time
     Main_sReceiveNewHeroDuration_s                  : 12,    # 12 s
+}
+
+SpecialEvent = {
+    SpecialEvent_sNoOfKeys                          : 5,
+    SpecialEvent_sSingleBattleDuration_s            : 80,
+    Main_sEasy_Hero1_Position                       : 3,
+    Main_sEasy_Hero2_Position                       : 5,
+    Main_sEasy_Hero3_Position                       : 8,
+    Main_sEasy_Hero4_Position                       : 13
 }
 
 WorldBoss = {
@@ -326,6 +341,14 @@ def WriteDefaultSettingsFile () :
             Main_sAnyGameScreenLoadingTime_s : Main[Main_sAnyGameScreenLoadingTime_s],
             Main_sReceiveNewHeroDuration_s : Main[Main_sReceiveNewHeroDuration_s]
         },
+        SpecialEvent_sSpecialEvent : {
+            SpecialEvent_sNoOfKeys : SpecialEvent[SpecialEvent_sNoOfKeys],
+            SpecialEvent_sSingleBattleDuration_s : SpecialEvent[SpecialEvent_sSingleBattleDuration_s],
+            Main_sEasy_Hero1_Position : SpecialEvent[Main_sEasy_Hero1_Position],
+            Main_sEasy_Hero2_Position : SpecialEvent[Main_sEasy_Hero2_Position],
+            Main_sEasy_Hero3_Position : SpecialEvent[Main_sEasy_Hero3_Position],
+            Main_sEasy_Hero4_Position : SpecialEvent[Main_sEasy_Hero4_Position]
+            },
         WorldBoss_sWorldBoss : {
             WorldBoss_sNoOfKeys : WorldBoss[WorldBoss_sNoOfKeys],
             WorldBoss_sSingleBattleDuration_s : WorldBoss[WorldBoss_sSingleBattleDuration_s]
@@ -451,6 +474,9 @@ def ReadFromFile (i_bPrintToScreen = True) :
         elif key == Main_sMain :
             for value in json_obj[key] :
                 Main[value] = json_obj[Main_sMain][value]
+        elif key == SpecialEvent_sSpecialEvent :
+            for value in json_obj[key] :
+                SpecialEvent[value] = json_obj[SpecialEvent_sSpecialEvent][value]
         elif key == WorldBoss_sWorldBoss :
             for value in json_obj[key] :
                 WorldBoss[value] = json_obj[WorldBoss_sWorldBoss][value]

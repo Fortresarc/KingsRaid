@@ -6,6 +6,7 @@ QuestType_Story = 0
 QuestType_UpperDungeon = 1
 QuestType_Conquest = 2
 QuestType_Stockade = 3
+QuestType_SpecialEvent = 4
 
 # For selecting heroes in Story, Upper dungeons, Conquests
 def Gen_SelectQuestHero (i_nQuestType, i_bNavigateToHeroSelectScreen, i_sEasyOrHardContent, i_bExitBackToMainPage = False) :
@@ -35,6 +36,8 @@ def Gen_SelectQuestHero (i_nQuestType, i_bNavigateToHeroSelectScreen, i_sEasyOrH
         lQuestList = Settings.UpperDungeon.copy()
     elif QuestType_Stockade == i_nQuestType: 
         lQuestList = Settings.Stockade.copy()
+    elif QuestType_SpecialEvent == i_nQuestType:
+        lQuestList = Settings.SpecialEvent.copy()
     else:   # Main story and conquest share same hero selection list
         lQuestList = Settings.Conquest.copy()
 
@@ -44,8 +47,11 @@ def Gen_SelectQuestHero (i_nQuestType, i_bNavigateToHeroSelectScreen, i_sEasyOrH
         3 : lQuestList[Settings.Main_sEasy_Hero3_Position],
         4 : lQuestList[Settings.Main_sEasy_Hero4_Position]
     }
-    # Currently Stockade do not use Hard content heroes
-    if QuestType_Stockade != i_nQuestType: 
+
+    # Currently Stockade, SpecialEvent do not use Hard content heroes
+    bHasHardContent = (QuestType_Stockade != i_nQuestType) and (QuestType_SpecialEvent != i_nQuestType)
+    
+    if bHasHardContent:
         SelectedHeroPosition_Hard = {
             1 : lQuestList[Settings.Main_sHard_Hero1_Position],
             2 : lQuestList[Settings.Main_sHard_Hero2_Position],

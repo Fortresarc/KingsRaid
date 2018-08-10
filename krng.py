@@ -165,6 +165,10 @@ points = {
     'portal_orvel_forge' : (500, 430),
     'portal_orvel_orvelcastle' : (790, 430),
     'portal_orvel_guild' : (500, 512),
+    'portal_orvel_centralorvel' : (790, 512),
+
+    # Special event at Central Orvel
+    'specialevent_enterdungeon' : (640, 370),
 
     # World Boss
     'worldboss_readyforbattle' : (918, 638),
