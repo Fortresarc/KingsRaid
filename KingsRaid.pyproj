@@ -25,7 +25,10 @@
     <Compile Include="Common.py" />
     <Compile Include="Conquest.py" />
     <Compile Include="DoAllDailies.py" />
-    <Compile Include="DragonRaid.py" />
+    <Compile Include="DragonRaid_Deprecated.py" />
+    <Compile Include="DragonRaid.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="GenerateDefaultSettingsFile.py" />
     <Compile Include="Inventory.py" />
     <Compile Include="KRCommon.py">

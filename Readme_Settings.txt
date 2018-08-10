@@ -7,24 +7,26 @@ How to run DoAllDailies with settings.json
 
 
 These are all the available actions you can sequence into this data field 'DoAllDailiesSequence'
-(e.g. "20": "",		// This means at Step 20, there is no action)
+(e.g. "20": "",        // This means at Step 20, there is no action)
 
-'LaunchKingsRaidAndGoToMainScreen'			// Put King's Raid icon exactly in the middle
-'ClaimMailbox'								// Claims all mails
-'ExchangeAmity'								// Exchange amity and do roulette 
-'ClearInventory'							// "GrindOrSellInventory": "g" means grind
-'Stockade'									//			
-'HerosInn'									//
-'UpperDungeon'								// Do all upper dungeons up till the highest cleared level, we can select 2 teams for easy/ hard contents
-'Arena'										//
-'WorldBoss'									//	
-'Claim_1stEXPNGold'							//
-'AncientRoyalVault'							// 
-'Conquest'									// Do all conquests up till the highest cleared level, we can select 2 teams for easy/ hard contents
-'Claim_2ndEXPNGoldWStamina'					//
-'DoStory_UptoInventoryManagement'			//
-'DoDragonRaid'								//	
-'Claim_3rdEXP_3rdGold'						//
-'ClaimDailyMission'							//
-'Claim_4thEXP_4thdGold'						//
-'DoSpecialEvent'							// Do Special event on Central Orvel
+'LaunchKingsRaidAndGoToMainScreen'            // Put King's Raid icon exactly in the middle
+'ClaimMailbox'                                // Claims all mails
+'ExchangeAmity'                               // Exchange amity and do roulette 
+'ClearInventory'                              // "GrindOrSellInventory": "g" means grind
+'Stockade'                                    //            
+'HerosInn'                                    //
+'UpperDungeon'                                // Do all upper dungeons up till the highest cleared level, we can select 2 teams for easy/ hard contents
+'Arena'                                       //
+'WorldBoss'                                   //    
+'Claim_1stEXPNGold'                           //
+'AncientRoyalVault'                           // 
+'Conquest'                                    // Do all conquests up till the highest cleared level, we can select 2 teams for easy/ hard contents
+'Claim_2ndEXPNGoldWStamina'                   //
+'DoStory_UptoInventoryManagement'             //
+'DoDragonRaid'                                //    
+'Claim_3rdEXP_3rdGold'                        //
+'ClaimDailyMission'                           //
+'Claim_4thEXP_4thdGold'                       //
+'DoSpecialEvent'                              // Do Special event on Central Orvel
+'KillKingsRaid'                               // Kill king's raid app in Nox
+'Wait_secs'                                   // Do nothing and wait for 'WaitDuration_secs' secs

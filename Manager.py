@@ -128,7 +128,7 @@ def keypress_msecs(i_bButton, i_nWaitMilliseconds, i_bAddTransitionDelay=True):
     keypress(i_bButton, nWaitFinal_ms)
 
 def keypress_secs(i_bButton, i_nWaitSeconds, i_bAddTransitionDelay=True):
-    nWaitFinal_ms = _SecsToMsecs(i_nWaitSeconds)
+    nWaitFinal_ms = ConvertSecsToMsecs(i_nWaitSeconds)
     if i_bAddTransitionDelay:
         nWaitFinal_ms += Settings.Main[Settings.Main_sTransitionDuration_ms]
     keypress(i_bButton, nWaitFinal_ms)
@@ -156,7 +156,7 @@ def mouse_drag_secs(fromposition,
                     speed=0.2,
                     max_generated_interpolation_points=20,
                     i_bAddTransitionDelay=True):
-    nWaitFinal_ms = _SecsToMsecs(i_nWaitSeconds)
+    nWaitFinal_ms = ConvertSecsToMsecs(i_nWaitSeconds)
     if i_bAddTransitionDelay:
         nWaitFinal_ms += Settings.Main[Settings.Main_sTransitionDuration_ms]
     return mouse_drag(fromposition, toposition, nWaitFinal_ms, speed, max_generated_interpolation_points)
@@ -174,7 +174,7 @@ def click_loc_msecs(loc, i_nWaitMilliseconds, i_bAddTransitionDelay = True):
     click_loc(loc, nWaitFinal_ms)
 
 def click_loc_secs(loc, i_nWaitSeconds, i_bAddTransitionDelay = True):
-    nWaitFinal_ms = _SecsToMsecs(i_nWaitSeconds)
+    nWaitFinal_ms = ConvertSecsToMsecs(i_nWaitSeconds)
     if i_bAddTransitionDelay:
         nWaitFinal_ms += Settings.Main[Settings.Main_sTransitionDuration_ms]
     click_loc(loc, nWaitFinal_ms)
@@ -192,7 +192,7 @@ def click_button_msecs(button, i_nWaitMilliseconds, i_bAddTransitionDelay = True
     return click_button(button, nWaitFinal_ms)
 
 def click_button_secs(button, i_nWaitSeconds, i_bAddTransitionDelay = True):
-    nWaitFinal_ms = _SecsToMsecs(i_nWaitSeconds)
+    nWaitFinal_ms = ConvertSecsToMsecs(i_nWaitSeconds)
     if i_bAddTransitionDelay:
         nWaitFinal_ms += Settings.Main[Settings.Main_sTransitionDuration_ms]
     return click_button(button, nWaitFinal_ms)
@@ -204,7 +204,7 @@ def click_button(button, i_nWaitMilliseconds):
 
 # wait -----------------
 def wait_secs(i_nWaitSeconds, i_bAddTransitionDelay = True):
-    nWaitFinal_ms = _SecsToMsecs(i_nWaitSeconds)
+    nWaitFinal_ms = ConvertSecsToMsecs(i_nWaitSeconds)
     if i_bAddTransitionDelay:
         nWaitFinal_ms += Settings.Main[Settings.Main_sTransitionDuration_ms]
     return wait_msecs(nWaitFinal_ms)
@@ -214,8 +214,11 @@ def wait_msecs(i_nWaitMilliseconds):
     return nox.wait(i_nWaitMilliseconds)
 # end wait -----------------
 
-def _SecsToMsecs(i_nSeconds):
-    return i_nSeconds * 1000
+def ConvertSecsToMsecs(i_nSeconds):
+    return int(i_nSeconds * 1000)
+
+def ConvertMsecsToSecs(i_nMillisecs):
+    return int(i_nMillisecs / 1000)
 
 # Assumes NOTHING is claimed yet when game just restarted a new day
 def Gen_ClaimEnergyGoldHotTime(i_nClaimEventCounter) :

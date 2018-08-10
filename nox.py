@@ -39,6 +39,27 @@ def repeat_generator_for(fn, seconds):
     while time - initial < milliseconds:
         fn()
 
+def userinput(i_sUserInput, i_nwait_milliseconds):
+    global file
+    global time
+
+    # NOTE: Not really needed, add a little time before clicking
+    time += 100
+
+    for c in i_sUserInput:
+        # Keyboard press
+        file.write("1ScRiPtSePaRaToR{0}|0ScRiPtSePaRaToR{1}\n".format(
+            c, time))
+        time += 200
+
+    # This is the delay between finishing one click and beginning the next click.  This needs to account
+    # for how fast the game can transition from one screen to the next.  For example, if you're repeatedly
+    # clicking a buy button with the game not really doing anything between each click, this can be very
+    # low.  On the other hand, if a click causes the game to transition from one screen to another (e.g.
+    # using a portal and the game having to load into Orvel and load an entirely new area) then it should
+    # be fairly high.
+    wait(i_nwait_milliseconds)
+
 def keypress(i_bButton, i_nwait_milliseconds):
     global file
     global time

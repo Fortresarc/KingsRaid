@@ -6,7 +6,7 @@ import os
 import sys
 
 import nox
-import DragonRaid
+import DragonRaid_Deprecated
 import Conquest
 import Campaign
 import Inventory
@@ -156,6 +156,14 @@ points = {
     'raid_select_HeroList_Position4' : (122, 640),  # This value is found through testing
     'raid_select_SetAutoRepeat' : (880, 592),
     'raid_select_StartBattle' : (1095, 650),
+    'raid_select_AcceptInvitation' : (1051, 127),
+    'raid_select_CloseAlreadyInvitedPopup' : (770, 130),
+    'raid_select_FriendRequest' : (1000, 480),
+    'raid_select_FriendRequest_SearchID' : (350, 170),
+    'raid_select_FriendRequest_Find' : (575, 170),
+    'raid_select_FriendRequest_Invite' : (1020, 170),
+    'raid_select_FriendRequest_Close' : (1150, 73),
+
     # Portal (After Goto UpperDungeon Chapter 1)
     'portal_orvel' : (368, 438),
     'portal_orvel_maysgeneralshop' : (500, 281),
@@ -285,8 +293,8 @@ try:
     macro_generators = [
         #("NPC Gear Purchasing and Grinding", gen_grindhouse),
         ("Generate Default data to selected settings file", DoAllDailies.Gen_DefaultData),
-        ("AFK Raid (Member)", DragonRaid.gen_raid),
-        ("AFK Raid (Leader)", DragonRaid.gen_raid_leader),
+        ("AFK Raid (Member)", DragonRaid_Deprecated.gen_raid),
+        ("AFK Raid (Leader)", DragonRaid_Deprecated.gen_raid_leader),
         ("Story Repeat w/ Natural Stamina Regen", Campaign.gen_natural_stamina_farm),
         ("Conquests (beta)", Conquest.gen_conquest),
         ("Upper Dungeon (beta)", UpperDungeon.gen_upper_dungeon),
@@ -297,7 +305,7 @@ try:
         ]
     if args.enable_developer_commands:
         macro_generators.extend([
-            ("**DEV** Natural Stamina Regen Raid Farming (Non-Leader)", DragonRaid.gen_raid_experimental),
+            ("**DEV** Natural Stamina Regen Raid Farming (Non-Leader)", DragonRaid_Deprecated.gen_raid_experimental),
             ("**DEV** Re-enter adventure (potion)", lambda : Campaign.re_enter_adventure(True)),
             ("**DEV** Re-enter adventure (no potion)", lambda : Campaign.re_enter_adventure(False)),
         ])

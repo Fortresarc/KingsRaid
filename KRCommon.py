@@ -12,11 +12,11 @@ sNONE = 'none'
 ##############
 # NOX Helpers
 ##############
-def _KillKingsRaid():
+def KillKingsRaid():
     # Bring up recent apps
     Manager.keypress_msecs(nox.keypress_RecentApps, Settings.Main[Settings.Main_sDurationAfterClick_Short_ms])
     # Kill King's Raid app
-    nox.mouse_drag_msecs('main_killkingsraid_bottom', 'main_killkingsraid_top', Settings.Main[Settings.Main_sDurationAfterClick_ms], 0.5)
+    nox.mouse_drag('main_killkingsraid_bottom', 'main_killkingsraid_top', Settings.Main[Settings.Main_sDurationAfterClick_ms], 0.5)
 
 def Back():
     Manager.keypress_msecs(nox.keypress_Back, Settings.Main[Settings.Main_sDurationAfterClick_Long_ms])
@@ -25,7 +25,7 @@ def Back():
 # Public Helpers
 ##############
 def Gen_RelaunchKingsRaid ():
-    _KillKingsRaid()
+    KillKingsRaid()
     Gen_LaunchKingsRaidAndGoToMainScreen()
 
 # Go to main screen after Nox restarted
@@ -73,48 +73,7 @@ def Gen_DoStory(i_sWhichChapter = 8, i_bReenterStoryAfterGrindOrSell = True) :
     KRSelect.Gen_SelectQuestHero(KRSelect.QuestType_Story, False, Settings.Main_sEasyContent)
 
     Campaign.gen_natural_stamina_farm(i_bReenterStoryAfterGrindOrSell)
-
-def Gen_DoDragonRaid (i_bStartBattle = True) :
-    whichDragonRaid = Settings.DragonRaidConfig[Settings.DragonRaidConfig_sSelectDragonToAuto]
-
-    Manager.click_button_msecs('raid_multi', Settings.Main[Settings.Main_sDurationAfterClick_ms])
-    Manager.click_button_msecs('raid_select', Settings.Main[Settings.Main_sDurationAfterClick_Long_ms])
-
-    # room settings
-    # select correct dragon
-    roomSelect = 'raid_select_black'
-    if Settings.Fire_DragonRaid_sFireDragonRaid == whichDragonRaid :
-        roomSelect = 'raid_select_fire'
-        DragonSettings = Settings.Fire_DragonRaid.copy()
-    elif Settings.Frost_DragonRaid_sFrostDragonRaid == whichDragonRaid :
-        roomSelect = 'raid_select_frost'
-        DragonSettings = Settings.Frost_DragonRaid.copy()
-    elif Settings.Poison_DragonRaid_sPoisonDragonRaid== whichDragonRaid :
-        roomSelect = 'raid_select_poison'
-        DragonSettings = Settings.Poison_DragonRaid.copy()
-    elif Settings.Black_DragonRaid_sBlackDragonRaid == whichDragonRaid :
-        DragonSettings = Settings.Black_DragonRaid.copy()
-        Manager.mouse_drag_msecs('raid_select_list_bottom', 'raid_select_list_top', Settings.Main[Settings.Main_sDurationAfterClick_ms])
-
-    # Click to select the correct dragon room
-    Manager.click_button_msecs(roomSelect, Settings.Main[Settings.Main_sDurationAfterClick_ms])
-    # calculate how many levels to decrement
-    differenceFromHighestClearedToAutoLevel = abs(DragonSettings[Settings.DragonRaid_sHighestCleared] - DragonSettings[Settings.DragonRaid_sAutoAtThisLevel])
-    for i in range (0, differenceFromHighestClearedToAutoLevel) :
-        Manager.click_button_msecs('raid_select_decrementlevel', Settings.Main[Settings.Main_sDurationAfterClick_Short_ms], False)
-    # uncheck gather raiders
-    Manager.click_button_msecs('raid_select_gatherraiders', Settings.Main[Settings.Main_sDurationAfterClick_Short_ms], False)
-    Manager.click_button_msecs('raid_select_enter', Settings.Main[Settings.Main_sDurationAfterClick_ms])
-
-    KRSelect.Gen_DragonRaid_HeroSelect()
-
-    if i_bStartBattle :
-        Manager.click_button_msecs('raid_select_SetAutoRepeat', Settings.Main[Settings.Main_sDurationAfterClick_ms])
-        Manager.click_button_msecs('minipopup_confirmbutton', Settings.Main[Settings.Main_sDurationAfterClick_ms])
-        Manager.click_button_msecs('raid_select_StartBattle', Settings.Main[Settings.Main_sDurationAfterClick_ms])
-        Manager.click_button_msecs('minipopup_confirmbutton', Settings.Main[Settings.Main_sDurationAfterClick_ms])
-        #TODO refill nrg or not?
-
+    
 def Gen_NavigateToGameHomePage(i_bAlreadyInTown = False):
     Gen_NavigateToMain('portal_orvel_herosinn', i_bAlreadyInTown)
     # Exit to home page

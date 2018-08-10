@@ -8,6 +8,7 @@ import KRSelect
 import UpperDungeon
 import Conquest
 import Campaign
+import DragonRaid
 
 Vault_Top3Level = 43
 
@@ -21,16 +22,18 @@ def Gen_DoAllDailies() :
     Manager.Trace1 ("- Main story and conquest share same hero selection list")
 
     # Do sequence as read from settings file
-    for key in Settings.DoAllDailiesSequence :
+    i = 0
+    for value in Settings.DoAllDailiesSequence :
         Manager.TraceHeader1 ()
         nTimeTemp = Manager.TotalRunTime
-        _ExecuteSingleDailyFunction(Settings.DoAllDailiesSequence[key])
+        _ExecuteSingleDailyFunction(Settings.DoAllDailiesSequence[i])
         Manager.TraceSubHeader1 ()
-        Manager.Trace1 ("Do all dailies {0} : {1} - Time lapsed = {2}, Execution time {3}".format(key, 
-                                                                                        Settings.DoAllDailiesSequence[key], 
+        Manager.Trace1 ("Do all dailies {0} : {1} - Time lapsed = {2}, Execution time {3}".format(value, 
+                                                                                        Settings.DoAllDailiesSequence[i], 
                                                                                         Manager.GetTimeString_TotalRunTime_HMSFormat(),
                                                                                         Manager.GetString_TimeLapsed(nTimeTemp)) )
         Manager.TraceFooter1 ()
+        i += 1
 
     #TEST()
 
@@ -107,7 +110,7 @@ def _Gen_DoLaunchNOX_DoQuest(i_bIsDragonRaid = True) :
         Manager.TraceFooter1 ()
 
     if i_bIsDragonRaid :
-        KRCommon.Gen_DoDragonRaid()
+        DragonRaid.Gen_DoDragonRaid()
     else :
         # Claim some energy 
         Manager.Gen_ClaimEnergyGoldHotTime(Manager.ClaimEXPGoldStepsList[Manager.sClaim_3rdEXP_3rdGold])
@@ -162,7 +165,13 @@ def _ExecuteSingleDailyFunction(i_sDailyFunctionName):
         KRCommon.Gen_DoStory(Settings.Story[Settings.Story_sAutoRepeatAtChapter], False)
 
     elif Settings.DoAllDailies_sDoDragonRaid == i_sDailyFunctionName:
-        KRCommon.Gen_DoDragonRaid()
+        DragonRaid.Gen_DoDragonRaid()
+
+    elif Settings.DoAllDailies_sDoDragonRaid_Leader == i_sDailyFunctionName:
+        DragonRaid.Gen_DoDragonRaid_Leader()
+
+    elif Settings.DoAllDailies_sDoDragonRaid_Member == i_sDailyFunctionName:
+        DragonRaid.Gen_DoDragonRaid_Member()
 
     elif Settings.DoAllDailies_sClaim_3rdEXP_3rdGold == i_sDailyFunctionName:
         Manager.Gen_ClaimEnergyGoldHotTime(Manager.ClaimEXPGoldStepsList[Manager.sClaim_3rdEXP_3rdGold])
@@ -175,6 +184,12 @@ def _ExecuteSingleDailyFunction(i_sDailyFunctionName):
 
     elif Settings.DoAllDailies_sDoSpecialEvent == i_sDailyFunctionName:
         _Gen_DoSpecialEvent()
+
+    elif Settings.DoAllDailies_sKillKingsRaid == i_sDailyFunctionName:
+        KRCommon.KillKingsRaid()
+
+    elif Settings.DoAllDailies_sWait_s == i_sDailyFunctionName:
+        Manager.wait_secs(Settings.Main[Settings.Main_sWaitDuration_s])
 
 def _Gen_DoSpecialEvent():
     SpecialEventPagesOpened = 0

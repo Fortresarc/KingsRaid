@@ -90,13 +90,22 @@ def Gen_SelectQuestHero (i_nQuestType, i_bNavigateToHeroSelectScreen, i_sEasyOrH
 # 22, 23, 24
 # 25, 26, 27
 # Character select in Dragon Raid
-def Gen_DragonRaid_HeroSelect() :
-    SelectedHeroPosition = {
-        1 : Settings.DragonRaidConfig[Settings.DragonRaidConfig_sHero1_Position],
-        2 : Settings.DragonRaidConfig[Settings.DragonRaidConfig_sHero2_Position],
-        3 : Settings.DragonRaidConfig[Settings.DragonRaidConfig_sHero3_Position],
-        4 : Settings.DragonRaidConfig[Settings.DragonRaidConfig_sHero4_Position]
-    }
+def Gen_DragonRaid_HeroSelect(i_bIsNotCoop = True) :
+    if i_bIsNotCoop:
+        SelectedHeroPosition = {
+            1 : Settings.DragonRaidConfig[Settings.DragonRaidConfig_sHero1_Position],
+            2 : Settings.DragonRaidConfig[Settings.DragonRaidConfig_sHero2_Position],
+            3 : Settings.DragonRaidConfig[Settings.DragonRaidConfig_sHero3_Position],
+            4 : Settings.DragonRaidConfig[Settings.DragonRaidConfig_sHero4_Position]
+        }
+    # Coop uses different set of heroes
+    else:
+        SelectedHeroPosition = {
+            1 : Settings.DragonRaidConfig[Settings.DragonRaidConfig_sCoopHero1_Position],
+            2 : Settings.DragonRaidConfig[Settings.DragonRaidConfig_sCoopHero2_Position],
+            3 : Settings.DragonRaidConfig[Settings.DragonRaidConfig_sCoopHero3_Position],
+            4 : Settings.DragonRaidConfig[Settings.DragonRaidConfig_sCoopHero4_Position]
+        }
     ClickHeroPosition = {
         1 : 'raid_select_HeroList_Position1',
         2 : 'raid_select_HeroList_Position2',
@@ -116,30 +125,32 @@ def _Gen_SelectHero( i_MaxHeroesAllowed,
     modSelectedHeroPosition = 1
     dragCount = 0
     for i in range (0, i_MaxHeroesAllowed) :
-        numOfLevelsToDrag = int(i_lSelectedHeroPosition[i+1] / i_MaxHeroesIn1Row)
-        modSelectedHeroPosition = i_lSelectedHeroPosition[i+1] % i_MaxHeroesIn1Row
+        # Only select heroes with position number > 0
+        if 0 < i_lSelectedHeroPosition[i+1]:
+            numOfLevelsToDrag = int(i_lSelectedHeroPosition[i+1] / i_MaxHeroesIn1Row)
+            modSelectedHeroPosition = i_lSelectedHeroPosition[i+1] % i_MaxHeroesIn1Row
 
-        if 0 == modSelectedHeroPosition :
-            modSelectedHeroPosition = i_MaxHeroesIn1Row
-            numOfLevelsToDrag -= 1
+            if 0 == modSelectedHeroPosition :
+                modSelectedHeroPosition = i_MaxHeroesIn1Row
+                numOfLevelsToDrag -= 1
 
-        Manager.Trace2 ("numOfLevelsToDrag={0}, Hero[{1}] = {2} position"
-            .format(numOfLevelsToDrag, i+1, i_lSelectedHeroPosition[i+1]))
+            Manager.Trace2 ("numOfLevelsToDrag={0}, Hero[{1}] = {2} position"
+                .format(numOfLevelsToDrag, i+1, i_lSelectedHeroPosition[i+1]))
         
-        # First row icon's half size  = (574-484)/2 = 45
-        # Second row icon's half size = (591-574)/2 = 8.5
-        # Drag distance = 45 + 8.5 = 53.5
-        # Dragon raid has 3 heroes in one row, we will click the selected hero w.r.t 1st row
-        if (1 <= numOfLevelsToDrag) and (i_MaxHeroesIn1Row < i_lSelectedHeroPosition[i+1]):  #modSelectedHeroPosition :
-            # If selected hero in not in first row, drag list upwards until it is in 1st row
-            for j in range (0, numOfLevelsToDrag-dragCount) :
-                Manager.mouse_drag_msecs(i_sDragFromPosition,
-                                         i_sDragToPosition,
-                                         Settings.Main[Settings.Main_sDurationAfterClick_ms],
-                                         0.3,
-                                         15)
-                dragCount += 1
-                Manager.Trace2("Dragged {0} time(s)".format(dragCount))
-        Manager.click_button_msecs(i_lClickHeroPosition[modSelectedHeroPosition], Settings.Main[Settings.Main_sDurationAfterClick_ms], False)
+            # First row icon's half size  = (574-484)/2 = 45
+            # Second row icon's half size = (591-574)/2 = 8.5
+            # Drag distance = 45 + 8.5 = 53.5
+            # Dragon raid has 3 heroes in one row, we will click the selected hero w.r.t 1st row
+            if (1 <= numOfLevelsToDrag) and (i_MaxHeroesIn1Row < i_lSelectedHeroPosition[i+1]):  #modSelectedHeroPosition :
+                # If selected hero in not in first row, drag list upwards until it is in 1st row
+                for j in range (0, numOfLevelsToDrag-dragCount) :
+                    Manager.mouse_drag_msecs(i_sDragFromPosition,
+                                             i_sDragToPosition,
+                                             Settings.Main[Settings.Main_sDurationAfterClick_ms],
+                                             0.3,
+                                             15)
+                    dragCount += 1
+                    Manager.Trace2("Dragged {0} time(s)".format(dragCount))
+            Manager.click_button_msecs(i_lClickHeroPosition[modSelectedHeroPosition], Settings.Main[Settings.Main_sDurationAfterClick_ms], False)
 
     Manager.Trace2("------------ Hero Select (END) \n")
