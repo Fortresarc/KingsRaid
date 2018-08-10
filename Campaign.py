@@ -92,16 +92,20 @@ def gen_natural_stamina_farm(i_bReenterStoryAfterGrindOrSell = True):
         # it guarantees that we either enter the battle, or get the stamina window (in
         # which case the click doesn't go through to the button underneath).
         Manager.click_button_msecs('start_adventure', 500, False)
+        
+        # Select Battle popup - "Start Battle" or "Continuous Battle"
+        Manager.click_button_msecs('selectbattle_startbattle', Settings.Main[Settings.Main_sDurationAfterClick_ms])
 
         # Be careful with the x coordinate here so that it clicks in between items in the
         # inventory if your inventory is full.
         Manager.click_loc((503, 352), 500)      # Continue (game pauses sometimes mid-battle)
 
         Manager.click_loc((1204, 494), 500)     # Retry
-        Manager.click_loc((572, 467), 500)      # Single Repeat button.  Careful not to click the button that
-                                            # edits the count of stamina potions to use.
+        # Single Repeat button.  Careful not to click the button that edits the count of stamina potions to use.
+        Manager.click_button_msecs('repeatpopup_singlerepeat', Settings.Main[Settings.Main_sDurationAfterClick_Long_ms])
+
         if use_pot:
-            Manager.click_loc((759, 558), 500)      # Stamina Potion OK
+            Manager.click_loc('staminapot_ok', 500)      # Stamina Potion OK
         else:
             Manager.click_loc((940, 190), 500)      # Close stamina pop-up
 
@@ -140,6 +144,9 @@ def re_enter_adventure(use_potion):
     # Prepare battle -> start adventure.
     Manager.click_button_msecs('start_adventure', 3500, False)
     Manager.click_button_msecs('start_adventure', 3500, False)
+
+    # Select Battle popup - "Start Battle" or "Continuous Battle"
+    Manager.click_button_msecs('selectbattle_startbattle', Settings.Main[Settings.Main_sDurationAfterClick_ms])
 
     # The stamina window may have popped up.  Use a potion
     if use_potion:

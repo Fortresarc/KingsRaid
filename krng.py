@@ -212,12 +212,14 @@ points = {
     'getreadyforbattle_autorepeat' : (838, 660),
     'battlecompletion_retry' : (1200, 492),
     'battlecompletion_exit' : (1200, 630),
-    'repeatpopup_singlerepeat' : (460, 450),
-    'repeatpopup_repeatbattle' : (790, 450),
+    'repeatpopup_singlerepeat' : (460, 508),        # WARNING: Be careful NOT to click this button 'staminapot_ok'
+    'repeatpopup_repeatbattle' : (790, 508),
     'repeatpopup_close' : (960, 165),
+    'staminapot_ok' : (759, 558),                   # 
     'minipopup_confirmbutton' : (629, 528),
-    'minipopup_closebutton' : (945, 186),   # Works for "Stockade key lacking popup", "Insufficient keys to enter"
-    'translucentpopup_close' : (1250, 67),  #Works for notices, minigame, close chatline
+    'minipopup_closebutton' : (945, 186),           # Works for "Stockade key lacking popup", "Insufficient keys to enter"
+    'translucentpopup_close' : (1250, 67),          # Works for notices, minigame, close chatline
+    'selectbattle_startbattle' : (475, 508),        # WARNING: Be careful NOT to click this button 'staminapot_ok'
     
     # Amity points
     'exchange_amity' : (678, 138),
