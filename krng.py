@@ -162,6 +162,7 @@ points = {
     'raid_select_FriendRequest_SearchID' : (350, 170),
     'raid_select_FriendRequest_Find' : (575, 170),
     'raid_select_FriendRequest_Invite' : (1020, 170),
+    'raid_select_FriendRequest_ClickNoWhere' : (1140, 170),
     'raid_select_FriendRequest_Close' : (1150, 73),
 
     # Portal (After Goto UpperDungeon Chapter 1)

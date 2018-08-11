@@ -128,8 +128,10 @@ DragonRaidConfig_sHero1_Position                    = 'Hero1_Position'
 DragonRaidConfig_sHero2_Position                    = 'Hero2_Position'
 DragonRaidConfig_sHero3_Position                    = 'Hero3_Position'
 DragonRaidConfig_sHero4_Position                    = 'Hero4_Position'
-DragonRaidConfig_sCoopLeaderName                    = "LeaderName"
-DragonRaidConfig_sCoopMemberName                    = "MemberName"
+DragonRaidConfig_sCoopLeaderName                    = 'LeaderName'
+DragonRaidConfig_sCoopMemberName1                   = 'MemberName1'
+DragonRaidConfig_sCoopMemberName2                   = 'MemberName2'
+DragonRaidConfig_sCoopMemberName3                   = 'MemberName3'
 DragonRaidConfig_sCoopWaitMemberJoin_s              = 'CoopWaitMemberJoin_secs'
 DragonRaidConfig_sCoopHero1_Position                = 'CoopHero1_Position'
 DragonRaidConfig_sCoopHero2_Position                = 'CoopHero2_Position'
@@ -193,7 +195,7 @@ Main = {
 
 SpecialEvent = {
     SpecialEvent_sNoOfKeys                          : 5,
-    SpecialEvent_sSingleBattleDuration_s            : 80,
+    SpecialEvent_sSingleBattleDuration_s            : 110,      # secs
     Main_sEasy_Hero1_Position                       : 3,
     Main_sEasy_Hero2_Position                       : 5,
     Main_sEasy_Hero3_Position                       : 8,
@@ -290,8 +292,10 @@ DragonRaidConfig = {
     DragonRaidConfig_sHero2_Position                : 5,                    # Please select in ascending order i.e. Hero1_Pos=1, Hero2_Pos=3 and so on
     DragonRaidConfig_sHero3_Position                : 8,                    # Please select in ascending order i.e. Hero1_Pos=1, Hero2_Pos=3 and so on
     DragonRaidConfig_sHero4_Position                : 9,                    # Please select in ascending order i.e. Hero1_Pos=1, Hero2_Pos=3 and so on
-    DragonRaidConfig_sCoopLeaderName                : "UNUSED_LeaderName",
-    DragonRaidConfig_sCoopMemberName                : "MemberName",
+    DragonRaidConfig_sCoopLeaderName                : '',
+    DragonRaidConfig_sCoopMemberName1               : '',
+    DragonRaidConfig_sCoopMemberName2               : '',
+    DragonRaidConfig_sCoopMemberName3               : '',
     DragonRaidConfig_sCoopWaitMemberJoin_s          : 100,                  # 100 secs
     DragonRaidConfig_sCoopHero1_Position            : 1,                    #
     DragonRaidConfig_sCoopHero2_Position            : 5,                    # 
@@ -302,7 +306,7 @@ DragonRaidConfig = {
 Fire_DragonRaid = {
     DragonRaid_sHighestCleared                      : 91,
     DragonRaid_sAutoAtThisLevel                     : 82,
-    DragonRaid_sCoopAutoAtThisLevel                 : 85
+    DragonRaid_sCoopAutoAtThisLevel                 : 86
 }
 
 Frost_DragonRaid = {
