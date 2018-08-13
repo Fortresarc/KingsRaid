@@ -25,7 +25,7 @@ def Gen_DoAllDailies() :
     i = 0
     for value in Settings.DoAllDailiesSequence :
         Manager.TraceHeader1 ()
-        nTimeTemp = Manager.TotalRunTime
+        nTimeTemp = nox.time
         _ExecuteSingleDailyFunction(Settings.DoAllDailiesSequence[i])
         Manager.TraceSubHeader1 ()
         Manager.Trace1 ("Do all dailies {0} : {1} - Time lapsed = {2}, Execution time {3}".format(value, 
@@ -100,7 +100,7 @@ def _Gen_DoLaunchNOX_DoQuest(i_bIsDragonRaid = True) :
 
     for key in CommonQuestSequence:
         Manager.TraceHeader1()
-        nTimeTemp = Manager.TotalRunTime
+        nTimeTemp = nox.time
         _ExecuteSingleDailyFunction(CommonQuestSequence[key])
         Manager.TraceSubHeader1 ()
         Manager.Trace1 ("Do {0} after NOX restarts {1} : {2} .. Will execute for {3}".format( sQuestType,

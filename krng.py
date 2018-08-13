@@ -150,9 +150,9 @@ points = {
     'raid_select_frost' : (1038, 450),
     'raid_select_poison' : (1038, 608),
     'raid_select_black' : (1038, 650),
-    'raid_select_HeroList_Position1' : (122, 529),  # Exactly half icon size
-    'raid_select_HeroList_Position2' : (232, 529),
-    'raid_select_HeroList_Position3' : (332, 529),
+    'raid_select_HeroList_Position1' : (122, 524),  # Exactly half icon size ... (13Aug2018 changed from 529 -> 524)
+    'raid_select_HeroList_Position2' : (232, 524),
+    'raid_select_HeroList_Position3' : (332, 524),
     'raid_select_HeroList_Position4' : (122, 640),  # This value is found through testing
     'raid_select_SetAutoRepeat' : (880, 592),
     'raid_select_StartBattle' : (1095, 650),

@@ -199,7 +199,7 @@ SpecialEvent = {
     Main_sEasy_Hero1_Position                       : 3,
     Main_sEasy_Hero2_Position                       : 5,
     Main_sEasy_Hero3_Position                       : 8,
-    Main_sEasy_Hero4_Position                       : 13
+    Main_sEasy_Hero4_Position                       : 10
 }
 
 WorldBoss = {
@@ -225,7 +225,7 @@ Stockade = {
     Main_sEasy_Hero1_Position                       : 3,
     Main_sEasy_Hero2_Position                       : 5,
     Main_sEasy_Hero3_Position                       : 8,
-    Main_sEasy_Hero4_Position                       : 15
+    Main_sEasy_Hero4_Position                       : 10
 }
 
 Story = {
@@ -250,7 +250,7 @@ Conquest = {
     Main_sEasy_Hero1_Position                       : 3,
     Main_sEasy_Hero2_Position                       : 5,
     Main_sEasy_Hero3_Position                       : 8,
-    Main_sEasy_Hero4_Position                       : 18,
+    Main_sEasy_Hero4_Position                       : 22,
     Main_sHard_Hero1_Position                       : 1,
     Main_sHard_Hero2_Position                       : 3,
     Main_sHard_Hero3_Position                       : 5,
@@ -272,7 +272,7 @@ UpperDungeon = {
     Main_sEasy_Hero1_Position                       : 3,
     Main_sEasy_Hero2_Position                       : 5,
     Main_sEasy_Hero3_Position                       : 8,
-    Main_sEasy_Hero4_Position                       : 18,
+    Main_sEasy_Hero4_Position                       : 22,
     Main_sHard_Hero1_Position                       : 1,
     Main_sHard_Hero2_Position                       : 3,
     Main_sHard_Hero3_Position                       : 5,

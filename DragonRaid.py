@@ -3,15 +3,18 @@ import Settings
 import nox
 import KRSelect
 
-nMarkCurrentTime_ms = 0
+# NOTE:     int, string etc are not mutable - cannot be mutated
+            # However list is mutable! For now we use list of int with 1 element, to pass by reference
+def _MarkCurrentTime_ms(i_lCurrentTime_ms):
+    i_lCurrentTime_ms[0] = nox.time
 
-def _MarkCurrentTime_ms():
-    global nMarkCurrentTime_ms
-    nMarkCurrentTime_ms = Manager.TotalRunTime
+# NOTE:     int, string etc are not mutable - cannot be mutated
+            # However list is mutable! For now we use list of int with 1 element, to pass by reference
+def _CalculateTimeTaken_ms(i_lMarkedTime_ms):
+    tmpList = []
+    tmpList.append(nox.time - i_lMarkedTime_ms[0])
 
-def _CalculateTimeTaken_ms():
-    global nMarkCurrentTime_ms
-    return (Manager.TotalRunTime - nMarkCurrentTime_ms)
+    return tmpList
 
 def Gen_DoDragonRaid (i_bIsNotCoop = True) :
     whichDragonRaid = Settings.DragonRaidConfig[Settings.DragonRaidConfig_sSelectDragonToAuto]
@@ -63,23 +66,42 @@ def Gen_DoDragonRaid (i_bIsNotCoop = True) :
         Manager.click_button_msecs('minipopup_confirmbutton', Settings.Main[Settings.Main_sDurationAfterClick_ms])
         #TODO refill nrg or not?
 
+def _AnalyseTime_DontExecute_ms (i_fFunctionName, *args):
+    #name = i_fFunctionName.__name__
+    lCurrentTime = [0]   # list is mutable
+    lTimeTaken = [0]
+
+    _MarkCurrentTime_ms(lCurrentTime)
+    nox.switch_macro_file('test_print_to_nowhere.txt')
+    if len(args) == 0:
+        i_fFunctionName()
+    else:
+        Manager.Trace1("ERROR: Not implemented yet")
+    lTimeTaken = _CalculateTimeTaken_ms(lCurrentTime)
+    nox.restore_macro_file()
+
+    return lTimeTaken[0]
+
 def Gen_DoDragonRaid_Leader():
+    lTimeTakenTemp_ms = [0]
     nInvitationToastTime_ms = Manager.ConvertSecsToMsecs(10)
     nTotalTimeLeft_ms = Manager.ConvertSecsToMsecs(Settings.DragonRaidConfig[Settings.DragonRaidConfig_sCoopWaitMemberJoin_s])
     
     # Enter into Dragon Raid selection screen
-    _MarkCurrentTime_ms()
+    _MarkCurrentTime_ms(lTimeTakenTemp_ms)
     Gen_DoDragonRaid(False)
 
     bDone = False
-    nTotalTimeLeft_ms -= _CalculateTimeTaken_ms()
+    lTimeTakenTemp_ms = _CalculateTimeTaken_ms(lTimeTakenTemp_ms)
+    nTotalTimeLeft_ms -= lTimeTakenTemp_ms[0]
+
     if nTotalTimeLeft_ms < 0:
         Manager.Trace1("WARNING: DoDragonRaid_Leader Failed!!!")
         return
     
     # Invite member and select own heroes
     while nTotalTimeLeft_ms > 0:
-        _MarkCurrentTime_ms()
+        _MarkCurrentTime_ms(lTimeTakenTemp_ms)
         _Gen_InviteFriend()
 
         # Select heroes now to save some time
@@ -89,7 +111,8 @@ def Gen_DoDragonRaid_Leader():
             Manager.click_button_msecs('minipopup_confirmbutton', Settings.Main[Settings.Main_sDurationAfterClick_ms])
             bDone = True
 
-        nTimeTaken_ms = _CalculateTimeTaken_ms()
+        lTimeTakenTemp_ms = _CalculateTimeTaken_ms(lTimeTakenTemp_ms)
+        nTimeTaken_ms = lTimeTakenTemp_ms[0]
         nTotalTimeLeft_ms -= nTimeTaken_ms
         
         # Wait if we still have time left after tasks in current loop
@@ -106,13 +129,19 @@ def Gen_DoDragonRaid_Leader():
     Manager.click_button_msecs('minipopup_confirmbutton', Settings.Main[Settings.Main_sDurationAfterClick_ms])
 
 def Gen_DoDragonRaid_Member():
+    lMemberExeTime_ms = [0]
+    lTimeTakenTemp_ms = [0]
     nInvitationToastTime_ms = Manager.ConvertSecsToMsecs(10)
-    nTotalTimeLeft_ms = Manager.ConvertSecsToMsecs(Settings.DragonRaidConfig[Settings.DragonRaidConfig_sCoopWaitMemberJoin_s])
+    nTotalTimeLeft_ms = Manager.ConvertSecsToMsecs(Settings.DragonRaidConfig[Settings.DragonRaidConfig_sCoopWaitMemberJoin_s])    
+     
+    # Sync end time with Leader
+    _MarkCurrentTime_ms(lMemberExeTime_ms)
 
     while nTotalTimeLeft_ms > 0:
-        _MarkCurrentTime_ms()
+        _MarkCurrentTime_ms(lTimeTakenTemp_ms)
         Manager.click_button_msecs('raid_select_AcceptInvitation', Settings.Main[Settings.Main_sDurationAfterClick_Long_ms])
-        nTimeTaken_ms = _CalculateTimeTaken_ms()
+        lTimeTakenTemp_ms = _CalculateTimeTaken_ms(lTimeTakenTemp_ms)
+        nTimeTaken_ms = lTimeTakenTemp_ms[0]
         nTotalTimeLeft_ms -= nTimeTaken_ms
 
         # Wait if we still have time left after tasks in current loop
@@ -123,6 +152,12 @@ def Gen_DoDragonRaid_Member():
     KRSelect.Gen_DragonRaid_HeroSelect(False)
     # Click Prepare battle
     Manager.click_button_msecs('raid_select_StartBattle', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+    
+    # Sync end time with Leader
+    nTotalTimeTakenForLeaderToExecute_ms = _AnalyseTime_DontExecute_ms(Gen_DoDragonRaid_Leader)
+    lMemberExeTime_ms = _CalculateTimeTaken_ms(lMemberExeTime_ms)
+    Manager.wait_msecs(nTotalTimeTakenForLeaderToExecute_ms - lMemberExeTime_ms[0])
+    #Manager.click_button_msecs('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick_Short_ms])
     
 def _Gen_InviteFriend():
     # Create valid member list

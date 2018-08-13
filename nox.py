@@ -14,10 +14,12 @@ keypress_ShowDesktop            = 102   # Home button - show nox desktop
 keypress_RecentApps             = 221   # RecentApps - show all apps from background
 
 file = None
+file_backup = None
+time = 0                # millisecs
+time_backup = 0         # millisecs
 button_points = {}
 button_rects = {}
 resolution = (1280,720)
-time = 0
 
 def do_input():
     return input()
@@ -382,6 +384,40 @@ def load_macro_file():
 
     file = open(file_path, 'w')
     return (name, file_path)
+
+def switch_macro_file(i_sNewFileName):
+    global file
+    global file_backup
+    global time
+    global time_backup
+
+    # pause current time by storing into backup
+    time_backup = time
+
+    # Store current as backup
+    file_backup = file
+    
+    # Open new file
+    # plus sign = create if not exists
+    file = open(i_sNewFileName, 'w+')
+    #file.close()
+
+def restore_macro_file():
+    global file
+    global file_backup
+    global time
+    global time_backup
+
+    # Close current file
+    name = file.name
+    file.close()
+    os.remove(file.name)
+
+    # Restore time
+    time = time_backup
+
+    # Restore file
+    file = file_backup
 
 def close():
     global file

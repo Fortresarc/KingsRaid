@@ -111,14 +111,21 @@ def Gen_DragonRaid_HeroSelect(i_bIsNotCoop = True) :
         2 : 'raid_select_HeroList_Position2',
         3 : 'raid_select_HeroList_Position3'
     }
-    _Gen_SelectHero(4, 3, SelectedHeroPosition, ClickHeroPosition, 'raid_select_HeroList_Position4', 'raid_select_HeroList_Position1')
+    _Gen_SelectHero(4,
+                    3,
+                    SelectedHeroPosition,
+                    ClickHeroPosition,
+                   'raid_select_HeroList_Position4',
+                   'raid_select_HeroList_Position1',
+                   0.33)
 
 def _Gen_SelectHero( i_MaxHeroesAllowed,
                     i_MaxHeroesIn1Row,
                     i_lSelectedHeroPosition,
                     i_lClickHeroPosition,
                     i_sDragFromPosition,
-                    i_sDragToPosition) :
+                    i_sDragToPosition,
+                    i_fSpeed = 0.3) :
     Manager.Trace2("\n")
     Manager.Trace2("+++++++++++++++++++++++++++++++")
     Manager.Trace2(" Hero select (Start)")
@@ -147,7 +154,7 @@ def _Gen_SelectHero( i_MaxHeroesAllowed,
                     Manager.mouse_drag_msecs(i_sDragFromPosition,
                                              i_sDragToPosition,
                                              Settings.Main[Settings.Main_sDurationAfterClick_ms],
-                                             0.3,
+                                             i_fSpeed,
                                              15)
                     dragCount += 1
                     Manager.Trace2("Dragged {0} time(s)".format(dragCount))

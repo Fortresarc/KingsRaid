@@ -10,11 +10,6 @@ LogFileName = 'settings_log.txt'
 LogFile = None
 
 ##############
-# Macro total run time
-##############
-TotalRunTime = 0 # millisecs
-
-##############
 # NRG, gold
 ##############
 sClaim_1stEXP_1stGold           = 'Claim_1stEXP_1stGold'
@@ -75,9 +70,9 @@ def Trace2 (i_sLogText):
     print (sFormattedLogText)
     LogFile.write(sFormattedLogText + '\n')
 
-def GetString_TimeLapsed (i_nFromTime = 0):
-    global TotalRunTime
-    fTotalRunTime_Secs = (TotalRunTime - i_nFromTime)/1000.0
+def GetString_TimeLapsed (i_nFromTime_ms = 0):
+    TotalRunTime = nox.time
+    fTotalRunTime_Secs = ConvertMsecsToSecs(TotalRunTime - i_nFromTime_ms)
     nTotalRunTime_Mins = int(fTotalRunTime_Secs/60)
     nReturnString = ""
 
@@ -112,13 +107,9 @@ def GetTimeString_HMSFormat(i_nTimeMsecs = 1000):
                                                nSecs)
     
 def GetTimeString_TotalRunTime_HMSFormat():
-    global TotalRunTime
+    TotalRunTime = nox.time
     return "{0} ({1})".format( GetTimeString_MinsFormat(TotalRunTime),
                                GetTimeString_HMSFormat(TotalRunTime) )
-
-def AddTotalRunTime (i_nTimeMillisecs):
-    global TotalRunTime
-    TotalRunTime += i_nTimeMillisecs
 
 # keypress -----------------
 def keypress_msecs(i_bButton, i_nWaitMilliseconds, i_bAddTransitionDelay=True):
@@ -134,7 +125,6 @@ def keypress_secs(i_bButton, i_nWaitSeconds, i_bAddTransitionDelay=True):
     keypress(i_bButton, nWaitFinal_ms)
 
 def keypress(i_bButton, i_nWaitMilliseconds):
-    AddTotalRunTime(i_nWaitMilliseconds)
     nox.keypress(i_bButton, i_nWaitMilliseconds)
 # end keypress -----------------
     
@@ -162,7 +152,6 @@ def mouse_drag_secs(fromposition,
     return mouse_drag(fromposition, toposition, nWaitFinal_ms, speed, max_generated_interpolation_points)
 
 def mouse_drag(fromposition, toposition, i_nWaitMilliseconds, speed=0.2, max_generated_interpolation_points=20):
-    AddTotalRunTime(i_nWaitMilliseconds)
     nox.mouse_drag(fromposition, toposition, i_nWaitMilliseconds, speed, max_generated_interpolation_points)
 # end mouse drags -----------------
 
@@ -180,7 +169,6 @@ def click_loc_secs(loc, i_nWaitSeconds, i_bAddTransitionDelay = True):
     click_loc(loc, nWaitFinal_ms)
 
 def click_loc(loc, i_nWaitMilliseconds):
-    AddTotalRunTime(i_nWaitMilliseconds)
     nox.click_loc(loc, i_nWaitMilliseconds)
 # end click_loc -----------------
 
@@ -198,7 +186,6 @@ def click_button_secs(button, i_nWaitSeconds, i_bAddTransitionDelay = True):
     return click_button(button, nWaitFinal_ms)
 
 def click_button(button, i_nWaitMilliseconds):
-    AddTotalRunTime(i_nWaitMilliseconds)
     return nox.click_button(button, i_nWaitMilliseconds)
 # end click -----------------
 
@@ -210,7 +197,6 @@ def wait_secs(i_nWaitSeconds, i_bAddTransitionDelay = True):
     return wait_msecs(nWaitFinal_ms)
 
 def wait_msecs(i_nWaitMilliseconds):
-    AddTotalRunTime(i_nWaitMilliseconds)
     return nox.wait(i_nWaitMilliseconds)
 # end wait -----------------
 
