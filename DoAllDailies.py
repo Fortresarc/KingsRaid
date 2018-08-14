@@ -71,10 +71,6 @@ def Gen_DoAllDailies() :
     #KRCommon.Gen_DoStory(Settings.Story[Settings.Story_sAutoRepeatAtChapter])
     #KRCommon.Gen_ClaimDailyMission(6, True)
 
-
-#def Gen_TowerOfOrdeal():
-    # todo 17.55 - 20 mins
-
 def Gen_DoLaunchNOX_DragonRaid() :
     _Gen_DoLaunchNOX_DoQuest(True)
     
@@ -134,6 +130,9 @@ def _ExecuteSingleDailyFunction(i_sDailyFunctionName):
     elif Settings.DoAllDailies_sStockade == i_sDailyFunctionName:
         Gen_Stockade(False)
 
+    elif Settings.DoAllDailies_sTowerOfOrdeals == i_sDailyFunctionName:
+        Gen_DoTowerOfOrdeals()
+
     elif Settings.DoAllDailies_sHerosInn == i_sDailyFunctionName:
         KRCommon.Gen_NavigateToMain('portal_orvel_herosinn', False)
         Gen_Daily_HerosInn(True)
@@ -183,7 +182,7 @@ def _ExecuteSingleDailyFunction(i_sDailyFunctionName):
         Manager.Gen_ClaimEnergyGoldHotTime(Manager.ClaimEXPGoldStepsList[Manager.sClaim_4thEXP_4thGold])
 
     elif Settings.DoAllDailies_sDoSpecialEvent == i_sDailyFunctionName:
-        _Gen_DoSpecialEvent()
+        _Gen_DoSpecialEvent__UNUSED()
 
     elif Settings.DoAllDailies_sKillKingsRaid == i_sDailyFunctionName:
         KRCommon.KillKingsRaid()
@@ -191,7 +190,54 @@ def _ExecuteSingleDailyFunction(i_sDailyFunctionName):
     elif Settings.DoAllDailies_sWait_s == i_sDailyFunctionName:
         Manager.wait_secs(Settings.Main[Settings.Main_sWaitDuration_s])
 
-def _Gen_DoSpecialEvent():
+def Gen_DoTowerOfOrdeals():
+    nTowerOfOrdealsPagesToClose = 0
+
+    # Navigate to Hall of Heroes    
+    Manager.click_button_msecs('main_portal', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+    Manager.click_button_msecs('upper_dungeon', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+    Manager.click_button_msecs('ch1_upper_dungeon', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+    # This has to wait longer because we are transiting to another big game screen    
+    Manager.click_button_secs('minipopup_confirmbutton', Settings.Main[Settings.Main_sAnyGameScreenLoadingTime_s])
+    Manager.click_button_msecs('main_portal', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+    Manager.click_button_msecs('portal_hallofheroes', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+    Manager.click_button_msecs('minipopup_confirmbutton', Settings.Main[Settings.Main_sAnyGameScreenLoadingTime_s])
+
+    # Enter from outside at Hall of Heroes
+    Manager.click_button_msecs('bigicon_lowerright_bottom', Settings.Main[Settings.Main_sDurationAfterClick_Long_ms])
+    nTowerOfOrdealsPagesToClose += 1
+
+    # At "Hall of Heroes" first page
+    Manager.click_button_msecs('towerofordeals_enter', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+    nTowerOfOrdealsPagesToClose += 1
+
+    # At "Get ready for battle" page
+    Manager.click_button_msecs('towerofordeals_getreadyforbattle', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+
+    # Heroes select
+    KRSelect.Gen_SelectQuestHero(KRSelect.QuestType_TowerOfOrdeals, False, Settings.Main_sEasyContent)
+
+    # At "Heroes select" page, Start battles
+    Manager.click_button_msecs('towerofordeals_heroselect_startbattle', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+    Manager.click_button_msecs('selectbattle_continuousbattle', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+    Manager.click_button_msecs('notice_continuousbattle_ok', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+
+    Manager.wait_secs(Settings.TowerOfOrdeals[Settings.TowerOfOrdeals_sTotalTimeForAllBattles_s])
+
+    # Loot level 25 completion translucent screen - Click anywhere to close
+    # We choose close button for the case where it failed to complete all 25 levels of battles
+    Manager.click_button_msecs('minipopup_closebutton', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+
+    # Exit
+    Manager.click_button_secs('battlecompletion_exit', Settings.Main[Settings.Main_sAnyGameScreenLoadingTime_s])
+
+    # Exit to main game screen
+    for j in range(0, nTowerOfOrdealsPagesToClose):
+        # main_backbutton didn't work
+        Manager.click_button_msecs('towerofordeals_back', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+
+# UNUSED
+def _Gen_DoSpecialEvent__UNUSED():
     SpecialEventPagesOpened = 0
 
     # Navigate to stockade the hard way

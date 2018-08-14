@@ -5,4 +5,5 @@ Pictures/
 Backup/
 *.pdf
 *.json
+*.bat
 settings_log*.txt

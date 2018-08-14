@@ -87,7 +87,8 @@ def keypress(i_bButton, i_nwait_milliseconds):
     # be fairly high.
     wait(i_nwait_milliseconds)
 
-def click_loc(loc, wait_milliseconds):
+# nNegativeYOffset - The lower the screen, the bigger nNegativeYOffset value 
+def click_loc(loc, wait_milliseconds, i_nNegativeYOffset = 0):
     global file
     global resolution
     global time
@@ -96,6 +97,12 @@ def click_loc(loc, wait_milliseconds):
         global resolution
         return (int(xy[0]*resolution[0]/1280), 
                 int(xy[1]*resolution[1]/720))
+
+    # offset before scaling
+    # Tuple replace workaround
+    lLoc = list(loc)
+    lLoc[1] = loc[1] + i_nNegativeYOffset
+    loc = lLoc
 
     x, y = scale(loc)
     file.write("0ScRiPtSePaRaToR{0}|{1}|MULTI:1:0:{2}:{3}ScRiPtSePaRaToR{4}\n".format(
@@ -118,10 +125,10 @@ def click_loc(loc, wait_milliseconds):
     # be fairly high.
     wait(wait_milliseconds)
 
-def click_button(button, wait_milliseconds):
+def click_button(button, wait_milliseconds, i_nNegativeYOffset = 0):
     global button_points
     loc = button_points[button]
-    return click_loc(loc, wait_milliseconds)
+    return click_loc(loc, wait_milliseconds, i_nNegativeYOffset)
 
 # Drag helper
 # speed = distance(pixels) / time(millisecs) = 50 / 500 = 0.1 pixels/msecs

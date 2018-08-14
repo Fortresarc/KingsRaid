@@ -33,6 +33,7 @@ DoAllDailies_sClaim_4thEXP_4thdGold                 = 'Claim_4thEXP_4thdGold'
 DoAllDailies_sDoSpecialEvent                        = 'DoSpecialEvent'
 DoAllDailies_sKillKingsRaid                         = 'KillKingsRaid'
 DoAllDailies_sWait_s                                = 'Wait_secs'
+DoAllDailies_sTowerOfOrdeals                        = 'DoTowerOfOrdeals'
 
 # Main
 Main_sMain                                          = 'Main'
@@ -86,6 +87,10 @@ Stockade_sStockade                                  = 'Stockade'
 Stockade_sClaimSkillBook                            = 'ClaimSkillBook'
 Stockade_sSingleBattleDuration_s                    = 'SingleBattleDuration_secs'
 Stockade_sMaxKeys                                   = 'MaxKeys'
+
+# Tower of Ordeals
+TowerOfOrdeals_sTowerOfOrdeals                      = 'TowerOfOrdeals'
+TowerOfOrdeals_sTotalTimeForAllBattles_s            = 'TotalTimeForAllBattles_secs'
 
 # Story
 Story_sStory                                        = 'Story'
@@ -228,6 +233,14 @@ Stockade = {
     Main_sEasy_Hero4_Position                       : 10
 }
 
+TowerOfOrdeals = {
+    TowerOfOrdeals_sTotalTimeForAllBattles_s        : 1200,
+    Main_sEasy_Hero1_Position                       : 1,
+    Main_sEasy_Hero2_Position                       : 3,
+    Main_sEasy_Hero3_Position                       : 5,
+    Main_sEasy_Hero4_Position                       : 8
+}
+
 Story = {
     Story_sAutoRepeatAtChapter                      : 8,        # Auto repeat this chapter
     Story_sUseStaminaPot                            : 'N',
@@ -336,6 +349,7 @@ def WriteDefaultSettingsFile () :
         Vault_sVault: {},
         Arena_sArena: {},
         Stockade_sStockade: {},
+        TowerOfOrdeals_sTowerOfOrdeals: {},
         Story_sStory: {},
         Conquest_sConquest: {},
         UpperDungeon_sUpperDungeon: {},
@@ -373,6 +387,10 @@ def WriteDefaultSettingsFile () :
     data_Stockade = data[Stockade_sStockade]
     for key in Stockade:
         data_Stockade.update({key: Stockade[key]})
+
+    data_TowerOfOrdeals = data[TowerOfOrdeals_sTowerOfOrdeals]
+    for key in TowerOfOrdeals:
+        data_TowerOfOrdeals.update({key: TowerOfOrdeals[key]})
 
     data_Story = data[Story_sStory]
     for key in Story:
@@ -449,6 +467,9 @@ def ReadFromFile (i_bPrintToScreen = True) :
         elif key == Stockade_sStockade :
             for value in json_obj[key] :
                 Stockade[value] = json_obj[Stockade_sStockade][value]
+        elif key == TowerOfOrdeals_sTowerOfOrdeals :
+            for value in json_obj[key] :
+                TowerOfOrdeals[value] = json_obj[TowerOfOrdeals_sTowerOfOrdeals][value]
         elif key == Story_sStory:
             for value in json_obj[key] :
                 Story[value] = json_obj[Story_sStory][value]

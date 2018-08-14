@@ -7,6 +7,7 @@ QuestType_UpperDungeon = 1
 QuestType_Conquest = 2
 QuestType_Stockade = 3
 QuestType_SpecialEvent = 4
+QuestType_TowerOfOrdeals = 5
 
 # For selecting heroes in Story, Upper dungeons, Conquests
 def Gen_SelectQuestHero (i_nQuestType, i_bNavigateToHeroSelectScreen, i_sEasyOrHardContent, i_bExitBackToMainPage = False) :
@@ -38,6 +39,8 @@ def Gen_SelectQuestHero (i_nQuestType, i_bNavigateToHeroSelectScreen, i_sEasyOrH
         lQuestList = Settings.Stockade.copy()
     elif QuestType_SpecialEvent == i_nQuestType:
         lQuestList = Settings.SpecialEvent.copy()
+    elif QuestType_TowerOfOrdeals == i_nQuestType:
+        lQuestList = Settings.TowerOfOrdeals.copy()
     else:   # Main story and conquest share same hero selection list
         lQuestList = Settings.Conquest.copy()
 
@@ -49,7 +52,9 @@ def Gen_SelectQuestHero (i_nQuestType, i_bNavigateToHeroSelectScreen, i_sEasyOrH
     }
 
     # Currently Stockade, SpecialEvent do not use Hard content heroes
-    bHasHardContent = (QuestType_Stockade != i_nQuestType) and (QuestType_SpecialEvent != i_nQuestType)
+    bHasHardContent =   (QuestType_Stockade != i_nQuestType) \
+                    and (QuestType_SpecialEvent != i_nQuestType) \
+                    and (QuestType_TowerOfOrdeals != i_nQuestType)
     
     if bHasHardContent:
         SelectedHeroPosition_Hard = {
@@ -117,7 +122,8 @@ def Gen_DragonRaid_HeroSelect(i_bIsNotCoop = True) :
                     ClickHeroPosition,
                    'raid_select_HeroList_Position4',
                    'raid_select_HeroList_Position1',
-                   0.33)
+                   0.35,
+                   20)
 
 def _Gen_SelectHero( i_MaxHeroesAllowed,
                     i_MaxHeroesIn1Row,
@@ -125,7 +131,8 @@ def _Gen_SelectHero( i_MaxHeroesAllowed,
                     i_lClickHeroPosition,
                     i_sDragFromPosition,
                     i_sDragToPosition,
-                    i_fSpeed = 0.3) :
+                    i_fSpeed = 0.3,
+                    i_nSelectPos_NegYOffset_pixels = 0) :
     Manager.Trace2("\n")
     Manager.Trace2("+++++++++++++++++++++++++++++++")
     Manager.Trace2(" Hero select (Start)")
@@ -158,6 +165,9 @@ def _Gen_SelectHero( i_MaxHeroesAllowed,
                                              15)
                     dragCount += 1
                     Manager.Trace2("Dragged {0} time(s)".format(dragCount))
-            Manager.click_button_msecs(i_lClickHeroPosition[modSelectedHeroPosition], Settings.Main[Settings.Main_sDurationAfterClick_ms], False)
+            Manager.click_button_msecs( i_lClickHeroPosition[modSelectedHeroPosition],
+                                        Settings.Main[Settings.Main_sDurationAfterClick_ms],
+                                        False,
+                                        i_nSelectPos_NegYOffset_pixels)
 
     Manager.Trace2("------------ Hero Select (END) \n")

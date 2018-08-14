@@ -173,11 +173,11 @@ def click_loc(loc, i_nWaitMilliseconds):
 # end click_loc -----------------
 
 # click button -----------------
-def click_button_msecs(button, i_nWaitMilliseconds, i_bAddTransitionDelay = True):
+def click_button_msecs(button, i_nWaitMilliseconds, i_bAddTransitionDelay = True, i_nNegativeYOffset = 0):
     nWaitFinal_ms = i_nWaitMilliseconds
     if i_bAddTransitionDelay:
         nWaitFinal_ms += Settings.Main[Settings.Main_sTransitionDuration_ms]
-    return click_button(button, nWaitFinal_ms)
+    return click_button(button, nWaitFinal_ms, i_nNegativeYOffset)
 
 def click_button_secs(button, i_nWaitSeconds, i_bAddTransitionDelay = True):
     nWaitFinal_ms = ConvertSecsToMsecs(i_nWaitSeconds)
@@ -185,8 +185,8 @@ def click_button_secs(button, i_nWaitSeconds, i_bAddTransitionDelay = True):
         nWaitFinal_ms += Settings.Main[Settings.Main_sTransitionDuration_ms]
     return click_button(button, nWaitFinal_ms)
 
-def click_button(button, i_nWaitMilliseconds):
-    return nox.click_button(button, i_nWaitMilliseconds)
+def click_button(button, i_nWaitMilliseconds, i_nNegativeYOffset = 0):
+    return nox.click_button(button, i_nWaitMilliseconds, i_nNegativeYOffset)
 # end click -----------------
 
 # wait -----------------

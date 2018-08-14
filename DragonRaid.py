@@ -82,6 +82,43 @@ def _AnalyseTime_DontExecute_ms (i_fFunctionName, *args):
 
     return lTimeTaken[0]
 
+def _Gen_InviteFriend():
+    # Create valid member list
+    lMemberList = []
+    if '' != Settings.DragonRaidConfig[Settings.DragonRaidConfig_sCoopMemberName1]:
+        lMemberList.append(Settings.DragonRaidConfig[Settings.DragonRaidConfig_sCoopMemberName1])
+    if '' != Settings.DragonRaidConfig[Settings.DragonRaidConfig_sCoopMemberName2]:
+        lMemberList.append(Settings.DragonRaidConfig[Settings.DragonRaidConfig_sCoopMemberName2])
+    if '' != Settings.DragonRaidConfig[Settings.DragonRaidConfig_sCoopMemberName3]:
+        lMemberList.append(Settings.DragonRaidConfig[Settings.DragonRaidConfig_sCoopMemberName3])
+
+    for sMemberNames in lMemberList:
+        # Find member to connect with
+        Manager.click_button_msecs('raid_select_FriendRequest', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+        # Close popup in case friend has already joined
+        Manager.click_button_msecs('raid_select_CloseAlreadyInvitedPopup', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+
+        # Click SearchID Text box
+        Manager.click_button_msecs('raid_select_FriendRequest_SearchID', Settings.Main[Settings.Main_sDurationAfterClick_Long_ms])
+
+        # Type out member's name
+        nox.userinput(sMemberNames, Settings.Main[Settings.Main_sDurationAfterClick_Short_ms])
+    
+        # Close
+        Manager.click_button_msecs('raid_select_FriendRequest_SearchID', Settings.Main[Settings.Main_sDurationAfterClick_Short_ms])
+
+        # Find member
+        Manager.click_button_msecs('raid_select_FriendRequest_Find', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+    
+        # Invite member
+        Manager.click_button_msecs('raid_select_FriendRequest_Invite', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+        
+        # Just in case, member is offline
+        Manager.click_button_msecs('raid_select_FriendRequest_ClickNoWhere', Settings.Main[Settings.Main_sDurationAfterClick_Short_ms])
+
+    # Close invite friends dialog box
+    Manager.click_button_msecs('raid_select_FriendRequest_Close', Settings.Main[Settings.Main_sDurationAfterClick_Short_ms])
+
 def Gen_DoDragonRaid_Leader():
     lTimeTakenTemp_ms = [0]
     nInvitationToastTime_ms = Manager.ConvertSecsToMsecs(10)
@@ -159,39 +196,3 @@ def Gen_DoDragonRaid_Member():
     Manager.wait_msecs(nTotalTimeTakenForLeaderToExecute_ms - lMemberExeTime_ms[0])
     #Manager.click_button_msecs('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick_Short_ms])
     
-def _Gen_InviteFriend():
-    # Create valid member list
-    lMemberList = []
-    if '' != Settings.DragonRaidConfig[Settings.DragonRaidConfig_sCoopMemberName1]:
-        lMemberList.append(Settings.DragonRaidConfig[Settings.DragonRaidConfig_sCoopMemberName1])
-    if '' != Settings.DragonRaidConfig[Settings.DragonRaidConfig_sCoopMemberName2]:
-        lMemberList.append(Settings.DragonRaidConfig[Settings.DragonRaidConfig_sCoopMemberName2])
-    if '' != Settings.DragonRaidConfig[Settings.DragonRaidConfig_sCoopMemberName3]:
-        lMemberList.append(Settings.DragonRaidConfig[Settings.DragonRaidConfig_sCoopMemberName3])
-
-    # Find member to connect with
-    Manager.click_button_msecs('raid_select_FriendRequest', Settings.Main[Settings.Main_sDurationAfterClick_ms])
-    # Close popup in case friend has already joined
-    Manager.click_button_msecs('raid_select_CloseAlreadyInvitedPopup', Settings.Main[Settings.Main_sDurationAfterClick_ms])
-
-    for sMemberNames in lMemberList:
-        # Click SearchID Text box
-        Manager.click_button_msecs('raid_select_FriendRequest_SearchID', Settings.Main[Settings.Main_sDurationAfterClick_Long_ms])
-
-        # Type out member's name
-        nox.userinput(sMemberNames, Settings.Main[Settings.Main_sDurationAfterClick_Short_ms])
-    
-        # Close
-        Manager.click_button_msecs('raid_select_FriendRequest_SearchID', Settings.Main[Settings.Main_sDurationAfterClick_Short_ms])
-
-        # Find member
-        Manager.click_button_msecs('raid_select_FriendRequest_Find', Settings.Main[Settings.Main_sDurationAfterClick_ms])
-    
-        # Invite member
-        Manager.click_button_msecs('raid_select_FriendRequest_Invite', Settings.Main[Settings.Main_sDurationAfterClick_ms])
-        
-        # Just in case, member is offline
-        Manager.click_button_msecs('raid_select_FriendRequest_ClickNoWhere', Settings.Main[Settings.Main_sDurationAfterClick_Short_ms])
-
-    # Close invite friends dialog box
-    Manager.click_button_msecs('raid_select_FriendRequest_Close', Settings.Main[Settings.Main_sDurationAfterClick_Short_ms])

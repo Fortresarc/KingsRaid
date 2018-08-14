@@ -150,9 +150,9 @@ points = {
     'raid_select_frost' : (1038, 450),
     'raid_select_poison' : (1038, 608),
     'raid_select_black' : (1038, 650),
-    'raid_select_HeroList_Position1' : (122, 524),  # Exactly half icon size ... (13Aug2018 changed from 529 -> 524)
-    'raid_select_HeroList_Position2' : (232, 524),
-    'raid_select_HeroList_Position3' : (332, 524),
+    'raid_select_HeroList_Position1' : (122, 528),  # Exactly half icon size ... (13Aug2018 changed from 529 -> 528)
+    'raid_select_HeroList_Position2' : (232, 528),
+    'raid_select_HeroList_Position3' : (332, 528),
     'raid_select_HeroList_Position4' : (122, 640),  # This value is found through testing
     'raid_select_SetAutoRepeat' : (880, 592),
     'raid_select_StartBattle' : (1095, 650),
@@ -167,6 +167,7 @@ points = {
 
     # Portal (After Goto UpperDungeon Chapter 1)
     'portal_orvel' : (368, 438),
+    'portal_hallofheroes' : (1050, 513),
     'portal_orvel_maysgeneralshop' : (500, 281),
     'portal_orvel_herosinn' : (790, 281),
     'portal_orvel_stockade' : (500, 360),
@@ -220,6 +221,12 @@ points = {
     'herosinn_visit_minigame' : (229, 452),
     'herosinn_visit_minigame_start' : (638, 423),
 
+    # Tower of Ordeals
+    'towerofordeals_enter' : (633, 563),
+    'towerofordeals_back' : (120, 28),
+    'towerofordeals_getreadyforbattle' : (819, 639),
+    'towerofordeals_heroselect_startbattle' : (819, 670),
+
     # Generic points
     'getreadyforbattle_startbattle' : (1080, 660),
     'getreadyforbattle_autorepeat' : (838, 660),
@@ -233,6 +240,11 @@ points = {
     'minipopup_closebutton' : (945, 186),           # Works for "Stockade key lacking popup", "Insufficient keys to enter"
     'translucentpopup_close' : (1250, 67),          # Works for notices, minigame, close chatline
     'selectbattle_startbattle' : (475, 508),        # WARNING: Be careful NOT to click this button 'staminapot_ok'
+    'selectbattle_continuousbattle' : (805, 508),
+    'notice_continuousbattle_ok' : (639, 528),
+    'bigicon_lowerright_top' : (1190, 385),
+    'bigicon_lowerright_middle' : (1190, 518),
+    'bigicon_lowerright_bottom' : (1190, 650),
     
     # Amity points
     'exchange_amity' : (678, 138),
