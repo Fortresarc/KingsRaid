@@ -1,4 +1,6 @@
 import nox
+import datetime
+from datetime import timedelta
 import Common
 import Inventory
 import Settings
@@ -18,8 +20,15 @@ def Gen_DoAllDailies() :
     # Read our settings file
     Settings.ReadFromFile()
 
+    now = datetime.datetime.now()
+
     Manager.Trace1 ("NOTES:")
     Manager.Trace1 ("- Main story and conquest share same hero selection list")
+    Manager.Trace1 ("  Start time = %02d:%02d:%02d" % ( now.hour,
+                                                      now.minute,
+                                                      now.second) )
+
+    lTimeTakenSummary = []
 
     # Do sequence as read from settings file
     i = 0
@@ -28,16 +37,26 @@ def Gen_DoAllDailies() :
         nTimeTemp = nox.time
         _ExecuteSingleDailyFunction(Settings.DoAllDailiesSequence[i])
         Manager.TraceSubHeader1 ()
-        Manager.Trace1 ("Do all dailies {0} : {1} - Time lapsed = {2}, Execution time {3}".format(value, 
-                                                                                        Settings.DoAllDailiesSequence[i], 
-                                                                                        Manager.GetTimeString_TotalRunTime_HMSFormat(),
-                                                                                        Manager.GetString_TimeLapsed(nTimeTemp)) )
+        currentTaskSummary ="TaskTime = {0}, FinishTime = {1}, TotalTime = {2} \t[\"{3}\"]".format(
+            Manager.GetString_TimeLapsed(nTimeTemp),
+            Manager.GetString_AddToTime_HMSFormat(now),
+            Manager.GetString_TotalRunTime_HMSFormat(),
+            Settings.DoAllDailiesSequence[i])
+        Manager.Trace1 (currentTaskSummary)
+        lTimeTakenSummary.append(currentTaskSummary)
         Manager.TraceFooter1 ()
         i += 1
 
-    #TEST()
+    # Print time taken summary
+    Manager.TraceHeader1()
+    Manager.Trace1 ("Summary of time for each tasks: \n")
+    for s in lTimeTakenSummary:
+        Manager.Trace1 ("%s" % s)
+    Manager.TraceFooter1()
 
-    Manager.Trace1("DoAllDailies will run for {0}".format(Manager.GetTimeString_TotalRunTime_HMSFormat()))
+    Manager.Trace1("\n\nDoAllDailies will run for {0} and end at {1}\n\n".format(
+        Manager.GetString_TotalRunTime_HMSFormat(),
+        Manager.GetString_AddToTime_HMSFormat(now)))
 
 # TEST CODES
 #def TEST ():
@@ -112,7 +131,7 @@ def _Gen_DoLaunchNOX_DoQuest(i_bIsDragonRaid = True) :
         Manager.Gen_ClaimEnergyGoldHotTime(Manager.ClaimEXPGoldStepsList[Manager.sClaim_3rdEXP_3rdGold])
         KRCommon.Gen_DoStory(Settings.Story[Settings.Story_sAutoRepeatAtChapter])
 
-    Manager.Trace1("DoAllDailies will run for {0}".format(Manager.GetTimeString_TotalRunTime_HMSFormat()))
+    Manager.Trace1("DoAllDailies will run for {0}".format(Manager.GetString_TotalRunTime_HMSFormat()))
     
 def _ExecuteSingleDailyFunction(i_sDailyFunctionName):
     if Settings.DoAllDailies_sLaunchKingsRaidAndGoToMainScreen == i_sDailyFunctionName:
@@ -187,8 +206,15 @@ def _ExecuteSingleDailyFunction(i_sDailyFunctionName):
     elif Settings.DoAllDailies_sKillKingsRaid == i_sDailyFunctionName:
         KRCommon.KillKingsRaid()
 
-    elif Settings.DoAllDailies_sWait_s == i_sDailyFunctionName:
-        Manager.wait_secs(Settings.Main[Settings.Main_sWaitDuration_s])
+    elif -1 < i_sDailyFunctionName.find(Settings.DoAllDailies_sWait):
+        Gen_DoWaitSecs(i_sDailyFunctionName)
+
+def Gen_DoWaitSecs(i_sWaitText):
+    # Trim off words
+    sWaitDuration = i_sWaitText.replace(Settings.DoAllDailies_sWait, "")
+    sWaitDuration = sWaitDuration.replace(Settings.DoAllDailies_sSecs, "")
+
+    Manager.wait_secs(int(sWaitDuration))
 
 def Gen_DoTowerOfOrdeals():
     nTowerOfOrdealsPagesToClose = 0
@@ -421,8 +447,8 @@ def Gen_Arena() :
     
 # Hero's inn dailies
 def Gen_Daily_HerosInn(i_WaitForReceivingNewHero) :
-    HerosInnMAX = int(10)
-    HerosInnRouletteDuration_ms = 9000
+    HerosInnMAX = int(6)
+    HerosInnRouletteDuration_ms = 10000
     HerosInnPagesOpened = 0
 
     Manager.click_button_msecs('herosinn_visit', Settings.Main[Settings.Main_sDurationAfterClick_ms])

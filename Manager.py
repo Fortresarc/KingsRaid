@@ -1,4 +1,6 @@
 import os
+import datetime
+from datetime import timedelta
 import nox
 import Settings
 import KRCommon
@@ -77,9 +79,9 @@ def GetString_TimeLapsed (i_nFromTime_ms = 0):
     nReturnString = ""
 
     if (60.0 >= fTotalRunTime_Secs):
-        nReturnString = "%f secs" % (fTotalRunTime_Secs)
+        nReturnString = "%02d secs" % int(fTotalRunTime_Secs)
     else:
-        nReturnString = "%d mins" % (nTotalRunTime_Mins)
+        nReturnString = "%02d mins" % (nTotalRunTime_Mins)
         
     return nReturnString
 
@@ -94,22 +96,31 @@ def ConvertTime_HMSFormat (i_nTimeMsecs = 1000):
 
     return nConvert_HMS_Hours, nConvert_HMS_Mins, nConvert_HMS_Secs
 
-def GetTimeString_SecsFormat(i_nTimeMsecs = 1000):
-    return "{0} secs".format(i_nTimeMsecs/1000)
+def GetString_SecsFormat(i_nTimeMsecs = 1000):
+    return "%02d secs" % int(i_nTimeMsecs/1000)
 
-def GetTimeString_MinsFormat(i_nTimeMsecs = 1000):
-    return "{0} mins".format( (i_nTimeMsecs/1000) / 60)
+def GetString_MinsFormat(i_nTimeMsecs = 1000):
+    return "%02d mins" % int((i_nTimeMsecs/1000) / 60)
 
-def GetTimeString_HMSFormat(i_nTimeMsecs = 1000):
+def GetString_HMSFormat(i_nTimeMsecs = 1000):
     nHours, nMins, nSecs = ConvertTime_HMSFormat(i_nTimeMsecs)
-    return "{0} hrs {1} mins {2}secs".format( nHours,
-                                               nMins,
-                                               nSecs)
-    
-def GetTimeString_TotalRunTime_HMSFormat():
+    return "%02d:%02d:%02d" % (nHours,
+                               nMins,
+                               nSecs)
+
+def GetString_AddToTime_HMSFormat(i_DateTime):
+    nHours, nMins, nSecs = ConvertTime_HMSFormat(nox.time)
+    timeLapsed = timedelta(hours=nHours, minutes=nMins, seconds=nSecs)
+    finalTime = i_DateTime + timeLapsed
+
+    return "%02d:%02d:%02d" % (finalTime.hour,
+                            finalTime.minute,
+                            finalTime.second)
+
+def GetString_TotalRunTime_HMSFormat():
     TotalRunTime = nox.time
-    return "{0} ({1})".format( GetTimeString_MinsFormat(TotalRunTime),
-                               GetTimeString_HMSFormat(TotalRunTime) )
+    return "{0} ({1})".format( GetString_MinsFormat(TotalRunTime),
+                               GetString_HMSFormat(TotalRunTime) )
 
 # keypress -----------------
 def keypress_msecs(i_bButton, i_nWaitMilliseconds, i_bAddTransitionDelay=True):

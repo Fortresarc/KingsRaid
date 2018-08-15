@@ -32,7 +32,9 @@ DoAllDailies_sClaimDailyMission                     = 'ClaimDailyMission'
 DoAllDailies_sClaim_4thEXP_4thdGold                 = 'Claim_4thEXP_4thdGold'
 DoAllDailies_sDoSpecialEvent                        = 'DoSpecialEvent'
 DoAllDailies_sKillKingsRaid                         = 'KillKingsRaid'
-DoAllDailies_sWait_s                                = 'Wait_secs'
+DoAllDailies_sWait_secs                             = 'Wait_secs'       # Unused
+DoAllDailies_sWait                                  = 'Wait_'
+DoAllDailies_sSecs                                  = 'secs'
 DoAllDailies_sTowerOfOrdeals                        = 'DoTowerOfOrdeals'
 
 # Main
@@ -48,7 +50,6 @@ Main_sDurationAfterClick_Short_ms                   = 'DurationAfterClick_Short_
 Main_sDurationAfterClick_Long_ms                    = 'DurationAfterClick_Long_msecs'
 Main_sAnyGameScreenLoadingTime_s                    = 'AnyGameScreenLoadingTime_secs'
 Main_sReceiveNewHeroDuration_s                      = 'ReceiveNewHeroDuration_secs'
-Main_sWaitDuration_s                                = 'WaitDuration_secs'
 # Conquests and upper dungeons
 Main_sEasyContent                                   = "EasyContent"
 Main_sHardContent                                   = "HardContent"
@@ -143,7 +144,6 @@ DragonRaidConfig_sCoopHero2_Position                = 'CoopHero2_Position'
 DragonRaidConfig_sCoopHero3_Position                = 'CoopHero3_Position'
 DragonRaidConfig_sCoopHero4_Position                = 'CoopHero4_Position'
 
-
 # Dragon Raid
 DragonRaid_sDragonRaidConfig                        = 'DragonRaidConfig'
 DragonRaid_sHighestCleared                          = 'HighestCleared'
@@ -174,10 +174,14 @@ DoAllDailiesSequence = [
     DoAllDailies_sDoStory_UptoInventoryManagement,
     DoAllDailies_sClaim_4thEXP_4thdGold,
     DoAllDailies_sDoStory_UptoInventoryManagement,
-    DoAllDailies_sDoDragonRaid,
-    "",
-    "",
-    "",
+    DoAllDailies_sClearInventory,
+    DoAllDailies_sWait + "992" + DoAllDailies_sSecs,
+    DoAllDailies_sKillKingsRaid,
+    DoAllDailies_sLaunchKingsRaidAndGoToMainScreen,
+    DoAllDailies_sClaimMailbox,
+    DoAllDailies_sExchangeAmity,
+    DoAllDailies_sClearInventory,
+    DoAllDailies_sDoDragonRaid_Leader,
     "",
     "",
     ""
@@ -195,7 +199,6 @@ Main = {
     Main_sDurationAfterClick_Long_ms                : 5000,
     Main_sAnyGameScreenLoadingTime_s                : 15,    # 15s E.g. Arena exit can take a long time
     Main_sReceiveNewHeroDuration_s                  : 12,    # 12 s
-    Main_sWaitDuration_s                            : 5,     # 5 s
 }
 
 SpecialEvent = {
@@ -309,7 +312,7 @@ DragonRaidConfig = {
     DragonRaidConfig_sCoopMemberName1               : '',
     DragonRaidConfig_sCoopMemberName2               : '',
     DragonRaidConfig_sCoopMemberName3               : '',
-    DragonRaidConfig_sCoopWaitMemberJoin_s          : 100,                  # 100 secs
+    DragonRaidConfig_sCoopWaitMemberJoin_s          : 120,                  # 100 secs
     DragonRaidConfig_sCoopHero1_Position            : 1,                    #
     DragonRaidConfig_sCoopHero2_Position            : 5,                    # 
     DragonRaidConfig_sCoopHero3_Position            : 10,                   # 
