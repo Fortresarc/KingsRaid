@@ -13,7 +13,7 @@ These are all the available actions you can sequence into this data field 'DoAll
 'ClaimMailbox'                                // Claims all mails
 'ExchangeAmity'                               // Exchange amity and do roulette 
 'ClearInventory'                              // "GrindOrSellInventory": "g" means grind
-'Stockade'                                    //            
+'Stockade'                                    // 
 'HerosInn'                                    //
 'UpperDungeon'                                // Do all upper dungeons up till the highest cleared level, we can select 2 teams for easy/ hard contents
 'Arena'                                       //
@@ -28,9 +28,11 @@ These are all the available actions you can sequence into this data field 'DoAll
 'DoDragonRaid_Member'                         // Fill in :
                                               // - MemberName'X' with your Coop member names correctly. (NOTE: Up to 3 members). CoopWaitMemberJoin_secs
                                               // - CoopWaitMemberJoin_secs = time for invite members, select heroes, and wait for member to join time
+                                              //   (NOTE: CoopWaitMemberJoin_secs must be the same across all Leader and Members settings.json. This ensures
+                                              //          Leader and Member(s) scripts will all end at the same time)
 'Claim_3rdEXP_3rdGold'                        //
 'ClaimDailyMission'                           //
 'Claim_4thEXP_4thdGold'                       //
 'KillKingsRaid'                               // Kill king's raid app in Nox
-'Wait_Xsecs'                                  // Do nothing and wait for 'X' secs
+'Wait_Xsecs'                                  // Do nothing and wait for 'X' secs (e.g. Wait_60secs will wait for 60 secs and move on to next action)
 'DoTowerOfOrdeals'                            // Do Tower of Ordeals
