@@ -1,4 +1,6 @@
 import nox
+import datetime
+from datetime import timedelta
 import Common
 import Inventory
 import Settings
@@ -8,6 +10,7 @@ import KRSelect
 import UpperDungeon
 import Conquest
 import Campaign
+import DragonRaid
 
 Vault_Top3Level = 43
 
@@ -17,24 +20,43 @@ def Gen_DoAllDailies() :
     # Read our settings file
     Settings.ReadFromFile()
 
+    now = datetime.datetime.now()
+
     Manager.Trace1 ("NOTES:")
     Manager.Trace1 ("- Main story and conquest share same hero selection list")
+    Manager.Trace1 ("  Start time = %02d:%02d:%02d" % ( now.hour,
+                                                      now.minute,
+                                                      now.second) )
+
+    lTimeTakenSummary = []
 
     # Do sequence as read from settings file
-    for key in Settings.DoAllDailiesSequence :
+    i = 0
+    for value in Settings.DoAllDailiesSequence :
         Manager.TraceHeader1 ()
-        nTimeTemp = Manager.TotalRunTime
-        _ExecuteSingleDailyFunction(Settings.DoAllDailiesSequence[key])
+        nTimeTemp = nox.time
+        _ExecuteSingleDailyFunction(Settings.DoAllDailiesSequence[i])
         Manager.TraceSubHeader1 ()
-        Manager.Trace1 ("Do all dailies {0} : {1} - Time lapsed = {2}, Execution time {3}".format(key, 
-                                                                                        Settings.DoAllDailiesSequence[key], 
-                                                                                        Manager.GetTimeString_TotalRunTime_HMSFormat(),
-                                                                                        Manager.GetString_TimeLapsed(nTimeTemp)) )
+        currentTaskSummary ="TaskTime = {0}, FinishTime = {1}, TotalTime = {2} \t[\"{3}\"]".format(
+            Manager.GetString_TimeLapsed(nTimeTemp),
+            Manager.GetString_AddToTime_HMSFormat(now),
+            Manager.GetString_TotalRunTime_HMSFormat(),
+            Settings.DoAllDailiesSequence[i])
+        Manager.Trace1 (currentTaskSummary)
+        lTimeTakenSummary.append(currentTaskSummary)
         Manager.TraceFooter1 ()
+        i += 1
 
-    #TEST()
+    # Print time taken summary
+    Manager.TraceHeader1()
+    Manager.Trace1 ("Summary of time for each tasks: \n")
+    for s in lTimeTakenSummary:
+        Manager.Trace1 ("%s" % s)
+    Manager.TraceFooter1()
 
-    Manager.Trace1("DoAllDailies will run for {0}".format(Manager.GetTimeString_TotalRunTime_HMSFormat()))
+    Manager.Trace1("\n\nDoAllDailies will run for {0} and end at {1}\n\n".format(
+        Manager.GetString_TotalRunTime_HMSFormat(),
+        Manager.GetString_AddToTime_HMSFormat(now)))
 
 # TEST CODES
 #def TEST ():
@@ -68,10 +90,6 @@ def Gen_DoAllDailies() :
     #KRCommon.Gen_DoStory(Settings.Story[Settings.Story_sAutoRepeatAtChapter])
     #KRCommon.Gen_ClaimDailyMission(6, True)
 
-
-#def Gen_TowerOfOrdeal():
-    # todo 17.55 - 20 mins
-
 def Gen_DoLaunchNOX_DragonRaid() :
     _Gen_DoLaunchNOX_DoQuest(True)
     
@@ -97,7 +115,7 @@ def _Gen_DoLaunchNOX_DoQuest(i_bIsDragonRaid = True) :
 
     for key in CommonQuestSequence:
         Manager.TraceHeader1()
-        nTimeTemp = Manager.TotalRunTime
+        nTimeTemp = nox.time
         _ExecuteSingleDailyFunction(CommonQuestSequence[key])
         Manager.TraceSubHeader1 ()
         Manager.Trace1 ("Do {0} after NOX restarts {1} : {2} .. Will execute for {3}".format( sQuestType,
@@ -107,13 +125,13 @@ def _Gen_DoLaunchNOX_DoQuest(i_bIsDragonRaid = True) :
         Manager.TraceFooter1 ()
 
     if i_bIsDragonRaid :
-        KRCommon.Gen_DoDragonRaid()
+        DragonRaid.Gen_DoDragonRaid()
     else :
         # Claim some energy 
         Manager.Gen_ClaimEnergyGoldHotTime(Manager.ClaimEXPGoldStepsList[Manager.sClaim_3rdEXP_3rdGold])
         KRCommon.Gen_DoStory(Settings.Story[Settings.Story_sAutoRepeatAtChapter])
 
-    Manager.Trace1("DoAllDailies will run for {0}".format(Manager.GetTimeString_TotalRunTime_HMSFormat()))
+    Manager.Trace1("DoAllDailies will run for {0}".format(Manager.GetString_TotalRunTime_HMSFormat()))
     
 def _ExecuteSingleDailyFunction(i_sDailyFunctionName):
     if Settings.DoAllDailies_sLaunchKingsRaidAndGoToMainScreen == i_sDailyFunctionName:
@@ -130,6 +148,9 @@ def _ExecuteSingleDailyFunction(i_sDailyFunctionName):
 
     elif Settings.DoAllDailies_sStockade == i_sDailyFunctionName:
         Gen_Stockade(False)
+
+    elif Settings.DoAllDailies_sTowerOfOrdeals == i_sDailyFunctionName:
+        Gen_DoTowerOfOrdeals()
 
     elif Settings.DoAllDailies_sHerosInn == i_sDailyFunctionName:
         KRCommon.Gen_NavigateToMain('portal_orvel_herosinn', False)
@@ -162,7 +183,13 @@ def _ExecuteSingleDailyFunction(i_sDailyFunctionName):
         KRCommon.Gen_DoStory(Settings.Story[Settings.Story_sAutoRepeatAtChapter], False)
 
     elif Settings.DoAllDailies_sDoDragonRaid == i_sDailyFunctionName:
-        KRCommon.Gen_DoDragonRaid()
+        DragonRaid.Gen_DoDragonRaid()
+
+    elif Settings.DoAllDailies_sDoDragonRaid_Leader == i_sDailyFunctionName:
+        DragonRaid.Gen_DoDragonRaid_Leader()
+
+    elif Settings.DoAllDailies_sDoDragonRaid_Member == i_sDailyFunctionName:
+        DragonRaid.Gen_DoDragonRaid_Member()
 
     elif Settings.DoAllDailies_sClaim_3rdEXP_3rdGold == i_sDailyFunctionName:
         Manager.Gen_ClaimEnergyGoldHotTime(Manager.ClaimEXPGoldStepsList[Manager.sClaim_3rdEXP_3rdGold])
@@ -172,7 +199,109 @@ def _ExecuteSingleDailyFunction(i_sDailyFunctionName):
 
     elif Settings.DoAllDailies_sClaim_4thEXP_4thdGold == i_sDailyFunctionName:
         Manager.Gen_ClaimEnergyGoldHotTime(Manager.ClaimEXPGoldStepsList[Manager.sClaim_4thEXP_4thGold])
-        
+
+    elif Settings.DoAllDailies_sDoSpecialEvent == i_sDailyFunctionName:
+        _Gen_DoSpecialEvent__UNUSED()
+
+    elif Settings.DoAllDailies_sKillKingsRaid == i_sDailyFunctionName:
+        KRCommon.KillKingsRaid()
+
+    elif -1 < i_sDailyFunctionName.find(Settings.DoAllDailies_sWait):
+        Gen_DoWaitSecs(i_sDailyFunctionName)
+
+def Gen_DoWaitSecs(i_sWaitText):
+    # Trim off words
+    sWaitDuration = i_sWaitText.replace(Settings.DoAllDailies_sWait, "")
+    sWaitDuration = sWaitDuration.replace(Settings.DoAllDailies_sSecs, "")
+
+    Manager.wait_secs(int(sWaitDuration))
+
+def Gen_DoTowerOfOrdeals():
+    nTowerOfOrdealsPagesToClose = 0
+
+    # Navigate to Hall of Heroes    
+    Manager.click_button_msecs('main_portal', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+    Manager.click_button_msecs('upper_dungeon', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+    Manager.click_button_msecs('ch1_upper_dungeon', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+    # This has to wait longer because we are transiting to another big game screen    
+    Manager.click_button_secs('minipopup_confirmbutton', Settings.Main[Settings.Main_sAnyGameScreenLoadingTime_s])
+    Manager.click_button_msecs('main_portal', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+    Manager.click_button_msecs('portal_hallofheroes', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+    Manager.click_button_msecs('minipopup_confirmbutton', Settings.Main[Settings.Main_sAnyGameScreenLoadingTime_s])
+
+    # Enter from outside at Hall of Heroes
+    Manager.click_button_msecs('bigicon_lowerright_bottom', Settings.Main[Settings.Main_sDurationAfterClick_Long_ms])
+    nTowerOfOrdealsPagesToClose += 1
+
+    # At "Hall of Heroes" first page
+    Manager.click_button_msecs('towerofordeals_enter', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+    nTowerOfOrdealsPagesToClose += 1
+
+    # At "Get ready for battle" page
+    Manager.click_button_msecs('towerofordeals_getreadyforbattle', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+
+    # Heroes select
+    KRSelect.Gen_SelectQuestHero(KRSelect.QuestType_TowerOfOrdeals, False, Settings.Main_sEasyContent)
+
+    # At "Heroes select" page, Start battles
+    Manager.click_button_msecs('towerofordeals_heroselect_startbattle', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+    Manager.click_button_msecs('selectbattle_continuousbattle', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+    Manager.click_button_msecs('notice_continuousbattle_ok', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+
+    Manager.wait_secs(Settings.TowerOfOrdeals[Settings.TowerOfOrdeals_sTotalTimeForAllBattles_s])
+
+    # Loot level 25 completion translucent screen - Click anywhere to close
+    # We choose close button for the case where it failed to complete all 25 levels of battles
+    Manager.click_button_msecs('minipopup_closebutton', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+
+    # Exit
+    Manager.click_button_secs('battlecompletion_exit', Settings.Main[Settings.Main_sAnyGameScreenLoadingTime_s])
+
+    # Exit to main game screen
+    for j in range(0, nTowerOfOrdealsPagesToClose):
+        # main_backbutton didn't work
+        Manager.click_button_msecs('towerofordeals_back', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+
+# UNUSED
+def _Gen_DoSpecialEvent__UNUSED():
+    SpecialEventPagesOpened = 0
+
+    # Navigate to stockade the hard way
+    KRCommon.Gen_NavigateToMain('portal_orvel_centralorvel', False)
+    SpecialEventPagesOpened += 1
+    
+    Manager.click_button_msecs('specialevent_enterdungeon', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+    SpecialEventPagesOpened += 1
+
+    # loop these to get to autobattle screen
+    for i in range (0, 2) :
+        Manager.click_button_msecs('stockade_engage_leftmost', Settings.Main[Settings.Main_sDurationAfterClick_Short_ms])
+        Manager.click_button_msecs('stockade_engage_middle_ok_autobattle', Settings.Main[Settings.Main_sDurationAfterClick_Short_ms])
+        Manager.click_button_msecs('stockade_engage_rightmost', Settings.Main[Settings.Main_sDurationAfterClick_Short_ms])
+
+    # Select heroes
+    KRSelect.Gen_SelectQuestHero(KRSelect.QuestType_SpecialEvent, False, Settings.Main_sEasyContent)
+
+    # Click autobattle
+    Manager.click_button_msecs('getreadyforbattle_autorepeat', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+    
+    # ok to notice popup
+    nTimeToWait_s = Settings.SpecialEvent[Settings.SpecialEvent_sNoOfKeys] * Settings.SpecialEvent[Settings.SpecialEvent_sSingleBattleDuration_s]
+    Manager.click_button_secs('minipopup_confirmbutton', nTimeToWait_s)
+    
+    # Finish autobattle
+    # click close on Loot (Just in case)
+    Manager.click_button_msecs('minipopup_closebutton', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+    # click close on Notice : Auto repeat has ended due to insufficient tickets
+    Manager.click_button_msecs('minipopup_closebutton', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+    # click close on Notice : Festival entry ticket is lacking
+    Manager.click_button_msecs('minipopup_closebutton', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+    # Same exit button as conquest, this will take longer time to load
+    Manager.click_button_secs('exit_conquest', Settings.Main[Settings.Main_sAnyGameScreenLoadingTime_s])
+
+    # Exit to main game screen
+    for j in range(0, SpecialEventPagesOpened):
+        Manager.click_button_msecs('main_backbutton', Settings.Main[Settings.Main_sDurationAfterClick_ms])
 
 def Gen_WorldBoss():
     pagesOpened = 0
@@ -318,8 +447,8 @@ def Gen_Arena() :
     
 # Hero's inn dailies
 def Gen_Daily_HerosInn(i_WaitForReceivingNewHero) :
-    HerosInnMAX = int(10)
-    HerosInnRouletteDuration_ms = 9000
+    HerosInnMAX = int(6)
+    HerosInnRouletteDuration_ms = 10000
     HerosInnPagesOpened = 0
 
     Manager.click_button_msecs('herosinn_visit', Settings.Main[Settings.Main_sDurationAfterClick_ms])

@@ -6,7 +6,7 @@ import os
 import sys
 
 import nox
-import DragonRaid
+import DragonRaid_Deprecated
 import Conquest
 import Campaign
 import Inventory
@@ -150,14 +150,24 @@ points = {
     'raid_select_frost' : (1038, 450),
     'raid_select_poison' : (1038, 608),
     'raid_select_black' : (1038, 650),
-    'raid_select_HeroList_Position1' : (122, 529),  # Exactly half icon size
-    'raid_select_HeroList_Position2' : (232, 529),
-    'raid_select_HeroList_Position3' : (332, 529),
+    'raid_select_HeroList_Position1' : (122, 528),  # Exactly half icon size ... (13Aug2018 changed from 529 -> 528)
+    'raid_select_HeroList_Position2' : (232, 528),
+    'raid_select_HeroList_Position3' : (332, 528),
     'raid_select_HeroList_Position4' : (122, 640),  # This value is found through testing
     'raid_select_SetAutoRepeat' : (880, 592),
     'raid_select_StartBattle' : (1095, 650),
+    'raid_select_AcceptInvitation' : (1051, 127),
+    'raid_select_CloseAlreadyInvitedPopup' : (770, 130),
+    'raid_select_FriendRequest' : (1000, 480),
+    'raid_select_FriendRequest_SearchID' : (350, 170),
+    'raid_select_FriendRequest_Find' : (575, 170),
+    'raid_select_FriendRequest_Invite' : (1020, 170),
+    'raid_select_FriendRequest_ClickNoWhere' : (1140, 170),
+    'raid_select_FriendRequest_Close' : (1150, 73),
+
     # Portal (After Goto UpperDungeon Chapter 1)
     'portal_orvel' : (368, 438),
+    'portal_hallofheroes' : (1050, 513),
     'portal_orvel_maysgeneralshop' : (500, 281),
     'portal_orvel_herosinn' : (790, 281),
     'portal_orvel_stockade' : (500, 360),
@@ -165,6 +175,10 @@ points = {
     'portal_orvel_forge' : (500, 430),
     'portal_orvel_orvelcastle' : (790, 430),
     'portal_orvel_guild' : (500, 512),
+    'portal_orvel_centralorvel' : (790, 512),
+
+    # Special event at Central Orvel
+    'specialevent_enterdungeon' : (640, 370),
 
     # World Boss
     'worldboss_readyforbattle' : (918, 638),
@@ -207,6 +221,12 @@ points = {
     'herosinn_visit_minigame' : (229, 452),
     'herosinn_visit_minigame_start' : (638, 423),
 
+    # Tower of Ordeals
+    'towerofordeals_enter' : (633, 563),
+    'towerofordeals_back' : (120, 28),
+    'towerofordeals_getreadyforbattle' : (819, 639),
+    'towerofordeals_heroselect_startbattle' : (819, 670),
+
     # Generic points
     'getreadyforbattle_startbattle' : (1080, 660),
     'getreadyforbattle_autorepeat' : (838, 660),
@@ -220,6 +240,11 @@ points = {
     'minipopup_closebutton' : (945, 186),           # Works for "Stockade key lacking popup", "Insufficient keys to enter"
     'translucentpopup_close' : (1250, 67),          # Works for notices, minigame, close chatline
     'selectbattle_startbattle' : (475, 508),        # WARNING: Be careful NOT to click this button 'staminapot_ok'
+    'selectbattle_continuousbattle' : (805, 508),
+    'notice_continuousbattle_ok' : (639, 528),
+    'bigicon_lowerright_top' : (1190, 385),
+    'bigicon_lowerright_middle' : (1190, 518),
+    'bigicon_lowerright_bottom' : (1190, 650),
     
     # Amity points
     'exchange_amity' : (678, 138),
@@ -281,8 +306,8 @@ try:
     macro_generators = [
         #("NPC Gear Purchasing and Grinding", gen_grindhouse),
         ("Generate Default data to selected settings file", DoAllDailies.Gen_DefaultData),
-        ("AFK Raid (Member)", DragonRaid.gen_raid),
-        ("AFK Raid (Leader)", DragonRaid.gen_raid_leader),
+        ("AFK Raid (Member)", DragonRaid_Deprecated.gen_raid),
+        ("AFK Raid (Leader)", DragonRaid_Deprecated.gen_raid_leader),
         ("Story Repeat w/ Natural Stamina Regen", Campaign.gen_natural_stamina_farm),
         ("Conquests (beta)", Conquest.gen_conquest),
         ("Upper Dungeon (beta)", UpperDungeon.gen_upper_dungeon),
@@ -293,7 +318,7 @@ try:
         ]
     if args.enable_developer_commands:
         macro_generators.extend([
-            ("**DEV** Natural Stamina Regen Raid Farming (Non-Leader)", DragonRaid.gen_raid_experimental),
+            ("**DEV** Natural Stamina Regen Raid Farming (Non-Leader)", DragonRaid_Deprecated.gen_raid_experimental),
             ("**DEV** Re-enter adventure (potion)", lambda : Campaign.re_enter_adventure(True)),
             ("**DEV** Re-enter adventure (no potion)", lambda : Campaign.re_enter_adventure(False)),
         ])

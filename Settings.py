@@ -25,9 +25,17 @@ DoAllDailies_sConquest                              = 'Conquest'
 DoAllDailies_sClaim_2ndEXPNGoldWStamina             = 'Claim_2ndEXPNGoldWStamina'
 DoAllDailies_sDoStory_UptoInventoryManagement       = 'DoStory_UptoInventoryManagement'
 DoAllDailies_sDoDragonRaid                          = 'DoDragonRaid'
+DoAllDailies_sDoDragonRaid_Leader                   = 'DoDragonRaid_Leader'
+DoAllDailies_sDoDragonRaid_Member                   = 'DoDragonRaid_Member'
 DoAllDailies_sClaim_3rdEXP_3rdGold                  = 'Claim_3rdEXP_3rdGold'
 DoAllDailies_sClaimDailyMission                     = 'ClaimDailyMission'
 DoAllDailies_sClaim_4thEXP_4thdGold                 = 'Claim_4thEXP_4thdGold'
+DoAllDailies_sDoSpecialEvent                        = 'DoSpecialEvent'
+DoAllDailies_sKillKingsRaid                         = 'KillKingsRaid'
+DoAllDailies_sWait_secs                             = 'Wait_secs'       # Unused
+DoAllDailies_sWait                                  = 'Wait_'
+DoAllDailies_sSecs                                  = 'secs'
+DoAllDailies_sTowerOfOrdeals                        = 'DoTowerOfOrdeals'
 
 # Main
 Main_sMain                                          = 'Main'
@@ -54,6 +62,11 @@ Main_sHard_Hero2_Position                           = 'Hard_Hero2_Position'
 Main_sHard_Hero3_Position                           = 'Hard_Hero3_Position'
 Main_sHard_Hero4_Position                           = 'Hard_Hero4_Position'
 
+# Special event
+SpecialEvent_sSpecialEvent                          = 'SpecialEvent'
+SpecialEvent_sNoOfKeys                              = 'NoOfKeys'
+SpecialEvent_sSingleBattleDuration_s                = 'SingleBattleDuration_secs'
+
 # World boss
 WorldBoss_sWorldBoss                                = 'WorldBoss'
 WorldBoss_sNoOfKeys                                 = 'NoOfKeys'
@@ -75,6 +88,10 @@ Stockade_sStockade                                  = 'Stockade'
 Stockade_sClaimSkillBook                            = 'ClaimSkillBook'
 Stockade_sSingleBattleDuration_s                    = 'SingleBattleDuration_secs'
 Stockade_sMaxKeys                                   = 'MaxKeys'
+
+# Tower of Ordeals
+TowerOfOrdeals_sTowerOfOrdeals                      = 'TowerOfOrdeals'
+TowerOfOrdeals_sTotalTimeForAllBattles_s            = 'TotalTimeForAllBattles_secs'
 
 # Story
 Story_sStory                                        = 'Story'
@@ -112,51 +129,63 @@ UpperDungeon_sLongestRunTime_Chap7_s                = 'LongestRunTime_Chap7_secs
 UpperDungeon_sLongestRunTime_Chap8_s                = 'LongestRunTime_Chap8_secs'
 
 # Dragon Raid configuration for all
+DragonRaidConfig_sSelectDragonToAuto                = 'SelectDragonToAuto'
 DragonRaidConfig_sHero1_Position                    = 'Hero1_Position'
 DragonRaidConfig_sHero2_Position                    = 'Hero2_Position'
 DragonRaidConfig_sHero3_Position                    = 'Hero3_Position'
 DragonRaidConfig_sHero4_Position                    = 'Hero4_Position'
+DragonRaidConfig_sCoopLeaderName                    = 'LeaderName'
+DragonRaidConfig_sCoopMemberName1                   = 'MemberName1'
+DragonRaidConfig_sCoopMemberName2                   = 'MemberName2'
+DragonRaidConfig_sCoopMemberName3                   = 'MemberName3'
+DragonRaidConfig_sCoopWaitMemberJoin_s              = 'CoopWaitMemberJoin_secs'
 DragonRaidConfig_sCoopHero1_Position                = 'CoopHero1_Position'
 DragonRaidConfig_sCoopHero2_Position                = 'CoopHero2_Position'
 DragonRaidConfig_sCoopHero3_Position                = 'CoopHero3_Position'
 DragonRaidConfig_sCoopHero4_Position                = 'CoopHero4_Position'
 
-
 # Dragon Raid
 DragonRaid_sDragonRaidConfig                        = 'DragonRaidConfig'
-DragonRaidConfig_sSelectDragonToAuto                = 'SelectDragonToAuto'
 DragonRaid_sHighestCleared                          = 'HighestCleared'
 DragonRaid_sAutoAtThisLevel                         = 'AutoAtThisLevel'
+DragonRaid_sCoopAutoAtThisLevel                     = 'Coop_AutoAtThisLevel'
 Fire_DragonRaid_sFireDragonRaid                     = 'Fire_DragonRaid'
 Frost_DragonRaid_sFrostDragonRaid                   = 'Frost_DragonRaid'
 Poison_DragonRaid_sPoisonDragonRaid                 = 'Poison_DragonRaid'
 Black_DragonRaid_sBlackDragonRaid                   = 'Black_DragonRaid'
 
-DoAllDailiesSequence = {           
-    0 : DoAllDailies_sLaunchKingsRaidAndGoToMainScreen,
-    1 : DoAllDailies_sClaimMailbox,
-    2 : DoAllDailies_sExchangeAmity,
-    3 : DoAllDailies_sClearInventory,
-    4 : DoAllDailies_sStockade,
-    5 : DoAllDailies_sHerosInn,
-    6 : DoAllDailies_sUpperDungeon,
-    7 : DoAllDailies_sArena,
-    8 : DoAllDailies_sWorldBoss,
-    9 : DoAllDailies_sClaim_1stEXPNGold,
-    10 : DoAllDailies_sAncientRoyalVault,
-    11 : DoAllDailies_sConquest,
-    12 : DoAllDailies_sClaim_2ndEXPNGoldWStamina,
-    13 : DoAllDailies_sDoStory_UptoInventoryManagement,
-    14 : DoAllDailies_sClaimDailyMission,
-    15 : DoAllDailies_sClaim_3rdEXP_3rdGold,
-    16 : DoAllDailies_sDoStory_UptoInventoryManagement,
-    17 : DoAllDailies_sClaim_4thEXP_4thdGold,
-    18 : DoAllDailies_sDoStory_UptoInventoryManagement,
-    19 : DoAllDailies_sDoDragonRaid,
-    20 : "",
-    21 : "",
-    22 : ""
-}
+DoAllDailiesSequence = [
+    DoAllDailies_sLaunchKingsRaidAndGoToMainScreen,
+    DoAllDailies_sClaimMailbox,
+    DoAllDailies_sExchangeAmity,
+    DoAllDailies_sClearInventory,
+    DoAllDailies_sStockade,
+    DoAllDailies_sHerosInn,
+    DoAllDailies_sUpperDungeon,
+    DoAllDailies_sArena,
+    DoAllDailies_sWorldBoss,
+    DoAllDailies_sClaim_1stEXPNGold,
+    DoAllDailies_sAncientRoyalVault,
+    DoAllDailies_sConquest,
+    DoAllDailies_sClaim_2ndEXPNGoldWStamina,
+    DoAllDailies_sDoStory_UptoInventoryManagement,
+    DoAllDailies_sClaimDailyMission,
+    DoAllDailies_sClaim_3rdEXP_3rdGold,
+    DoAllDailies_sDoStory_UptoInventoryManagement,
+    DoAllDailies_sClaim_4thEXP_4thdGold,
+    DoAllDailies_sDoStory_UptoInventoryManagement,
+    DoAllDailies_sClearInventory,
+    DoAllDailies_sWait + "992" + DoAllDailies_sSecs,
+    DoAllDailies_sKillKingsRaid,
+    DoAllDailies_sLaunchKingsRaidAndGoToMainScreen,
+    DoAllDailies_sClaimMailbox,
+    DoAllDailies_sExchangeAmity,
+    DoAllDailies_sClearInventory,
+    DoAllDailies_sDoDragonRaid_Leader,
+    "",
+    "",
+    ""
+]
 
 Main = {
     Main_sResolutionX                               : 1280,
@@ -170,6 +199,15 @@ Main = {
     Main_sDurationAfterClick_Long_ms                : 5000,
     Main_sAnyGameScreenLoadingTime_s                : 15,    # 15s E.g. Arena exit can take a long time
     Main_sReceiveNewHeroDuration_s                  : 12,    # 12 s
+}
+
+SpecialEvent = {
+    SpecialEvent_sNoOfKeys                          : 5,
+    SpecialEvent_sSingleBattleDuration_s            : 110,      # secs
+    Main_sEasy_Hero1_Position                       : 3,
+    Main_sEasy_Hero2_Position                       : 5,
+    Main_sEasy_Hero3_Position                       : 8,
+    Main_sEasy_Hero4_Position                       : 10
 }
 
 WorldBoss = {
@@ -195,7 +233,15 @@ Stockade = {
     Main_sEasy_Hero1_Position                       : 3,
     Main_sEasy_Hero2_Position                       : 5,
     Main_sEasy_Hero3_Position                       : 8,
-    Main_sEasy_Hero4_Position                       : 15
+    Main_sEasy_Hero4_Position                       : 10
+}
+
+TowerOfOrdeals = {
+    TowerOfOrdeals_sTotalTimeForAllBattles_s        : 1200,
+    Main_sEasy_Hero1_Position                       : 1,
+    Main_sEasy_Hero2_Position                       : 3,
+    Main_sEasy_Hero3_Position                       : 5,
+    Main_sEasy_Hero4_Position                       : 8
 }
 
 Story = {
@@ -220,7 +266,7 @@ Conquest = {
     Main_sEasy_Hero1_Position                       : 3,
     Main_sEasy_Hero2_Position                       : 5,
     Main_sEasy_Hero3_Position                       : 8,
-    Main_sEasy_Hero4_Position                       : 18,
+    Main_sEasy_Hero4_Position                       : 22,
     Main_sHard_Hero1_Position                       : 1,
     Main_sHard_Hero2_Position                       : 3,
     Main_sHard_Hero3_Position                       : 5,
@@ -242,7 +288,7 @@ UpperDungeon = {
     Main_sEasy_Hero1_Position                       : 3,
     Main_sEasy_Hero2_Position                       : 5,
     Main_sEasy_Hero3_Position                       : 8,
-    Main_sEasy_Hero4_Position                       : 18,
+    Main_sEasy_Hero4_Position                       : 22,
     Main_sHard_Hero1_Position                       : 1,
     Main_sHard_Hero2_Position                       : 3,
     Main_sHard_Hero3_Position                       : 5,
@@ -262,169 +308,125 @@ DragonRaidConfig = {
     DragonRaidConfig_sHero2_Position                : 5,                    # Please select in ascending order i.e. Hero1_Pos=1, Hero2_Pos=3 and so on
     DragonRaidConfig_sHero3_Position                : 8,                    # Please select in ascending order i.e. Hero1_Pos=1, Hero2_Pos=3 and so on
     DragonRaidConfig_sHero4_Position                : 9,                    # Please select in ascending order i.e. Hero1_Pos=1, Hero2_Pos=3 and so on
-    DragonRaidConfig_sCoopHero1_Position            : 1,                    # 1
-    DragonRaidConfig_sCoopHero2_Position            : 5,                    # 10
-    DragonRaidConfig_sCoopHero3_Position            : 15,                   # 13
+    DragonRaidConfig_sCoopLeaderName                : '',
+    DragonRaidConfig_sCoopMemberName1               : '',
+    DragonRaidConfig_sCoopMemberName2               : '',
+    DragonRaidConfig_sCoopMemberName3               : '',
+    DragonRaidConfig_sCoopWaitMemberJoin_s          : 120,                  # 100 secs
+    DragonRaidConfig_sCoopHero1_Position            : 1,                    #
+    DragonRaidConfig_sCoopHero2_Position            : 5,                    # 
+    DragonRaidConfig_sCoopHero3_Position            : 10,                   # 
     DragonRaidConfig_sCoopHero4_Position            : 0,
 }
 
 Fire_DragonRaid = {
     DragonRaid_sHighestCleared                      : 91,
-    DragonRaid_sAutoAtThisLevel                     : 82
+    DragonRaid_sAutoAtThisLevel                     : 82,
+    DragonRaid_sCoopAutoAtThisLevel                 : 86
 }
 
 Frost_DragonRaid = {
     DragonRaid_sHighestCleared                      : 74,
-    DragonRaid_sAutoAtThisLevel                     : 74
+    DragonRaid_sAutoAtThisLevel                     : 74,
+    DragonRaid_sCoopAutoAtThisLevel                 : 74
 }
 
 Poison_DragonRaid = {
     DragonRaid_sHighestCleared                      : 36,
-    DragonRaid_sAutoAtThisLevel                     : 36
+    DragonRaid_sAutoAtThisLevel                     : 36,
+    DragonRaid_sCoopAutoAtThisLevel                 : 36
 }
 
 Black_DragonRaid = {
     DragonRaid_sHighestCleared                      : 86,
-    DragonRaid_sAutoAtThisLevel                     : 80
+    DragonRaid_sAutoAtThisLevel                     : 80,
+    DragonRaid_sCoopAutoAtThisLevel                 : 80
 }
 
 def WriteDefaultSettingsFile () :
     data = {
-        DoAllDailies_sDoAllDailies : {            
-            0 : DoAllDailiesSequence[0],
-            1 : DoAllDailiesSequence[1],
-            2 : DoAllDailiesSequence[2],
-            3 : DoAllDailiesSequence[3],
-            4 : DoAllDailiesSequence[4],
-            5 : DoAllDailiesSequence[5],
-            6 : DoAllDailiesSequence[6],
-            7 : DoAllDailiesSequence[7],
-            8 : DoAllDailiesSequence[8],
-            9 : DoAllDailiesSequence[9],
-            10 : DoAllDailiesSequence[10],
-            11 : DoAllDailiesSequence[11],
-            12 : DoAllDailiesSequence[12],
-            13 : DoAllDailiesSequence[13],
-            14 : DoAllDailiesSequence[14],
-            15 : DoAllDailiesSequence[15],
-            16 : DoAllDailiesSequence[16],
-            17 : DoAllDailiesSequence[17],
-            18 : DoAllDailiesSequence[18],
-            19 : DoAllDailiesSequence[19],
-            20 : DoAllDailiesSequence[20],
-            21 : DoAllDailiesSequence[21],
-            22 : DoAllDailiesSequence[22]
-        },
-        Main_sMain : {
-            Main_sGameLaunch_TapToPlayDuration_s : Main[Main_sGameLaunch_TapToPlayDuration_s],
-            Main_sGameLaunch_MainGameScreenDuration_s : Main[Main_sGameLaunch_MainGameScreenDuration_s],
-            Main_sNoOfClicksToClearAdvertisement : Main[Main_sNoOfClicksToClearAdvertisement],
-            Main_sTransitionDuration_ms : Main[Main_sTransitionDuration_ms],
-            Main_sDurationAfterClick_ms : Main[Main_sDurationAfterClick_ms],
-            Main_sDurationAfterClick_Short_ms : Main[Main_sDurationAfterClick_Short_ms],
-            Main_sDurationAfterClick_Long_ms : Main[Main_sDurationAfterClick_Long_ms],
-            Main_sAnyGameScreenLoadingTime_s : Main[Main_sAnyGameScreenLoadingTime_s],
-            Main_sReceiveNewHeroDuration_s : Main[Main_sReceiveNewHeroDuration_s]
-        },
-        WorldBoss_sWorldBoss : {
-            WorldBoss_sNoOfKeys : WorldBoss[WorldBoss_sNoOfKeys],
-            WorldBoss_sSingleBattleDuration_s : WorldBoss[WorldBoss_sSingleBattleDuration_s]
-            },
-        Vault_sVault : {
-            Vault_sHighestClearedFloor : Vault[Vault_sHighestClearedFloor],
-            Vault_sLongestRunTime_s : Vault[Vault_sLongestRunTime_s],
-            Vault_sNumOfKeysToday : Vault[Vault_sNumOfKeysToday]
-            },
-        Arena_sArena : {
-            Arena_sNoOfMatches : Arena[Arena_sNoOfMatches],
-            Arena_sMatchDuration_s : Arena[Arena_sMatchDuration_s]
-            },
-        Stockade_sStockade : {
-            Stockade_sClaimSkillBook : Stockade[Stockade_sClaimSkillBook],
-            Stockade_sSingleBattleDuration_s : Stockade[Stockade_sSingleBattleDuration_s],
-            Stockade_sMaxKeys : Stockade[Stockade_sMaxKeys],
-            Main_sEasy_Hero1_Position : Stockade[Main_sEasy_Hero1_Position],
-            Main_sEasy_Hero2_Position : Stockade[Main_sEasy_Hero2_Position],
-            Main_sEasy_Hero3_Position : Stockade[Main_sEasy_Hero3_Position],
-            Main_sEasy_Hero4_Position : Stockade[Main_sEasy_Hero4_Position],
-            },
-        Story_sStory : {
-            Story_sAutoRepeatAtChapter : Story[Story_sAutoRepeatAtChapter],
-            Story_sUseStaminaPot : Story[Story_sUseStaminaPot],
-            Story_sLongestRunningTime_s : Story[Story_sLongestRunningTime_s],
-            Story_sManageInventoryInterval_m : Story[Story_sManageInventoryInterval_m],
-            Story_sGrindOrSellInventory : Story[Story_sGrindOrSellInventory]
-            },
-        Conquest_sConquest : {
-            Conquest_sHighestClearedChapter : Conquest[Conquest_sHighestClearedChapter],
-            Conquest_sHardContent_StartsFrom : Conquest[Conquest_sHardContent_StartsFrom],
-            Conquest_sHardContent_NoOfTimesToRetry : Conquest[Conquest_sHardContent_NoOfTimesToRetry],
-            Conquest_sLongestRunTime_Chap2_s : Conquest[Conquest_sLongestRunTime_Chap2_s],
-            Conquest_sLongestRunTime_Chap3_s : Conquest[Conquest_sLongestRunTime_Chap3_s],
-            Conquest_sLongestRunTime_Chap4_s : Conquest[Conquest_sLongestRunTime_Chap4_s],
-            Conquest_sLongestRunTime_Chap5_s : Conquest[Conquest_sLongestRunTime_Chap5_s],
-            Conquest_sLongestRunTime_Chap6_s : Conquest[Conquest_sLongestRunTime_Chap6_s],
-            Conquest_sLongestRunTime_Chap7_s : Conquest[Conquest_sLongestRunTime_Chap7_s],
-            Conquest_sLongestRunTime_Chap8_s : Conquest[Conquest_sLongestRunTime_Chap8_s],
-            Main_sEasy_Hero1_Position : Conquest[Main_sEasy_Hero1_Position],
-            Main_sEasy_Hero2_Position : Conquest[Main_sEasy_Hero2_Position],
-            Main_sEasy_Hero3_Position : Conquest[Main_sEasy_Hero3_Position],
-            Main_sEasy_Hero4_Position : Conquest[Main_sEasy_Hero4_Position],
-            Main_sHard_Hero1_Position : Conquest[Main_sHard_Hero1_Position],
-            Main_sHard_Hero2_Position : Conquest[Main_sHard_Hero2_Position],
-            Main_sHard_Hero3_Position : Conquest[Main_sHard_Hero3_Position],
-            Main_sHard_Hero4_Position : Conquest[Main_sHard_Hero4_Position]
-            },
-        UpperDungeon_sUpperDungeon : {
-            UpperDungeon_sHighestClearedChapter : UpperDungeon[UpperDungeon_sHighestClearedChapter],
-            UpperDungeon_sHardContent_StartsFrom : UpperDungeon[UpperDungeon_sHardContent_StartsFrom],
-            UpperDungeon_sHardContent_NoOfTimesToRetry : UpperDungeon[UpperDungeon_sHardContent_NoOfTimesToRetry],
-            UpperDungeon_sLongestRunTime_Chap1_s : UpperDungeon[UpperDungeon_sLongestRunTime_Chap1_s],
-            UpperDungeon_sLongestRunTime_Chap2_s : UpperDungeon[UpperDungeon_sLongestRunTime_Chap2_s],
-            UpperDungeon_sLongestRunTime_Chap3_s : UpperDungeon[UpperDungeon_sLongestRunTime_Chap3_s],
-            UpperDungeon_sLongestRunTime_Chap4_s : UpperDungeon[UpperDungeon_sLongestRunTime_Chap4_s],
-            UpperDungeon_sLongestRunTime_Chap5_s : UpperDungeon[UpperDungeon_sLongestRunTime_Chap5_s],
-            UpperDungeon_sLongestRunTime_Chap6_s : UpperDungeon[UpperDungeon_sLongestRunTime_Chap6_s],
-            UpperDungeon_sLongestRunTime_Chap7_s : UpperDungeon[UpperDungeon_sLongestRunTime_Chap7_s],
-            UpperDungeon_sLongestRunTime_Chap8_s : UpperDungeon[UpperDungeon_sLongestRunTime_Chap8_s],
-            Main_sEasy_Hero1_Position : Conquest[Main_sEasy_Hero1_Position],
-            Main_sEasy_Hero2_Position : Conquest[Main_sEasy_Hero2_Position],
-            Main_sEasy_Hero3_Position : Conquest[Main_sEasy_Hero3_Position],
-            Main_sEasy_Hero4_Position : Conquest[Main_sEasy_Hero4_Position],
-            Main_sHard_Hero1_Position : Conquest[Main_sHard_Hero1_Position],
-            Main_sHard_Hero2_Position : Conquest[Main_sHard_Hero2_Position],
-            Main_sHard_Hero3_Position : Conquest[Main_sHard_Hero3_Position],
-            Main_sHard_Hero4_Position : Conquest[Main_sHard_Hero4_Position]
-            },
-        DragonRaid_sDragonRaidConfig: {
-            DragonRaidConfig_sSelectDragonToAuto : DragonRaidConfig[DragonRaidConfig_sSelectDragonToAuto],
-            DragonRaidConfig_sHero1_Position : DragonRaidConfig[DragonRaidConfig_sHero1_Position],
-            DragonRaidConfig_sHero2_Position : DragonRaidConfig[DragonRaidConfig_sHero2_Position],
-            DragonRaidConfig_sHero3_Position : DragonRaidConfig[DragonRaidConfig_sHero3_Position],
-            DragonRaidConfig_sHero4_Position : DragonRaidConfig[DragonRaidConfig_sHero4_Position],
-            DragonRaidConfig_sCoopHero1_Position : DragonRaidConfig[DragonRaidConfig_sCoopHero1_Position],
-            DragonRaidConfig_sCoopHero2_Position : DragonRaidConfig[DragonRaidConfig_sCoopHero2_Position],
-            DragonRaidConfig_sCoopHero3_Position : DragonRaidConfig[DragonRaidConfig_sCoopHero3_Position],
-            DragonRaidConfig_sCoopHero4_Position : DragonRaidConfig[DragonRaidConfig_sCoopHero4_Position]
-            },
-        Fire_DragonRaid_sFireDragonRaid : {
-            DragonRaid_sHighestCleared : Fire_DragonRaid[DragonRaid_sHighestCleared],
-            DragonRaid_sAutoAtThisLevel : Fire_DragonRaid[DragonRaid_sAutoAtThisLevel]
-            },
-        Frost_DragonRaid_sFrostDragonRaid : {
-            DragonRaid_sHighestCleared : Frost_DragonRaid[DragonRaid_sHighestCleared],
-            DragonRaid_sAutoAtThisLevel : Frost_DragonRaid[DragonRaid_sAutoAtThisLevel]
-            },
-        Poison_DragonRaid_sPoisonDragonRaid : {
-            DragonRaid_sHighestCleared : Poison_DragonRaid[DragonRaid_sHighestCleared],
-            DragonRaid_sAutoAtThisLevel : Poison_DragonRaid[DragonRaid_sAutoAtThisLevel]
-            },
-        Black_DragonRaid_sBlackDragonRaid : {
-            DragonRaid_sHighestCleared : Black_DragonRaid[DragonRaid_sHighestCleared],
-            DragonRaid_sAutoAtThisLevel : Black_DragonRaid[DragonRaid_sAutoAtThisLevel]
-            }
+        DoAllDailies_sDoAllDailies: [],
+        Main_sMain: {},
+        SpecialEvent_sSpecialEvent: {},
+        WorldBoss_sWorldBoss: {},
+        Vault_sVault: {},
+        Arena_sArena: {},
+        Stockade_sStockade: {},
+        TowerOfOrdeals_sTowerOfOrdeals: {},
+        Story_sStory: {},
+        Conquest_sConquest: {},
+        UpperDungeon_sUpperDungeon: {},
+        DragonRaid_sDragonRaidConfig: {},
+        Fire_DragonRaid_sFireDragonRaid: {},
+        Frost_DragonRaid_sFrostDragonRaid: {},
+        Poison_DragonRaid_sPoisonDragonRaid: {},
+        Black_DragonRaid_sBlackDragonRaid: {},
         }
-    
+
+    data_DoAllDailies = data[DoAllDailies_sDoAllDailies]
+    for i in DoAllDailiesSequence:
+        data_DoAllDailies.append(i)
+
+    data_Main = data[Main_sMain]
+    for key in Main:
+        data_Main.update({key: Main[key]})
+
+    data_SpecialEvent = data[SpecialEvent_sSpecialEvent]
+    for key in SpecialEvent:
+        data_SpecialEvent.update({key: SpecialEvent[key]})
+
+    data_WorldBoss = data[WorldBoss_sWorldBoss]
+    for key in WorldBoss:
+        data_WorldBoss.update({key: WorldBoss[key]})
+
+    data_Vault = data[Vault_sVault]
+    for key in Vault:
+        data_Vault.update({key: Vault[key]})
+
+    data_Arena = data[Arena_sArena]
+    for key in Arena:
+        data_Arena.update({key: Arena[key]})
+
+    data_Stockade = data[Stockade_sStockade]
+    for key in Stockade:
+        data_Stockade.update({key: Stockade[key]})
+
+    data_TowerOfOrdeals = data[TowerOfOrdeals_sTowerOfOrdeals]
+    for key in TowerOfOrdeals:
+        data_TowerOfOrdeals.update({key: TowerOfOrdeals[key]})
+
+    data_Story = data[Story_sStory]
+    for key in Story:
+        data_Story.update({key: Story[key]})
+
+    data_Conquest = data[Conquest_sConquest]
+    for key in Conquest:
+        data_Conquest.update({key: Conquest[key]})
+
+    data_UpperDungeon = data[UpperDungeon_sUpperDungeon]
+    for key in UpperDungeon:
+        data_UpperDungeon.update({key: UpperDungeon[key]})
+
+    data_DragonRaidConfig = data[DragonRaid_sDragonRaidConfig]
+    for key in DragonRaidConfig:
+        data_DragonRaidConfig.update({key: DragonRaidConfig[key]})
+
+    data_FireDragonRaid = data[Fire_DragonRaid_sFireDragonRaid]
+    for key in Fire_DragonRaid:
+        data_FireDragonRaid.update({key: Fire_DragonRaid[key]})
+        
+    data_FrostDragonRaid = data[Frost_DragonRaid_sFrostDragonRaid]
+    for key in Frost_DragonRaid:
+        data_FrostDragonRaid.update({key: Frost_DragonRaid[key]})
+
+    data_PoisonDragonRaid = data[Poison_DragonRaid_sPoisonDragonRaid]
+    for key in Poison_DragonRaid:
+        data_PoisonDragonRaid.update({key: Poison_DragonRaid[key]})
+
+    data_BlackDragonRaid = data[Black_DragonRaid_sBlackDragonRaid]
+    for key in Black_DragonRaid:
+        data_BlackDragonRaid.update({key: Black_DragonRaid[key]})
+
     # write to file 
     WriteJsonDataToFile(data, SETTINGS_FILENAME)
 
@@ -444,13 +446,18 @@ def ReadFromFile (i_bPrintToScreen = True) :
     # Loops through all to populate global arrays    
     for key in json_obj :
         if key == DoAllDailies_sDoAllDailies :
+            # reset our defaults
+            DoAllDailiesSequence.clear()
             nDoAllDailiesSeq_Count = 0
             for value in json_obj[key]:
-                DoAllDailiesSequence[nDoAllDailiesSeq_Count] = json_obj[DoAllDailies_sDoAllDailies][value]
+                DoAllDailiesSequence.append(value)
                 nDoAllDailiesSeq_Count += 1
         elif key == Main_sMain :
             for value in json_obj[key] :
                 Main[value] = json_obj[Main_sMain][value]
+        elif key == SpecialEvent_sSpecialEvent :
+            for value in json_obj[key] :
+                SpecialEvent[value] = json_obj[SpecialEvent_sSpecialEvent][value]
         elif key == WorldBoss_sWorldBoss :
             for value in json_obj[key] :
                 WorldBoss[value] = json_obj[WorldBoss_sWorldBoss][value]
@@ -463,6 +470,9 @@ def ReadFromFile (i_bPrintToScreen = True) :
         elif key == Stockade_sStockade :
             for value in json_obj[key] :
                 Stockade[value] = json_obj[Stockade_sStockade][value]
+        elif key == TowerOfOrdeals_sTowerOfOrdeals :
+            for value in json_obj[key] :
+                TowerOfOrdeals[value] = json_obj[TowerOfOrdeals_sTowerOfOrdeals][value]
         elif key == Story_sStory:
             for value in json_obj[key] :
                 Story[value] = json_obj[Story_sStory][value]
@@ -500,8 +510,12 @@ def PrintToScreen (i_jsonobject) :
     Manager.Trace1 ("  -------------------------------------------------\n")
     for key in i_jsonobject :
         Manager.Trace1 ("{0}".format(key))
-        for value in i_jsonobject[key] :
-            Manager.Trace1 ("\t{0} = {1}".format(value, i_jsonobject[key][value]))
+        if DoAllDailies_sDoAllDailies == key:
+            for i in range(0, len(i_jsonobject[key])):
+                Manager.Trace1 ("\t{0} = {1}".format(i, i_jsonobject[key][i]))
+        else:
+            for value in i_jsonobject[key] :
+                Manager.Trace1 ("\t{0} = {1}".format(value, i_jsonobject[key][value]))
     Manager.Trace1 ("*** END Settings.json ***")
     Manager.TraceFooter1 ()
 

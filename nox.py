@@ -14,10 +14,12 @@ keypress_ShowDesktop            = 102   # Home button - show nox desktop
 keypress_RecentApps             = 221   # RecentApps - show all apps from background
 
 file = None
+file_backup = None
+time = 0                # millisecs
+time_backup = 0         # millisecs
 button_points = {}
 button_rects = {}
 resolution = (1280,720)
-time = 0
 
 def do_input():
     return input()
@@ -38,6 +40,27 @@ def repeat_generator_for(fn, seconds):
 
     while time - initial < milliseconds:
         fn()
+
+def userinput(i_sUserInput, i_nwait_milliseconds):
+    global file
+    global time
+
+    # NOTE: Not really needed, add a little time before clicking
+    time += 100
+
+    for c in i_sUserInput:
+        # Keyboard press
+        file.write("1ScRiPtSePaRaToR{0}|0ScRiPtSePaRaToR{1}\n".format(
+            c, time))
+        time += 200
+
+    # This is the delay between finishing one click and beginning the next click.  This needs to account
+    # for how fast the game can transition from one screen to the next.  For example, if you're repeatedly
+    # clicking a buy button with the game not really doing anything between each click, this can be very
+    # low.  On the other hand, if a click causes the game to transition from one screen to another (e.g.
+    # using a portal and the game having to load into Orvel and load an entirely new area) then it should
+    # be fairly high.
+    wait(i_nwait_milliseconds)
 
 def keypress(i_bButton, i_nwait_milliseconds):
     global file
@@ -64,7 +87,8 @@ def keypress(i_bButton, i_nwait_milliseconds):
     # be fairly high.
     wait(i_nwait_milliseconds)
 
-def click_loc(loc, wait_milliseconds):
+# nNegativeYOffset - The lower the screen, the bigger nNegativeYOffset value 
+def click_loc(loc, wait_milliseconds, i_nNegativeYOffset = 0):
     global file
     global resolution
     global time
@@ -73,6 +97,12 @@ def click_loc(loc, wait_milliseconds):
         global resolution
         return (int(xy[0]*resolution[0]/1280), 
                 int(xy[1]*resolution[1]/720))
+
+    # offset before scaling
+    # Tuple replace workaround
+    lLoc = list(loc)
+    lLoc[1] = loc[1] + i_nNegativeYOffset
+    loc = lLoc
 
     x, y = scale(loc)
     file.write("0ScRiPtSePaRaToR{0}|{1}|MULTI:1:0:{2}:{3}ScRiPtSePaRaToR{4}\n".format(
@@ -95,10 +125,10 @@ def click_loc(loc, wait_milliseconds):
     # be fairly high.
     wait(wait_milliseconds)
 
-def click_button(button, wait_milliseconds):
+def click_button(button, wait_milliseconds, i_nNegativeYOffset = 0):
     global button_points
     loc = button_points[button]
-    return click_loc(loc, wait_milliseconds)
+    return click_loc(loc, wait_milliseconds, i_nNegativeYOffset)
 
 # Drag helper
 # speed = distance(pixels) / time(millisecs) = 50 / 500 = 0.1 pixels/msecs
@@ -361,6 +391,40 @@ def load_macro_file():
 
     file = open(file_path, 'w')
     return (name, file_path)
+
+def switch_macro_file(i_sNewFileName):
+    global file
+    global file_backup
+    global time
+    global time_backup
+
+    # pause current time by storing into backup
+    time_backup = time
+
+    # Store current as backup
+    file_backup = file
+    
+    # Open new file
+    # plus sign = create if not exists
+    file = open(i_sNewFileName, 'w+')
+    #file.close()
+
+def restore_macro_file():
+    global file
+    global file_backup
+    global time
+    global time_backup
+
+    # Close current file
+    name = file.name
+    file.close()
+    os.remove(file.name)
+
+    # Restore time
+    time = time_backup
+
+    # Restore file
+    file = file_backup
 
 def close():
     global file
