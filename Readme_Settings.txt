@@ -24,9 +24,13 @@ These are all the available actions you can sequence into this data field 'DoAll
 'Claim_2ndEXPNGoldWStamina'                   //
 'DoStory_UptoInventoryManagement'             //
 'DoDragonRaid'                                //    
+'DoDragonRaid_Leader'                         // Not important to fill in
+'DoDragonRaid_Member'                         // Fill in :
+                                              // - MemberName'X' with your Coop member names correctly. (NOTE: Up to 3 members). CoopWaitMemberJoin_secs
+                                              // - CoopWaitMemberJoin_secs = time for invite members, select heroes, and wait for member to join time
 'Claim_3rdEXP_3rdGold'                        //
 'ClaimDailyMission'                           //
 'Claim_4thEXP_4thdGold'                       //
-'DoSpecialEvent'                              // Do Special event on Central Orvel
 'KillKingsRaid'                               // Kill king's raid app in Nox
-'Wait_secs'                                   // Do nothing and wait for 'WaitDuration_secs' secs
+'Wait_Xsecs'                                  // Do nothing and wait for 'X' secs
+'DoTowerOfOrdeals'                            // Do Tower of Ordeals
