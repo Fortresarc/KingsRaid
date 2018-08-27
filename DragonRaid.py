@@ -82,8 +82,7 @@ def _AnalyseTime_DontExecute_ms (i_fFunctionName, *args):
 
     return lTimeTaken[0]
 
-def _Gen_InviteFriend():
-    # Create valid member list
+def _GetMemberList():
     lMemberList = []
     if '' != Settings.DragonRaidConfig[Settings.DragonRaidConfig_sCoopMemberName1]:
         lMemberList.append(Settings.DragonRaidConfig[Settings.DragonRaidConfig_sCoopMemberName1])
@@ -91,13 +90,13 @@ def _Gen_InviteFriend():
         lMemberList.append(Settings.DragonRaidConfig[Settings.DragonRaidConfig_sCoopMemberName2])
     if '' != Settings.DragonRaidConfig[Settings.DragonRaidConfig_sCoopMemberName3]:
         lMemberList.append(Settings.DragonRaidConfig[Settings.DragonRaidConfig_sCoopMemberName3])
+    return lMemberList
+
+def _Gen_InviteFriend():
+    # Create valid member list
+    lMemberList = _GetMemberList()
 
     for sMemberNames in lMemberList:
-        # Find member to connect with
-        Manager.click_button_msecs('raid_select_FriendRequest', Settings.Main[Settings.Main_sDurationAfterClick_ms])
-        # Close popup in case friend has already joined
-        Manager.click_button_msecs('raid_select_CloseAlreadyInvitedPopup', Settings.Main[Settings.Main_sDurationAfterClick_ms])
-
         # Click SearchID Text box
         Manager.click_button_msecs('raid_select_FriendRequest_SearchID', Settings.Main[Settings.Main_sDurationAfterClick_Long_ms])
 
@@ -120,6 +119,7 @@ def _Gen_InviteFriend():
     Manager.click_button_msecs('raid_select_FriendRequest_Close', Settings.Main[Settings.Main_sDurationAfterClick_Short_ms])
 
 def Gen_DoDragonRaid_Leader():
+    lMemberList = _GetMemberList()
     lTimeTakenTemp_ms = [0]
     nInvitationToastTime_ms = Manager.ConvertSecsToMsecs(10)
     nTotalTimeLeft_ms = Manager.ConvertSecsToMsecs(Settings.DragonRaidConfig[Settings.DragonRaidConfig_sCoopWaitMemberJoin_s])
@@ -139,6 +139,18 @@ def Gen_DoDragonRaid_Leader():
     # Invite member and select own heroes
     while nTotalTimeLeft_ms > 0:
         _MarkCurrentTime_ms(lTimeTakenTemp_ms)
+
+        # Find member to connect with
+        Manager.click_button_msecs('raid_select_FriendRequest', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+        # Close popup in case friend has already joined
+        Manager.click_button_msecs('raid_select_CloseAlreadyInvitedPopup', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+        
+        if 1 < len(lMemberList):
+            # Find member to connect with
+            Manager.click_button_msecs('raid_select_FriendRequest_2nd', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+            # Close popup in case friend has already joined
+            Manager.click_button_msecs('raid_select_CloseAlreadyInvitedPopup', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+
         _Gen_InviteFriend()
 
         # Select heroes now to save some time
