@@ -8,7 +8,8 @@ import KRCommon
 ##############
 # Log file
 ##############
-LogFileName = 'settings_log.txt'
+#LogFileName = 'settings_log.txt'
+LogFilePostFix = '_log.txt'
 LogFile = None
 
 ##############
@@ -30,12 +31,20 @@ ClaimEXPGoldStepsList = {
 ##############
 def OpenLogFile():
     global LogFile
+    global LogFilePostFix
+
+    # Trim off ".txt" from Settings
+    sSettingsFileName = Settings.SETTINGS_FILENAME
+    sSettingsFileName =sSettingsFileName.replace(".json", "")
+
+    # Settings log file name 
+    sLogFileName = sSettingsFileName + LogFilePostFix
     
-    if os.path.isfile(LogFileName):
-        os.remove(LogFileName)
+    if os.path.isfile(sLogFileName):
+        os.remove(sLogFileName)
 
     # plus sign - create a file if it doesn't exist
-    LogFile = open(LogFileName, "a+")
+    LogFile = open(sLogFileName, "a+")
 
 def Close():
     global LogFile
@@ -184,6 +193,7 @@ def click_loc(loc, i_nWaitMilliseconds):
 # end click_loc -----------------
 
 # click button -----------------
+# nNegativeYOffset - The lower the screen, the bigger i_nNegYOffset value (+ve Y direction is upwards)
 def click_button_msecs(button, i_nWaitMilliseconds, i_bAddTransitionDelay = True, i_nNegativeYOffset = 0):
     nWaitFinal_ms = i_nWaitMilliseconds
     if i_bAddTransitionDelay:
@@ -196,6 +206,7 @@ def click_button_secs(button, i_nWaitSeconds, i_bAddTransitionDelay = True):
         nWaitFinal_ms += Settings.Main[Settings.Main_sTransitionDuration_ms]
     return click_button(button, nWaitFinal_ms)
 
+# nNegativeYOffset - The lower the screen, the bigger i_nNegYOffset value (+ve Y direction is upwards)
 def click_button(button, i_nWaitMilliseconds, i_nNegativeYOffset = 0):
     return nox.click_button(button, i_nWaitMilliseconds, i_nNegativeYOffset)
 # end click -----------------

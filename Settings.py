@@ -216,8 +216,8 @@ WorldBoss = {
 }
 
 Vault = {
-    Vault_sHighestClearedFloor                      : 45,
-    Vault_sLongestRunTime_s                         : 100,    # 100 secs
+    Vault_sHighestClearedFloor                      : 48,
+    Vault_sLongestRunTime_s                         : 130,    # 100 secs
     Vault_sNumOfKeysToday                           : 5
 }
 
@@ -266,7 +266,7 @@ Conquest = {
     Main_sEasy_Hero1_Position                       : 3,
     Main_sEasy_Hero2_Position                       : 5,
     Main_sEasy_Hero3_Position                       : 8,
-    Main_sEasy_Hero4_Position                       : 22,
+    Main_sEasy_Hero4_Position                       : 24,
     Main_sHard_Hero1_Position                       : 1,
     Main_sHard_Hero2_Position                       : 3,
     Main_sHard_Hero3_Position                       : 5,
@@ -288,7 +288,7 @@ UpperDungeon = {
     Main_sEasy_Hero1_Position                       : 3,
     Main_sEasy_Hero2_Position                       : 5,
     Main_sEasy_Hero3_Position                       : 8,
-    Main_sEasy_Hero4_Position                       : 22,
+    Main_sEasy_Hero4_Position                       : 24,
     Main_sHard_Hero1_Position                       : 1,
     Main_sHard_Hero2_Position                       : 3,
     Main_sHard_Hero3_Position                       : 5,

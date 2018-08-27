@@ -125,6 +125,7 @@ def Gen_DragonRaid_HeroSelect(i_bIsNotCoop = True) :
                    0.35,
                    20)
 
+# nNegativeYOffset - The lower the screen, the bigger i_nNegYOffset value (+ve Y direction is upwards)
 def _Gen_SelectHero( i_MaxHeroesAllowed,
                     i_MaxHeroesIn1Row,
                     i_lSelectedHeroPosition,

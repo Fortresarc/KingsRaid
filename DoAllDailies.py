@@ -12,6 +12,7 @@ import Conquest
 import Campaign
 import DragonRaid
 
+Vault_TopLevel = 50
 Vault_Top3Level = 43
 
 # Main code to do all dailies
@@ -170,7 +171,6 @@ def _ExecuteSingleDailyFunction(i_sDailyFunctionName):
         Manager.Gen_ClaimEnergyGoldHotTime(Manager.ClaimEXPGoldStepsList[Manager.sClaim_1stEXP_1stGold])
 
     elif Settings.DoAllDailies_sAncientRoyalVault == i_sDailyFunctionName:
-        KRCommon.Gen_NavigateToMain('portal_orvel_orvelcastle', False)
         Gen_AncientRoyalVault()
 
     elif Settings.DoAllDailies_sConquest == i_sDailyFunctionName:
@@ -322,19 +322,45 @@ def Gen_WorldBoss():
         KRCommon.Back()
 
 def Gen_AncientRoyalVault() :
+    KRCommon.Gen_NavigateToMain('portal_orvel_orvelcastle', False)
     pagesOpened = 0
     waitTillVaultFinish_s = Settings.Vault[Settings.Vault_sNumOfKeysToday] * Settings.Vault[Settings.Vault_sLongestRunTime_s]
 
     pagesOpened += 1
     Manager.click_button_msecs('vault_enterancient', Settings.Main[Settings.Main_sDurationAfterClick_Long_ms])
     pagesOpened += 1
-    if Vault_Top3Level > Settings.Vault[Settings.Vault_sHighestClearedFloor] :
-        Manager.click_button_msecs('vault_enterancient_selectlowerfloor', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+
+    # 1) Drag to correct level
+    nNoOfLevelsOnOnePage = 4
+    nCurrentLevelToPlay = Settings.Vault[Settings.Vault_sHighestClearedFloor]    
+    # Determine number of times to drag
+    nTopToCurrent = Vault_TopLevel - nCurrentLevelToPlay
+    nNoOfPagesToDrag = int(nTopToCurrent / nNoOfLevelsOnOnePage)
+    nNoOfSingleLevelToDrag = (nNoOfPagesToDrag * nNoOfLevelsOnOnePage) + (nTopToCurrent % nNoOfLevelsOnOnePage)    
+    # Drag to top (+ 1 just to ensure we really drag to top pixel)
+    for i in range (0, nNoOfPagesToDrag+1) :
+        Manager.mouse_drag_msecs('vault_floor1_top',
+                                 'vault_floor4_bottom',
+                                 Settings.Main[Settings.Main_sDurationAfterClick_ms],
+                                 0.35,
+                                 15)
+    # Drag (1 level at a time) to highest cleared level
+    for i in range (0, nNoOfSingleLevelToDrag) :
+        Manager.mouse_drag_msecs('vault_floor2',
+                                 'vault_floor1_top',
+                                 Settings.Main[Settings.Main_sDurationAfterClick_ms],
+                                 0.35,
+                                 15)
+    # Click the top position (offset click position = 40 pix)
+    Manager.click_button_msecs('vault_floor1_top', Settings.Main[Settings.Main_sDurationAfterClick_ms], True, 30)
+
+    # 2) Get ready and battle
     Manager.click_button_msecs('vault_enterancient_getready', Settings.Main[Settings.Main_sDurationAfterClick_ms])
     Manager.click_button_msecs('getreadyforbattle_autorepeat', Settings.Main[Settings.Main_sDurationAfterClick_ms])
     Manager.click_button_secs('minipopup_confirmbutton', waitTillVaultFinish_s)
 
-    # Close Notice : Auto repeat has eneded..
+    # 3) Done
+    # Close Notice : Auto repeat has ended..
     Manager.click_button_msecs('minipopup_closebutton', Settings.Main[Settings.Main_sDurationAfterClick_ms])
     # Close Notice : Royal treasury key is lacking
     Manager.click_button_msecs('minipopup_closebutton', Settings.Main[Settings.Main_sDurationAfterClick_Long_ms])
@@ -473,7 +499,7 @@ def Gen_Daily_HerosInn(i_WaitForReceivingNewHero) :
     HerosInnPagesOpened += 1
     
     # Row roulette
-    for i in range (1, HerosInnMAX) :
+    for i in range (0, HerosInnMAX) :
         Manager.click_button_msecs('herosinn_visit_minigame_start', HerosInnRouletteDuration_ms)
         Manager.click_button_msecs('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick_ms])
 

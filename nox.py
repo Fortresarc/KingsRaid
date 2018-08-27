@@ -87,8 +87,8 @@ def keypress(i_bButton, i_nwait_milliseconds):
     # be fairly high.
     wait(i_nwait_milliseconds)
 
-# nNegativeYOffset - The lower the screen, the bigger nNegativeYOffset value 
-def click_loc(loc, wait_milliseconds, i_nNegativeYOffset = 0):
+# nNegativeYOffset - The lower the screen, the bigger i_nNegYOffset value (+ve Y direction is upwards)
+def click_loc(loc, wait_milliseconds, i_nNegYOffset = 0):
     global file
     global resolution
     global time
@@ -101,7 +101,7 @@ def click_loc(loc, wait_milliseconds, i_nNegativeYOffset = 0):
     # offset before scaling
     # Tuple replace workaround
     lLoc = list(loc)
-    lLoc[1] = loc[1] + i_nNegativeYOffset
+    lLoc[1] = loc[1] + i_nNegYOffset
     loc = lLoc
 
     x, y = scale(loc)

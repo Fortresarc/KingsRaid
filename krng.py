@@ -185,6 +185,10 @@ points = {
 
     # Orvel Castle
     'vault_enterancient' : (630, 366),
+    'vault_floor1_top' : (245, 145),
+    'vault_floor2' : (245, 290),
+    'vault_floor3' : (245, 435),
+    'vault_floor4_bottom' : (245, 580),
     'vault_enterancient_selectlowerfloor' : (246, 520),
     'vault_enterancient_getready' : (1112, 650),
 
@@ -300,8 +304,8 @@ def conquest_plus_upper_dungeon():
 
 
 try:
-    Manager.OpenLogFile()
     Settings.SETTINGS_FILENAME = nox.select_settings_file_interactive()
+    Manager.OpenLogFile()
 
     macro_generators = [
         #("NPC Gear Purchasing and Grinding", gen_grindhouse),
