@@ -8,6 +8,7 @@ import Common
 import Manager
 
 sNONE = 'none'
+nNoOfKeysPerChapter = 5
 
 ##############
 # NOX Helpers
@@ -143,7 +144,192 @@ def _GetQuestTypeFromButtonName(i_sButtonName):
 
 # Auto Upper Dungeon/ Conquest on one chapter
 # Protection is in place if you have used up your keys.  This will then effectively click "open" and "x out" over and over, without clicking reset until the macro completes.
-def _Gen_Single_Conquest_or_UpperDungeon_Chapter(i_sQuestButtonName,
+def _Gen_EasyStages_Conquest_or_UpperDungeon(i_sQuestButtonName,
+                                            i_lChapterList,
+                                            i_lLongestRunTimeList,
+                                            i_nStartAtChapter,
+                                            i_nHighestClearedChapter,
+                                            i_nSelectEasyContentHeroesAt,
+                                            i_nSelectHardContentHeroesAt,
+                                            i_nHardContentNoOfTimesToRetry,
+                                            i_nTransitionDurationAlter):
+    # Init variables
+    nTotalTime_AllEasyChapters_s = 0
+
+    # Find total run time for all Easy chapters
+    if False == nox.find_settings_file :
+        Manager.Trace2 ("ERROR: Please generate Settings.json for this to work")
+    else :
+        # NOTE: index starts from 1
+        for i in range(i_nStartAtChapter, i_nHighestClearedChapter + 1) :
+            # Add up all easy chapters
+            # nNoOfKeysPerChapter = 5 for each chapter
+            if (i >= i_nSelectEasyContentHeroesAt) and (i < i_nSelectHardContentHeroesAt) :
+                nTotalTime_AllEasyChapters_s += (i_lLongestRunTimeList[i_lChapterList[i]] * nNoOfKeysPerChapter)
+
+    Manager.Trace2 ("Total time (Easy chapters) = {0}".format( 
+        Manager.GetString_HMSFormat( Manager.ConvertSecsToMsecs(nTotalTime_AllEasyChapters_s)) )
+        )
+
+    if nTotalTime_AllEasyChapters_s > 0:
+        # Go to easy chapter first
+        Gen_GoToChapter(i_sQuestButtonName, i_lChapterList[i_nStartAtChapter], i_nTransitionDurationAlter)
+        Manager.click_button_msecs('prepare_battle', 2000 + i_nTransitionDurationAlter, False)
+        Manager.click_button_msecs('get_ready_for_battle', 2000 + i_nTransitionDurationAlter, False)
+
+        # Select easy hero
+        KRSelect.Gen_SelectQuestHero(_GetQuestTypeFromButtonName(i_sQuestButtonName),
+                                     False,
+                                     Settings.Main_sEasyContent)
+
+        Manager.Trace2("All chap gen (EASY)")
+        Manager.click_button_msecs('getreadyforbattle_startbattle', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+        Manager.click_button_msecs('selectbattle_continuousbattle', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+        Manager.click_button_msecs('notice_continuousbattle_ok', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+
+        # Wait till we propagated to the hard chapter
+        Manager.wait_secs(nTotalTime_AllEasyChapters_s)
+
+def _Gen_HardStages_Conquest_or_UpperDungeon(i_sQuestButtonName,
+                                            i_lChapterList,
+                                            i_lLongestRunTimeList,
+                                            i_nStartAtChapter,
+                                            i_nHighestClearedChapter,
+                                            i_nSelectEasyContentHeroesAt,
+                                            i_nSelectHardContentHeroesAt,
+                                            i_nHardContentNoOfTimesToRetry,
+                                            i_nTransitionDurationAlter,
+                                            i_bContinueFromEasy = True):
+    # Init variables
+    nLongestRunTime_HardChapter_s = 0
+    nCountHardChapters = 0
+    nConquestChapter8 = 7
+
+    # Get the longest of all hard chapter(s) 
+    if False == nox.find_settings_file :
+        Manager.Trace2 ("ERROR: Please generate Settings.json for this to work")
+    else :
+        # NOTE: index starts from 1
+        for i in range(i_nStartAtChapter, i_nHighestClearedChapter + 1) :
+            if (i_lLongestRunTimeList[i_lChapterList[i]] > nLongestRunTime_HardChapter_s) \
+               and (i >= i_nSelectHardContentHeroesAt):
+                nLongestRunTime_HardChapter_s = i_lLongestRunTimeList[i_lChapterList[i]]
+
+    # Early return
+    if nLongestRunTime_HardChapter_s <= 0:
+        return
+
+    # Loop same chapter for i_nHardContentNoOfTimesToRetry times
+    for i in range (i_nSelectHardContentHeroesAt, i_nHighestClearedChapter+1):
+        # TODO (10Sep2018) : I realised that only in Conquest, Continuous battle doesn't automatically proceed to Chapter 8! Maybe a bug on their side
+        #                    Please remove the first line if they fixed this
+        bIsConquest = (KRSelect.QuestType_Conquest == _GetQuestTypeFromButtonName(i_sQuestButtonName)) and (nConquestChapter8 == i)
+        bShouldGoToChapterManually = bIsConquest \
+                                     or (nCountHardChapters > 0) \
+                                     or i_bContinueFromEasy == False
+        if bShouldGoToChapterManually:
+            if bIsConquest:
+                Manager.click_button_secs('battlecompletion_exit', Settings.Main[Settings.Main_sAnyGameScreenLoadingTime_s])
+
+            Gen_GoToChapter(i_sQuestButtonName, i_lChapterList[i], i_nTransitionDurationAlter)
+            Manager.click_button_msecs('prepare_battle', 2000 + i_nTransitionDurationAlter, False)
+            Manager.click_button_msecs('get_ready_for_battle', 2000 + i_nTransitionDurationAlter, False)
+
+        # TODO (10Sep2018) : I realised that only in Conquest, Continuous battle doesn't automatically proceed to Chapter 8! Maybe a bug on their side
+        #                    Only in Upper dungeon we need to wait
+        if i_bContinueFromEasy and bIsConquest != True:
+            # Wait for easy heroes to fail hard chapter 1 time(s)
+            Manager.wait_secs(nLongestRunTime_HardChapter_s * 1)
+
+            # Goto change party screen
+            Manager.click_button_msecs('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+            Manager.click_button_secs('battlecompletion_changeparty', Settings.Main[Settings.Main_sAnyGameScreenLoadingTime_s])
+
+        # Select hard heroes
+        Manager.Trace2("Single chap gen (HARD)")
+        KRSelect.Gen_SelectQuestHero(_GetQuestTypeFromButtonName(i_sQuestButtonName),
+                                     False,
+                                     Settings.Main_sHardContent)
+
+        # Start battle instead of Auto repeat
+        Manager.click_button_msecs('getreadyforbattle_startbattle', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+        Manager.click_button_secs('selectbattle_startbattle', nLongestRunTime_HardChapter_s, False)
+        # loop starts from 1 as we've already started the timer after 'Start battle' is clicked
+        for i in range(1, i_nHardContentNoOfTimesToRetry+1) :
+            Manager.click_button_msecs('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick_Long_ms])
+            Manager.click_button_msecs('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+            # Just to be sure we have clicked away all obtained messages
+            Manager.click_button_msecs('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+
+            Manager.click_button_msecs('battlecompletion_retry', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+            Manager.click_button_msecs('repeatpopup_singlerepeat', Settings.Main[Settings.Main_sDurationAfterClick_Long_ms])
+            Manager.click_button_msecs('repeatpopup_close', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+            Manager.click_button_msecs('repeatpopup_close', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+            # Just to be sure
+            Manager.click_button_msecs('repeatpopup_close', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+            Manager.wait_secs(nLongestRunTime_HardChapter_s)
+
+        # Done!
+        # After we complete click away the obtained message
+        Manager.click_button_msecs('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick_Long_ms])
+        # Just to be sure
+        Manager.click_button_msecs('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick_Long_ms])
+        # Just to be sure
+        Manager.click_button_msecs('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick_Long_ms])
+        # Just to be sure once more
+        Manager.click_button_msecs('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick_Long_ms])
+        # Back to map
+        Manager.click_button_msecs('battlecompletion_exit', Settings.Main[Settings.Main_sDurationAfterClick_Long_ms])
+
+        nCountHardChapters += 1
+
+    # Done all conquests/ upper dungeons. 
+    # This is to ensure that we exit to main screen (in this case to chapter map)
+    Manager.wait_secs(Settings.Main[Settings.Main_sAnyGameScreenLoadingTime_s])
+
+# Highest cleared level shouldn't exceed amount of chapters available for clearing Conquest/Upper dungeon
+def Gen_Conquest_UpperDungeon_Helper (i_sQuestButtonName,           #button name.. 
+                                      i_lChapterList,
+                                      i_lLongestRunTimeList,
+                                      i_nHighestClearedChapter,
+                                      i_nHardContentNoOfTimesToRetry,
+                                      i_nSelectEasyContentHeroesAt,
+                                      i_nSelectHardContentHeroesAt,
+                                      i_nStartAtChapter = 1):
+    #Manager.Trace2('All Upper Dungeons should have set levels.  To do this manually, you can start and then stop a battle on the chosen level per dungeon.  This is also a good way to alter which levels/fragments you want to focus on.')
+    
+    # Find transition time
+    if False == nox.find_settings_file :
+        nTransitionDurationAlter = nox.prompt_user_for_int(
+            "Main transition times are 2000 milliseconds.  Please enter a positive or negative value in milliseconds if you want this changed or (enter) for no change: "
+        )
+    else :
+        nTransitionDurationAlter = Settings.Main[Settings.Main_sTransitionDuration_ms]
+
+    _Gen_EasyStages_Conquest_or_UpperDungeon(i_sQuestButtonName,
+                                            i_lChapterList,
+                                            i_lLongestRunTimeList,
+                                            i_nStartAtChapter,
+                                            i_nHighestClearedChapter,
+                                            i_nSelectEasyContentHeroesAt,
+                                            i_nSelectHardContentHeroesAt,
+                                            i_nHardContentNoOfTimesToRetry,
+                                            nTransitionDurationAlter)
+
+    _Gen_HardStages_Conquest_or_UpperDungeon(i_sQuestButtonName,
+                                            i_lChapterList,
+                                            i_lLongestRunTimeList,
+                                            i_nStartAtChapter,
+                                            i_nHighestClearedChapter,
+                                            i_nSelectEasyContentHeroesAt,
+                                            i_nSelectHardContentHeroesAt,
+                                            i_nHardContentNoOfTimesToRetry,
+                                            nTransitionDurationAlter,
+                                            True)
+    
+# Auto Upper Dungeon/ Conquest on one chapter
+# Protection is in place if you have used up your keys.  This will then effectively click "open" and "x out" over and over, without clicking reset until the macro completes.
+def _Gen_Single_Conquest_or_UpperDungeon_Chapter_DEPRECATED(i_sQuestButtonName,
                                                 i_nChapterName,
                                                 i_lChapterList,
                                                 i_nLongestRunTime_CurrentChapter,
@@ -167,7 +353,7 @@ def _Gen_Single_Conquest_or_UpperDungeon_Chapter(i_sQuestButtonName,
                                          False,
                                          i_sEasyOrHardContent)
 
-        if Settings.Main_sHardContent == i_sEasyOrHardContent :            
+        if Settings.Main_sHardContent == i_sEasyOrHardContent :
             Manager.Trace2("Single chap gen (HARD)")
             # Start battle instead of Auto repeat
             Manager.click_button_msecs('getreadyforbattle_startbattle', Settings.Main[Settings.Main_sDurationAfterClick_ms])
@@ -211,7 +397,7 @@ def _Gen_Single_Conquest_or_UpperDungeon_Chapter(i_sQuestButtonName,
     Manager.wait_secs(Settings.Main[Settings.Main_sAnyGameScreenLoadingTime_s])
 
 # Highest cleared level shouldn't exceed amount of chapters available for clearing Conquest/Upper dungeon
-def Gen_Conquest_UpperDungeon_Helper (i_sQuestButtonName,           #button name.. 
+def Gen_Conquest_UpperDungeon_Helper_DEPRECATED (i_sQuestButtonName,           #button name.. 
                                       i_lChapterList,
                                       i_lLongestRunTimeList,
                                       i_nHighestClearedChapter,
@@ -259,4 +445,3 @@ def Gen_Conquest_UpperDungeon_Helper (i_sQuestButtonName,           #button name
                                                     sContent)
 
     Common.confirm(start_condition='The macro should be started only when the Portal button is visible')
-    

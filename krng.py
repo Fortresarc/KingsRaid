@@ -235,6 +235,7 @@ points = {
     # Generic points
     'getreadyforbattle_startbattle' : (1080, 660),
     'getreadyforbattle_autorepeat' : (838, 660),
+    'battlecompletion_changeparty' : (81, 359),
     'battlecompletion_retry' : (1200, 492),
     'battlecompletion_exit' : (1200, 630),
     'repeatpopup_singlerepeat' : (460, 508),        # WARNING: Be careful NOT to click this button 'staminapot_ok'

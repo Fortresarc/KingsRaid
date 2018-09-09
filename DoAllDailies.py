@@ -227,7 +227,7 @@ def Gen_DoTowerOfOrdeals():
     Manager.click_button_secs('minipopup_confirmbutton', Settings.Main[Settings.Main_sAnyGameScreenLoadingTime_s])
     Manager.click_button_msecs('main_portal', Settings.Main[Settings.Main_sDurationAfterClick_ms])
     Manager.click_button_msecs('portal_hallofheroes', Settings.Main[Settings.Main_sDurationAfterClick_ms])
-    Manager.click_button_msecs('minipopup_confirmbutton', Settings.Main[Settings.Main_sAnyGameScreenLoadingTime_s])
+    Manager.click_button_secs('minipopup_confirmbutton', Settings.Main[Settings.Main_sAnyGameScreenLoadingTime_s])
 
     # Enter from outside at Hall of Heroes
     Manager.click_button_msecs('bigicon_lowerright_bottom', Settings.Main[Settings.Main_sDurationAfterClick_Long_ms])

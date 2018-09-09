@@ -212,11 +212,11 @@ SpecialEvent = {
 
 WorldBoss = {
     WorldBoss_sNoOfKeys                             : 2,        # number of keys for the day
-    WorldBoss_sSingleBattleDuration_s               : 400       # 400 i.e. 6 mins 40 secs
+    WorldBoss_sSingleBattleDuration_s               : 420       # 400 i.e. 6 mins 40 secs
 }
 
 Vault = {
-    Vault_sHighestClearedFloor                      : 48,
+    Vault_sHighestClearedFloor                      : 46,
     Vault_sLongestRunTime_s                         : 130,    # 100 secs
     Vault_sNumOfKeysToday                           : 5
 }
@@ -266,7 +266,7 @@ Conquest = {
     Main_sEasy_Hero1_Position                       : 3,
     Main_sEasy_Hero2_Position                       : 5,
     Main_sEasy_Hero3_Position                       : 8,
-    Main_sEasy_Hero4_Position                       : 24,
+    Main_sEasy_Hero4_Position                       : 26,
     Main_sHard_Hero1_Position                       : 1,
     Main_sHard_Hero2_Position                       : 3,
     Main_sHard_Hero3_Position                       : 5,
@@ -288,7 +288,7 @@ UpperDungeon = {
     Main_sEasy_Hero1_Position                       : 3,
     Main_sEasy_Hero2_Position                       : 5,
     Main_sEasy_Hero3_Position                       : 8,
-    Main_sEasy_Hero4_Position                       : 24,
+    Main_sEasy_Hero4_Position                       : 26,
     Main_sHard_Hero1_Position                       : 1,
     Main_sHard_Hero2_Position                       : 3,
     Main_sHard_Hero3_Position                       : 5,
