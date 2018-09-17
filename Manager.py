@@ -29,6 +29,12 @@ ClaimEXPGoldStepsList = {
 ##############
 # All functions
 ##############
+def ConvertSecsToMsecs(i_nSeconds):
+    return int(i_nSeconds * 1000)
+
+def ConvertMsecsToSecs(i_nMillisecs):
+    return int(i_nMillisecs / 1000)
+
 def OpenLogFile():
     global LogFile
     global LogFilePostFix
@@ -221,12 +227,6 @@ def wait_secs(i_nWaitSeconds, i_bAddTransitionDelay = True):
 def wait_msecs(i_nWaitMilliseconds):
     return nox.wait(i_nWaitMilliseconds)
 # end wait -----------------
-
-def ConvertSecsToMsecs(i_nSeconds):
-    return int(i_nSeconds * 1000)
-
-def ConvertMsecsToSecs(i_nMillisecs):
-    return int(i_nMillisecs / 1000)
 
 # Assumes NOTHING is claimed yet when game just restarted a new day
 def Gen_ClaimEnergyGoldHotTime(i_nClaimEventCounter) :
