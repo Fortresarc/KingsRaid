@@ -74,7 +74,7 @@ points = {
     'ch6_conquest_naviTo_story_6_10' : (888, 499),
 
     # Conquests
-    'portal' : (703, 656),
+    #Deprecated 'portal' : (703, 656),
     'conquests' : (938, 648),
     'ch2_conquest' : (439, 275),
     'ch3_conquest' : (853, 276),
@@ -117,7 +117,7 @@ points = {
     'main_achievements' : (378, 668),
     'main_friend' : (488, 668),
     'main_specialshop' : ("598, 668"),
-    'main_portal' : (700, 668),
+    'main_portal' : (809, 668),
     'main_worldboss' : (1182, 392),
     'main_dragonraid' : (1182, 552),
     'main_preparebattle' : (1182, 655),

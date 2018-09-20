@@ -129,7 +129,7 @@ def Gen_ClaimDailyMission (i_nNumOfMissionsToClaim = 3, i_bClaimFromHomePage = F
 def Gen_GoToChapter (i_sQuestButtonName,
                      i_nChapterName,
                      i_nTransition_duration_alter) :
-    Manager.click_button_msecs('portal', 2000 + i_nTransition_duration_alter, False)
+    Manager.click_button_msecs('main_portal', 2000 + i_nTransition_duration_alter, False)
     Manager.click_button_msecs(i_sQuestButtonName, 2000 + i_nTransition_duration_alter, False)
     Manager.click_button_msecs(i_nChapterName, 2000 + i_nTransition_duration_alter, False)
     Manager.click_button_msecs('move_to_conquest', 6000 + (i_nTransition_duration_alter * 2), False)  # map render delay
