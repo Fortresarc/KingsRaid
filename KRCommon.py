@@ -167,7 +167,7 @@ def _Gen_EasyStages_Conquest_or_UpperDungeon(i_sQuestButtonName,
             if (i >= i_nSelectEasyContentHeroesAt) and (i < i_nSelectHardContentHeroesAt) :
                 nTotalTime_AllEasyChapters_s += (i_lLongestRunTimeList[i_lChapterList[i]] * nNoOfKeysPerChapter)
 
-    Manager.Trace2 ("Total time (Easy chapters) = {0}".format( 
+    Manager.Trace2 ("Easy chapters will take {0} to complete\n".format( 
         Manager.GetString_HMSFormat( Manager.ConvertSecsToMsecs(nTotalTime_AllEasyChapters_s)) )
         )
 
@@ -182,7 +182,7 @@ def _Gen_EasyStages_Conquest_or_UpperDungeon(i_sQuestButtonName,
                                      False,
                                      Settings.Main_sEasyContent)
 
-        Manager.Trace2("All chap gen (EASY)")
+        Manager.Trace2("Continous Battle through all Chapters (EASY HEROES)")
         Manager.click_button_msecs('getreadyforbattle_startbattle', Settings.Main[Settings.Main_sDurationAfterClick_ms])
         Manager.click_button_msecs('selectbattle_continuousbattle', Settings.Main[Settings.Main_sDurationAfterClick_ms])
         Manager.click_button_msecs('notice_continuousbattle_ok', Settings.Main[Settings.Main_sDurationAfterClick_ms])
@@ -204,6 +204,7 @@ def _Gen_HardStages_Conquest_or_UpperDungeon(i_sQuestButtonName,
     nLongestRunTime_HardChapter_s = 0
     nCountHardChapters = 0
     nConquestChapter8 = 7
+    bChap8HellModeUnlocked = False
 
     # Get the longest of all hard chapter(s) 
     if False == nox.find_settings_file :
@@ -219,25 +220,56 @@ def _Gen_HardStages_Conquest_or_UpperDungeon(i_sQuestButtonName,
     if nLongestRunTime_HardChapter_s <= 0:
         return
 
+    sChap8HellModeUnlocked = Settings.Main[Settings.Main_sHellModeUnlocked_Chap8]
+    sChap8HellModeUnlocked = sChap8HellModeUnlocked.lower()
+    if sChap8HellModeUnlocked == 'n':
+        bChap8HellModeUnlocked = False
+    elif sChap8HellModeUnlocked == 'y':
+        bChap8HellModeUnlocked = True
+
+    bIsConquest = (KRSelect.QuestType_Conquest == _GetQuestTypeFromButtonName(i_sQuestButtonName))
     # Loop same chapter for i_nHardContentNoOfTimesToRetry times
     for i in range (i_nSelectHardContentHeroesAt, i_nHighestClearedChapter+1):
-        # TODO (10Sep2018) : I realised that only in Conquest, Continuous battle doesn't automatically proceed to Chapter 8! Maybe a bug on their side
-        #                    Please remove the first line if they fixed this
-        bIsConquest = (KRSelect.QuestType_Conquest == _GetQuestTypeFromButtonName(i_sQuestButtonName)) and (nConquestChapter8 == i)
-        bShouldGoToChapterManually = bIsConquest \
+        # Conquest starts from Chapter 2
+        nChapterNumber = i
+        if bIsConquest:
+            nChapterNumber = i + 1
+
+        # Conquest Continuous battle will only automatically proceed to next Chapter's same mode 
+        # i.e. Chap1(Hell) -> Chap2(Hell) -> Chap3(Hell) ... Chap8(Hard)
+        #                 cont           cont               stop at 8
+
+        bIsConquest_And_Chap8NoHellMode = bIsConquest \
+                                          and (nConquestChapter8 == i) \
+                                          and (False == bChap8HellModeUnlocked)
+        bShouldGoToChapterManually = bIsConquest_And_Chap8NoHellMode \
                                      or (nCountHardChapters > 0) \
                                      or i_bContinueFromEasy == False
         if bShouldGoToChapterManually:
-            if bIsConquest:
+            # Conquest Continuous battle will only automatically proceed to next Chapter's same mode 
+            # i.e. Chap1(Hell) -> Chap2(Hell) -> Chap3(Hell) ... Chap8(Hard)
+            #                 cont           cont               stop at 8
+            #
+            # Chap 8 has no hell mode unlocked yet, it will stop Continuous battle at Chap 7 victory screen.
+            # Lets manually go to Chap 8
+            if bIsConquest_And_Chap8NoHellMode:
+                Manager.Trace2("Continuous Battle >> Hell mode on Conquest (Chapter {0}) has NOT been unlocked yet! Let's manually navigate ".format(nChapterNumber))
+                Manager.Trace2("to Chapter {0} ourselves".format(nChapterNumber))
                 Manager.click_button_secs('battlecompletion_exit', Settings.Main[Settings.Main_sAnyGameScreenLoadingTime_s])
 
             Gen_GoToChapter(i_sQuestButtonName, i_lChapterList[i], i_nTransitionDurationAlter)
             Manager.click_button_msecs('prepare_battle', 2000 + i_nTransitionDurationAlter, False)
             Manager.click_button_msecs('get_ready_for_battle', 2000 + i_nTransitionDurationAlter, False)
 
-        # TODO (10Sep2018) : I realised that only in Conquest, Continuous battle doesn't automatically proceed to Chapter 8! Maybe a bug on their side
-        #                    Only in Upper dungeon we need to wait
-        if i_bContinueFromEasy and bIsConquest != True:
+        # Conquest Continuous battle will only automatically proceed to next Chapter's same mode 
+        # i.e. Chap1(Hell) -> Chap2(Hell) -> Chap3(Hell) ... Chap8(Hard)
+        #                 cont           cont               stop at 8
+        #
+        # Chap 8 has hell mode unlocked!! Here we probably lost the battle once, change party to hard heroes
+        if i_bContinueFromEasy and bIsConquest_And_Chap8NoHellMode == False:
+            Manager.Trace2("Continuous Battle >> Automatically went to Chapter {0} and we will probably lose here because we are using Easy"\
+                .format(nChapterNumber))
+            Manager.Trace2("Heroes on Hell mode, don't worry let's do a Change Party to Hard heroes and start winning!".format(nChapterNumber))
             # Wait for easy heroes to fail hard chapter 1 time(s)
             Manager.wait_secs(nLongestRunTime_HardChapter_s * 1)
 
@@ -246,7 +278,8 @@ def _Gen_HardStages_Conquest_or_UpperDungeon(i_sQuestButtonName,
             Manager.click_button_secs('battlecompletion_changeparty', Settings.Main[Settings.Main_sAnyGameScreenLoadingTime_s])
 
         # Select hard heroes
-        Manager.Trace2("Single chap gen (HARD)")
+        Manager.Trace2("")
+        Manager.Trace2("Generating Single Chapter{0} (HARD HEROES)".format(nChapterNumber))
         KRSelect.Gen_SelectQuestHero(_GetQuestTypeFromButtonName(i_sQuestButtonName),
                                      False,
                                      Settings.Main_sHardContent)

@@ -51,6 +51,7 @@ Main_sDurationAfterClick_Long_ms                    = 'DurationAfterClick_Long_m
 Main_sAnyGameScreenLoadingTime_s                    = 'AnyGameScreenLoadingTime_secs'
 Main_sReceiveNewHeroDuration_s                      = 'ReceiveNewHeroDuration_secs'
 # Conquests and upper dungeons
+Main_sHellModeUnlocked_Chap8                        = 'HellModeUnlocked_Chap8'
 Main_sEasyContent                                   = "EasyContent"
 Main_sHardContent                                   = "HardContent"
 Main_sEasy_Hero1_Position                           = 'Easy_Hero1_Position'
@@ -199,6 +200,7 @@ Main = {
     Main_sDurationAfterClick_Long_ms                : 5000,
     Main_sAnyGameScreenLoadingTime_s                : 15,    # 15s E.g. Arena exit can take a long time
     Main_sReceiveNewHeroDuration_s                  : 12,    # 12 s
+    Main_sHellModeUnlocked_Chap8                    : 'y'
 }
 
 SpecialEvent = {
@@ -212,7 +214,7 @@ SpecialEvent = {
 
 WorldBoss = {
     WorldBoss_sNoOfKeys                             : 2,        # number of keys for the day
-    WorldBoss_sSingleBattleDuration_s               : 420       # 400 i.e. 6 mins 40 secs
+    WorldBoss_sSingleBattleDuration_s               : 400       # 400 i.e. 6 mins 40 secs
 }
 
 Vault = {
@@ -233,15 +235,15 @@ Stockade = {
     Main_sEasy_Hero1_Position                       : 3,
     Main_sEasy_Hero2_Position                       : 5,
     Main_sEasy_Hero3_Position                       : 8,
-    Main_sEasy_Hero4_Position                       : 10
+    Main_sEasy_Hero4_Position                       : 12
 }
 
 TowerOfOrdeals = {
     TowerOfOrdeals_sTotalTimeForAllBattles_s        : 1200,
-    Main_sEasy_Hero1_Position                       : 1,
-    Main_sEasy_Hero2_Position                       : 3,
-    Main_sEasy_Hero3_Position                       : 5,
-    Main_sEasy_Hero4_Position                       : 8
+    Main_sEasy_Hero1_Position                       : 3,
+    Main_sEasy_Hero2_Position                       : 5,
+    Main_sEasy_Hero3_Position                       : 8,
+    Main_sEasy_Hero4_Position                       : 13
 }
 
 Story = {
@@ -255,7 +257,7 @@ Story = {
 Conquest = {
     Conquest_sHighestClearedChapter                 : 8,
     Conquest_sHardContent_StartsFrom                : 8,
-    Conquest_sHardContent_NoOfTimesToRetry          : 9,
+    Conquest_sHardContent_NoOfTimesToRetry          : 7,
     Conquest_sLongestRunTime_Chap2_s                : 40,       #secs
     Conquest_sLongestRunTime_Chap3_s                : 50,
     Conquest_sLongestRunTime_Chap4_s                : 40,
@@ -266,11 +268,11 @@ Conquest = {
     Main_sEasy_Hero1_Position                       : 3,
     Main_sEasy_Hero2_Position                       : 5,
     Main_sEasy_Hero3_Position                       : 8,
-    Main_sEasy_Hero4_Position                       : 26,
-    Main_sHard_Hero1_Position                       : 1,
-    Main_sHard_Hero2_Position                       : 3,
-    Main_sHard_Hero3_Position                       : 5,
-    Main_sHard_Hero4_Position                       : 8
+    Main_sEasy_Hero4_Position                       : 27,
+    Main_sHard_Hero1_Position                       : 3,
+    Main_sHard_Hero2_Position                       : 5,
+    Main_sHard_Hero3_Position                       : 8,
+    Main_sHard_Hero4_Position                       : 13
 }
 
 UpperDungeon = {
@@ -288,11 +290,11 @@ UpperDungeon = {
     Main_sEasy_Hero1_Position                       : 3,
     Main_sEasy_Hero2_Position                       : 5,
     Main_sEasy_Hero3_Position                       : 8,
-    Main_sEasy_Hero4_Position                       : 26,
-    Main_sHard_Hero1_Position                       : 1,
-    Main_sHard_Hero2_Position                       : 3,
-    Main_sHard_Hero3_Position                       : 5,
-    Main_sHard_Hero4_Position                       : 8
+    Main_sEasy_Hero4_Position                       : 27,
+    Main_sHard_Hero1_Position                       : 3,
+    Main_sHard_Hero2_Position                       : 5,
+    Main_sHard_Hero3_Position                       : 8,
+    Main_sHard_Hero4_Position                       : 13
 }
 
 
@@ -430,7 +432,7 @@ def WriteDefaultSettingsFile () :
     # write to file 
     WriteJsonDataToFile(data, SETTINGS_FILENAME)
 
-def ReadFromFile (i_bPrintToScreen = True) :
+def ReadFromFile (i_bPrintToScreen = False) :
     
     curDirpath = os.curdir
     settingsFile = os.path.join(curDirpath, SETTINGS_FILENAME)
