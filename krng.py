@@ -241,6 +241,8 @@ points = {
     'repeatpopup_singlerepeat' : (460, 508),        # WARNING: Be careful NOT to click this button 'staminapot_ok'
     'repeatpopup_repeatbattle' : (790, 508),
     'repeatpopup_close' : (960, 165),
+    'staminapot_item_centerright' : (688, 338),
+    'staminapot_item_yes' : (728, 588),
     'staminapot_ok' : (759, 558),                   # 
     'minipopup_confirmbutton' : (629, 528),
     'minipopup_closebutton' : (945, 186),           # Works for "Stockade key lacking popup", "Insufficient keys to enter"

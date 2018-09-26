@@ -135,6 +135,7 @@ def _Gen_DoLaunchNOX_DoQuest(i_bIsDragonRaid = True) :
     Manager.Trace1("DoAllDailies will run for {0}".format(Manager.GetString_TotalRunTime_HMSFormat()))
     
 def _ExecuteSingleDailyFunction(i_sDailyFunctionName):
+    Manager.Trace1("[\"{0}\"] ...".format(i_sDailyFunctionName))
     if Settings.DoAllDailies_sLaunchKingsRaidAndGoToMainScreen == i_sDailyFunctionName:
         KRCommon.Gen_LaunchKingsRaidAndGoToMainScreen()
 

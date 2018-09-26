@@ -105,7 +105,9 @@ def gen_natural_stamina_farm(i_bReenterStoryAfterGrindOrSell = True):
         Manager.click_button_msecs('repeatpopup_singlerepeat', Settings.Main[Settings.Main_sDurationAfterClick_Long_ms])
 
         if use_pot:
-            Manager.click_loc('staminapot_ok', 500)      # Stamina Potion OK
+            Manager.click_button_msecs('staminapot_item_centerright', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+            Manager.click_button_msecs('staminapot_item_yes', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+            Manager.click_button_msecs('staminapot_ok', Settings.Main[Settings.Main_sDurationAfterClick_Long_ms])      # Stamina Potion OK
         else:
             Manager.click_loc((940, 190), 500)      # Close stamina pop-up
 

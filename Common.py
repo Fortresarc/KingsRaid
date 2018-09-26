@@ -1,6 +1,6 @@
 import nox
 
-def confirm(properties = None, start_condition = None, notes = []):
+def confirm(properties = None, start_condition = None, notes = [], bBypassScreenPause = True):
 
     if properties is None:
         properties = {}
@@ -17,8 +17,9 @@ def confirm(properties = None, start_condition = None, notes = []):
         for n in notes:
             print('Note: {0}'.format(n))
 
-    print('Press Enter to confirm or Ctrl+C to cancel. ', end = '')
-    nox.do_input()
+    if False == bBypassScreenPause:
+        print('Press Enter to confirm or Ctrl+C to cancel. ', end = '')
+        nox.do_input()
 
     print('************************************** WARNING *************************************************')
     print('* Please watch the macro for the first few cycles to make sure everything is working as        *\n'

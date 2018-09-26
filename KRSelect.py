@@ -70,6 +70,12 @@ def Gen_SelectQuestHero (i_nQuestType, i_bNavigateToHeroSelectScreen, i_sEasyOrH
         3 : 'main_HeroList_Position3'
     }
 
+    sWhichDifficulty = "HARD"
+    if Settings.Main_sEasyContent == i_sEasyOrHardContent :
+        sWhichDifficulty = "EASY"
+    #Manager.Trace2("\n")
+    Manager.Trace2("+++++++++++++++++++++++++++++++")
+    Manager.Trace2(" Selecting {0} Heroes (Start)".format(sWhichDifficulty))
     # First row icon half height  = (428-144)/2 = 142
     # Top of first row icon = 144
     # Half position of 2nd row icon = 433+142 = 575
@@ -77,6 +83,8 @@ def Gen_SelectQuestHero (i_nQuestType, i_bNavigateToHeroSelectScreen, i_sEasyOrH
         _Gen_SelectHero(4, 3, SelectedHeroPosition_Easy, ClickHeroPosition, 'main_HeroList_Position4', 'main_HeroList_Position1')
     else :
         _Gen_SelectHero(4, 3, SelectedHeroPosition_Hard, ClickHeroPosition, 'main_HeroList_Position4', 'main_HeroList_Position1')
+
+    Manager.Trace2("------------ Selecting {0} Heroes (END)".format(sWhichDifficulty))
 
     if i_bExitBackToMainPage :
         # Exit to main game screen
@@ -116,6 +124,13 @@ def Gen_DragonRaid_HeroSelect(i_bIsNotCoop = True) :
         2 : 'raid_select_HeroList_Position2',
         3 : 'raid_select_HeroList_Position3'
     }
+
+    sWhichMode = "COOP Dragon Raid"
+    if i_bIsNotCoop :
+        sWhichMode = "NORMAL Dragon Raid"
+    #Manager.Trace2("\n")
+    Manager.Trace2("+++++++++++++++++++++++++++++++")
+    Manager.Trace2(" Selecting {0} Heroes (Start)".format(sWhichMode))
     _Gen_SelectHero(4,
                     3,
                     SelectedHeroPosition,
@@ -134,9 +149,6 @@ def _Gen_SelectHero( i_MaxHeroesAllowed,
                     i_sDragToPosition,
                     i_fSpeed = 0.3,
                     i_nSelectPos_NegYOffset_pixels = 0) :
-    Manager.Trace2("\n")
-    Manager.Trace2("+++++++++++++++++++++++++++++++")
-    Manager.Trace2(" Hero select (Start)")
     modSelectedHeroPosition = 1
     dragCount = 0
     for i in range (0, i_MaxHeroesAllowed) :
@@ -170,5 +182,3 @@ def _Gen_SelectHero( i_MaxHeroesAllowed,
                                         Settings.Main[Settings.Main_sDurationAfterClick_ms],
                                         False,
                                         i_nSelectPos_NegYOffset_pixels)
-
-    Manager.Trace2("------------ Hero Select (END) \n")
