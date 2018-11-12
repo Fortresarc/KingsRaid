@@ -91,7 +91,7 @@ def gen_natural_stamina_farm(i_bReenterStoryAfterGrindOrSell = True):
         # one of our heroes and remove them from the lineup.  By putting this click first
         # it guarantees that we either enter the battle, or get the stamina window (in
         # which case the click doesn't go through to the button underneath).
-        Manager.click_button_msecs('start_adventure', 500, False)
+        #Manager.click_button_msecs('start_adventure', 500, False)
         
         # Select Battle popup - "Start Battle" or "Continuous Battle"
         Manager.click_button_msecs('selectbattle_startbattle', Settings.Main[Settings.Main_sDurationAfterClick_ms])
@@ -110,7 +110,8 @@ def gen_natural_stamina_farm(i_bReenterStoryAfterGrindOrSell = True):
             Manager.click_button_msecs('staminapot_ok', Settings.Main[Settings.Main_sDurationAfterClick_Long_ms])      # Stamina Potion OK
         else:
             Manager.click_loc((940, 190), 500)      # Close stamina pop-up
-
+    
+    Manager.click_button_msecs('start_adventure', Settings.Main[Settings.Main_sDurationAfterClick_ms])
     if inventory_management == -1:
         # If we don't need to manage inventory, just generate a simple macro that can loop forever.
         generate_one_click_cycle()
@@ -144,8 +145,8 @@ def re_enter_adventure(use_potion):
     Manager.click_button_msecs('enter_node', 3500, False)
 
     # Prepare battle -> start adventure.
-    Manager.click_button_msecs('start_adventure', 3500, False)
-    Manager.click_button_msecs('start_adventure', 3500, False)
+    Manager.click_button_msecs('start_adventure', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+    Manager.click_button_msecs('start_adventure', Settings.Main[Settings.Main_sDurationAfterClick_ms])
 
     # Select Battle popup - "Start Battle" or "Continuous Battle"
     Manager.click_button_msecs('selectbattle_startbattle', Settings.Main[Settings.Main_sDurationAfterClick_ms])

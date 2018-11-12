@@ -504,7 +504,9 @@ def Gen_Daily_HerosInn(i_WaitForReceivingNewHero) :
         Manager.click_button_msecs('herosinn_visit_minigame_start', HerosInnRouletteDuration_ms)
         Manager.click_button_msecs('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick_ms])
 
-    # Close Roulette of fortune popup    
+    # Just to be sure
+    Manager.click_button_msecs('main_clicknowhere', Settings.Main[Settings.Main_sDurationAfterClick_ms])
+    # Close Roulette of fortune popup
     Manager.click_button_msecs('translucentpopup_close', HerosInnRouletteDuration_ms)
 
     # return to main game page
